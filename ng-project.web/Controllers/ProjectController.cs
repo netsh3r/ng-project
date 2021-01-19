@@ -13,12 +13,17 @@ namespace ng_project.web.Controllers
 	{
 		public IActionResult Index()
 		{
-			return View();
+			return View("Index");
 		}
 
 		public IActionResult Info()
 		{
-			return View();
+			return View("Info");
+		}
+
+		public IActionResult Add()
+		{
+			return View("Add");
 		}
 	}
 }
