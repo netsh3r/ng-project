@@ -1,3 +1,9 @@
 /ng-project.web/*.sln
 /ng-project.web/ng-project.web/bin
 /ng-project.web/ng-project.web/obj
+/ng-project.web/bin
+/ng-project.web/obj
+/.vs
+/ng-project/obj
+/ng-project/.vs
+/ng-project/bin

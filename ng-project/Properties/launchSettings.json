@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ng-project": {
+      "commandName": "Project"
+    },
+    "iis": {
+      "commandName": "Executable"
+    }
+  }
+}
