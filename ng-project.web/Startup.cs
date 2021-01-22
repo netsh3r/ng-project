@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ng_project.web.Models;
 
 namespace ng_project.web
 {
@@ -23,8 +26,16 @@ namespace ng_project.web
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllersWithViews().AddRazorRuntimeCompilation();
+			services.AddMvc();
+			services.AddScoped<ISomeModel,SomeModel>();
 		}
-		 
+
+		public void ConfigureContainer(ContainerBuilder builder)
+		{
+			builder.RegisterModule(new AutofacConfig());
+		}
+
+
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
 			if (env.IsDevelopment())
