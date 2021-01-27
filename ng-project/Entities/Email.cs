@@ -4,10 +4,10 @@ using System.Text;
 
 namespace ng_project.Entities
 {
-	public class Email : Entity<long>
+	public class Email : Entity<int>
 	{
 		public User User { get; set; }
-		public long UserId { get; set; }
+		public int UserId { get; set; }
 		public string EmailString { get; set; }
 	}
 }

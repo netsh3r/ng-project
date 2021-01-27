@@ -11,7 +11,7 @@ namespace ng_project.web.Controllers
 	public class ParticipantController : Controller
 	{
 		private ISomeModel someModel;
-		public ParticipantController(ISomeModel someMethod, UserService UserService)
+		public ParticipantController(ISomeModel someMethod, NgProjectService UserService)
 		{
 			this.someModel = someMethod;
 		}
