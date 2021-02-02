@@ -27,6 +27,7 @@ namespace ng_project.Services
 		{
 			this.UserManager = UserManager.Instance;
 		}
+		
 		//</inheritdoc>
 		public void GetAllUsers()
 		{

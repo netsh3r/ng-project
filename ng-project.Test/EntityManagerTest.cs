@@ -10,7 +10,7 @@ namespace ng_project.Test
 	[TestFixture]
 	public class EntityManagerTest
 	{
-		private EntityManager<T,IdT> GetEntityManager<T, IdT>() where T:Entity<IdT>
+		private EntityManager<T,IdT> GetEntityManager<T, IdT>() where T:Entity<IdT>, new()
 		{
 			return new EntityManager<T, IdT>();
 		}
