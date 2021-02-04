@@ -1,0 +1,11 @@
+﻿@using System.Collections;
+@using ng_project.Entities;
+ 
+@model ICollection<User>
+@{ 
+	var i = 1;
+}
+@foreach(var user in Model)
+{
+	<div>Id - @user.Id</div>
+}

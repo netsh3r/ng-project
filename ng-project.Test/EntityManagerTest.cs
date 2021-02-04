@@ -34,7 +34,7 @@ namespace ng_project.Test
 			try
 			{
 				var count = manager.FindAll().Count;
-				manager.Add(new User() { LastName="123" });
+				manager.Add(new User() { LastName="123", login="3123" });
 				Assert.AreEqual(manager.FindAll().Count, count+1);
 			}
 			catch(Exception ex)

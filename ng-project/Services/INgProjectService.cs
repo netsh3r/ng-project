@@ -1,4 +1,7 @@
-﻿namespace ng_project.Services
+﻿using ng_project.Entities;
+using System.Collections.Generic;
+
+namespace ng_project.Services
 {
 	/// <summary>
 	/// Базовый сервис проекта для работы с основными данными
@@ -8,6 +11,6 @@
 		/// <summary>
 		/// Получить всех юзеров
 		/// </summary>
-		void GetAllUsers();
+		ICollection<User> GetAllUsers();
 	}
 }
