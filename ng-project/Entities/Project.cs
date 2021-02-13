@@ -8,5 +8,8 @@ namespace ng_project.Entities
 	{
 		public string Name { get; set; }
 		public string Description { get; set; }
+		public string ShortDescription { get; set; }
+
+		public List<News> News { get; set; }
 	}
 }

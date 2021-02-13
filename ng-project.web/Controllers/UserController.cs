@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ng_project.Entities;
 using ng_project.Services;
 using System;
 using System.Collections.Generic;
@@ -22,13 +23,30 @@ namespace ng_project.web.Controllers
 			var model = NgProjectService.GetAllUsers();
 			return View(model);
 		}
-		public IActionResult Index()
+		public IActionResult Profile(int? id)
 		{
-			return View();
+
+			User user = null;
+			if(id != null)
+            {
+				user = NgProjectService.FindUserById(id.Value);
+			}
+			return View(user);		
 		}
-		public IActionResult Edit()
+		public IActionResult Edit(int? id)
 		{
-			return View();
+			User user = null;
+			if (id != null)
+			{
+				user = NgProjectService.FindUserById(id.Value);
+			}
+			return View(user);
 		}
+
+		[HttpPost]
+		public IActionResult SaveUser(User user)
+        {
+			return View("Profile",user);
+        }
 	}
 }

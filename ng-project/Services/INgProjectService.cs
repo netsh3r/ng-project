@@ -12,5 +12,19 @@ namespace ng_project.Services
 		/// Получить всех юзеров
 		/// </summary>
 		ICollection<User> GetAllUsers();
+
+		/// <summary>
+		/// Получаем user по Id
+		/// </summary>
+		/// <param name="Id"></param>
+		/// <returns></returns>
+		User FindUserById(int Id);
+		/// <summary>
+		/// Добавляем проект в бд
+		/// </summary>
+		/// <param name="project"></param>
+		/// <returns></returns>
+		void AddProject(Project project);
+
 	}
 }
