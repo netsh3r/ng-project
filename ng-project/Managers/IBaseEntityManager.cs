@@ -34,5 +34,11 @@ namespace ng_project.Managers
 		/// </summary>
 		/// <returns></returns>
 		ICollection<T> FindAll();
+		/// <summary>
+		/// Получить данные по условию
+		/// </summary>
+		/// <param name="expression"></param>
+		/// <returns></returns>
+		T Find(Func<T, bool> expression);
 	}
 }

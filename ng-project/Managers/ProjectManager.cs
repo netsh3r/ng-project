@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ng_project.Managers
 {
-    public class ProjectManager : EntityManager<Project, long>
+    public class ProjectManager : EntityManager<Project, int>
 	{ 
 		private static ProjectManager _instance;
 		public static ProjectManager Instance

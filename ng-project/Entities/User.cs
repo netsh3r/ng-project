@@ -19,6 +19,7 @@ namespace ng_project.Entities
 		[Display(Name = "Пароль")]
 		public string Password { get; set; }
 		public Email Email { get; set; }
+		public Participant Participant { get; set; } = new Participant();
 
 		//TODO:Ввести переменную с ролью a.k.a "геймдир, лид, художник анимации" (сделать enum)
 

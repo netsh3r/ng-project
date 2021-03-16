@@ -16,7 +16,7 @@ namespace ng_project.Entities
         public string Teg { get; set; }
         public long ProjectId { get; set; }
 
-        public Project Project { get; set; }
+        public virtual Project Project { get; set; }
 
 
         

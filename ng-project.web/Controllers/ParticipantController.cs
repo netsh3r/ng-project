@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ng_project.Entities;
 using ng_project.Services;
 using ng_project.web.Models;
 using System;
@@ -11,9 +12,11 @@ namespace ng_project.web.Controllers
 	public class ParticipantController : Controller
 	{
 		private ISomeModel someModel;
-		public ParticipantController(ISomeModel someMethod, NgProjectService UserService)
+		private INgProjectService projectService;
+		public ParticipantController(ISomeModel someMethod, INgProjectService projectService)
 		{
 			this.someModel = someMethod;
+			this.projectService = projectService;
 		}
 		public IActionResult Participant()
 		{
@@ -21,10 +24,11 @@ namespace ng_project.web.Controllers
 		}
 		public IActionResult All()
 		{
-			return View();
+			var model = projectService.GetAll<Participant, int>();
+			return View(model);
 		}
 		public IActionResult Index()
-		{
+		{	
 			return View();
 		}
 	}

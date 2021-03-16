@@ -12,15 +12,13 @@ namespace ng_project.Context
 		public DbSet<Project> Projects { get; set; }
 		public DbSet<News> News { get; set; }
 		public DbSet<Email> Emails { get; set; }
+		public DbSet<Participant> Participants { get; set; }
 
-		public NgContext()
-		{
-			Database.EnsureDeleted();
-			Database.EnsureCreated();
-		}
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=NgProjectDb;Trusted_Connection=True;");
+			optionsBuilder
+			   //.UseLazyLoadingProxies()
+			   .UseSqlServer(@"Server=DESKTOP-BO6C3SK;Initial Catalog=ng_project;Integrated Security=True;");
 		}
 	}
 }

@@ -14,18 +14,19 @@ namespace ng_project.web.Controllers
 	public class ProjectController : Controller
 	{
 
-		public ProjectController(NgProjectService ProjectService)
+		public ProjectController(INgProjectService projectService)
 		{
-			this.NgProjectService = ProjectService;
+			this.projectService = projectService;
 		}
 
 		#region Services
-		private INgProjectService NgProjectService;
+		private INgProjectService projectService;
 		#endregion
 
-		public IActionResult Index()
+		public IActionResult All()
 		{
-			return View("Index");
+			var model = projectService.GetAll<Project, int>();
+			return View("All",model);
 		}
 
 		public IActionResult Info()
@@ -37,7 +38,7 @@ namespace ng_project.web.Controllers
 		public IActionResult Add(Project project)
 		{
 			project.News = new List<News>();
-			NgProjectService.AddProject(project);
+			projectService.AddProject(project);
 			return View("info", project);
 		}
 		[HttpGet]

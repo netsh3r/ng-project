@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +29,10 @@ namespace ng_project.web
 			services.AddControllersWithViews().AddRazorRuntimeCompilation();
 			services.AddMvc();
 			services.AddScoped<ISomeModel,SomeModel>();
+			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options=>
+			{ 
+				options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+			});
 		}
 
 		public void ConfigureContainer(ContainerBuilder builder)
@@ -52,6 +57,7 @@ namespace ng_project.web
 
 			app.UseRouting();
 
+			app.UseAuthentication(); 
 			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>
