@@ -11,11 +11,11 @@ namespace ng_project.web.Controllers
 {
 	public class ParticipantController : Controller
 	{
-		private ISomeModel someModel;
-		private INgProjectService projectService;
-		public ParticipantController(ISomeModel someMethod, INgProjectService projectService)
+		private IParticipantService participantService;
+		private INgMainService projectService;
+		public ParticipantController(IParticipantService participantService, INgMainService projectService)
 		{
-			this.someModel = someMethod;
+			this.participantService = participantService;
 			this.projectService = projectService;
 		}
 		public IActionResult Participant()
@@ -24,12 +24,18 @@ namespace ng_project.web.Controllers
 		}
 		public IActionResult All()
 		{
-			var model = projectService.GetAll<Participant, int>();
+			var model = participantService.GetAll();
 			return View(model);
 		}
 		public IActionResult Index()
 		{	
 			return View();
+		}
+
+		[HttpPost]
+		public void RemoveSkill(int id)
+		{
+			projectService.RemoveObjectById<Skills,int>(id);
 		}
 	}
 }

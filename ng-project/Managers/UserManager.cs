@@ -23,8 +23,10 @@ namespace ng_project.Managers
 			using(var db = new NgContext())
 			{
 				var user = db.Users.Include(t => t.Email)
-					.Include(t=> t.Participant)
-					.Include(t=> t.Participant.Skills)
+					.Include(t => t.Participant)
+					.Include(t => t.Participant.Skills)
+					.Include(t => t.Projects)
+					.Include(t => t.Image)
 					.FirstOrDefault(expression);
 				return user;
 			}

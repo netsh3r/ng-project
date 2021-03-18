@@ -7,8 +7,9 @@ namespace ng_project.Services
 	/// <summary>
 	/// Базовый сервис проекта для работы с основными данными
 	/// </summary>
-	public interface INgProjectService
+	public interface INgMainService
 	{
+		void RemoveObjectById<T, IdT>(IdT id) where T : Entity<IdT>, new();
 		/// <summary>
 		/// Найти generic объект по условию
 		/// </summary>

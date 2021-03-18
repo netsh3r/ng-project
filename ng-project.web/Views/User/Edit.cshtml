@@ -2,96 +2,154 @@
 @using System.Collections;
 @using ng_project.Entities;
 @using ng_project.Entities.Enum;
- 
-@model User
 
-@using (Html.BeginForm("SaveUser","User",FormMethod.Post))
-{
-<div class="container-fluid">
-	@Html.HiddenFor(t => t.Id)
-	@Html.HiddenFor(t => t.Participant.Id)
-	@Html.HiddenFor(t => t.Email.Id)
-	@Html.HiddenFor(t => t.Email.UserId)
-	<div class="row justify-content-center">
-		<div class="col-md-6">
-			<div class="row">
-				<div class="col-md-6">
-					@Html.LabelFor(m => m.login)
-					@Html.EditorFor(m => m.login, new { htmlAttributes = new { @class = "form-control" } })
-				</div>
-				<div class="col-md-6">
-					@Html.LabelFor(m => m.Password)
-					@Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "form-control" } })
-				</div>
-				<div class="col-md-6">
-					@Html.LabelFor(m => m.FirstName)
-					@Html.EditorFor(m => m.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-				</div>
-				<div class="col-md-6">
-					@Html.LabelFor(m => m.LastName)
-					@Html.EditorFor(m => m.LastName, new { htmlAttributes = new { @class = "form-control" } })
-				</div>
-				<div class="col-md-12">
-					@Html.LabelFor(m => m.Email)
-					@Html.EditorFor(m => m.Email.EmailString, new { htmlAttributes = new { @class = "form-control" } })
-				</div>
-				<div class="col-md-12">
-					@*@Html.LabelFor(t => t.Participant.Roles)
-						@Html.GetEnumSelectList()*@
-					<label asp-for="Participant.Roles">Роль</label>
-					<select class="custom-select" asp-for="Participant.Roles" asp-items="Html.GetEnumSelectList<Roles>()"></select>
-				</div>
-				<div class="col-md-12">
-					<span>Навыки:</span>
-					<div>
-						@*@foreach (var skills in Model.Participant.Skills)
-		{
-			<input name="Participant.Skills[0].Name" type="text" class="form-control" value="@(Model.Participant.Skills[0].Name)" />
-		}*@
-						@if(Model.Participant != null)
-						{ 
-						<div>
-							@for (int skillIndex = 0; skillIndex < Model.Participant.Skills.Count; skillIndex++)
-							{
+@model User;
 
-							<div class="input-group mb-3 skill_@(skillIndex)">
 
-								<input name="Participant.Skills[@(skillIndex)].Name" type="text" class="form-control" value="@(Model.Participant.Skills[skillIndex].Name)" />
-								<span class="input-group-text btn btn-danger" onclick="deleteSkill(@(skillIndex))">
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16">
-										<path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1L1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
-										<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-									</svg>
-								</span>
-								<input type="hidden" name="Participant.Skills[@(skillIndex)].Id" value="@(Model.Participant.Skills[skillIndex].Id)" />
-								<input type="hidden" name="Participant.Skills[@(skillIndex)].ParticipanId" value="@(Model.Participant.Skills[skillIndex].ParticipantId)" />
+	<form asp-action="SaveUser" asp-controller="User" method="post" enctype="multipart/form-data">
+		<div class="container-fluid">
+			@Html.HiddenFor(t => t.Id)
+			@Html.HiddenFor(t => t.Participant.Id)
+			@Html.HiddenFor(t => t.Email.Id)
+			@Html.HiddenFor(t => t.Email.UserId)
+			<div class="row justify-content-center">
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-6">
+							@Html.LabelFor(m => m.login)
+							@Html.EditorFor(m => m.login, new { htmlAttributes = new { @class = "form-control" } })
+						</div>
+						<div class="col-md-6">
+							@Html.LabelFor(m => m.Password)
+							@Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "form-control" } })
+						</div>
+						<div class="col-md-6">
+							@Html.LabelFor(m => m.FirstName)
+							@Html.EditorFor(m => m.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+						</div>
+						<div class="col-md-6">
+							@Html.LabelFor(m => m.LastName)
+							@Html.EditorFor(m => m.LastName, new { htmlAttributes = new { @class = "form-control" } })
+						</div>
+						<div class="col-md-12">
+							@Html.LabelFor(m => m.Email)
+							@Html.EditorFor(m => m.Email.EmailString, new { htmlAttributes = new { @class = "form-control" } })
+						</div>
+						<div class="col-md-12">
+							@*@Html.LabelFor(t => t.Participant.Roles)
+								@Html.GetEnumSelectList()*@
+							<label asp-for="Participant.Roles">Роль</label>
+							<select class="custom-select" asp-for="Participant.Roles" asp-items="Html.GetEnumSelectList<Roles>()"></select>
+						</div>
+						<div class="col-md-12">
+							<span>Навыки:</span>
+							<div>
+								@*@foreach (var skills in Model.Participant.Skills)
+									{
+										<input name="Participant.Skills[0].Name" type="text" class="form-control" value="@(Model.Participant.Skills[0].Name)" />
+									}*@
+								@if (Model.Participant != null)
+								{
+									<div>
+										@for (int skillIndex = 0; skillIndex < Model.Participant.Skills.Count; skillIndex++)
+										{
+
+											<div class="input-group mb-3 skill_@(skillIndex)">
+
+												<input name="Participant.Skills[@(skillIndex)].Name" type="text" class="form-control" value="@(Model.Participant.Skills[skillIndex].Name)" />
+												<span class="input-group-text btn btn-danger" onclick="deleteSkill(@(skillIndex))">
+													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16">
+														<path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1L1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
+														<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+													</svg>
+												</span>
+												<input type="hidden" name="Participant.Skills[@(skillIndex)].Id" value="@(Model.Participant.Skills[skillIndex].Id)" />
+												<input type="hidden" name="Participant.Skills[@(skillIndex)].ParticipanId" value="@(Model.Participant.Skills[skillIndex].ParticipantId)" />
+											</div>
+
+										}
+									</div>
+								}
+
+
+								<div id="anotherSkills">
+
+								</div>
+								<div>
+									Проекты:
+								</div>
+								<div class="row mb-lg-3">
+									@for (int projectIndex = 0; projectIndex < Model.Projects.Count; projectIndex++)
+									{
+										@*<div>
+
+												<input type="text" name="Projects[projectIndex].Name" value="@(Model.Projects[projectIndex].Name)" />
+											</div>*@
+										<input type="hidden" name="Projects[projectIndex].Id" value="@(Model.Projects[projectIndex].Id)" />
+
+										<div class="col-6">
+											<a class="page-link border-0" asp-area="" asp-controller="Project" asp-action="Info" asp-route-id="@(Model.Projects[projectIndex].Id)">
+												<div class="card shadow-sm">
+													
+													<div class="card-body">
+														<p class="card-text">@(Model.Projects[projectIndex].ShortDescription)</p>
+														<div class="d-flex justify-content-between align-items-center">
+															<div class="btn-group">
+																<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+																<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+															</div>
+															<small class="text-muted">9 mins</small>
+														</div>
+													</div>
+												</div>
+											</a>
+										</div>
+									}
+								</div>
 							</div>
-								
-							}
-						</div>
-						}
-						
-
-						<div id="anotherSkills">
-
-						</div>
-						<div class="mt-2">
-							<span class="btn btn-info addSkills">Добавить навык</span>
 						</div>
 					</div>
+					<div class="mt-2 d-flex d-inline">
+						<span class="btn btn-info addSkills mr-2">Добавить навык</span>
+						<button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#addProject">
+							Добавить проект
+						</button>
+						<input type="submit" value="Сохранить" class="btn btn-primary" />
+					</div>
+					<div class="mt-3">
+
+					</div>
 				</div>
+				<div class="col-md-3" style="width:200px">
+					<label>Загрузить изображение</label>
+					<input type="file" name="ImageDataLocal" class="form-control" />
+					<div class="mt-2">
+						@if (Model.Image != null && Model.Image.Data != null)
+						{
+							<input type="hidden" name="Image.Id" value="@(Model.Image.Id)"/>
+							<img style='width:200px; height:200px;' src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Image.Data))" />
+						}
+					</div>
+					
+					@*<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>*@
+				</div>
+
 			</div>
-		</div>
-		<div class="col-md-3">
-			<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+
+
 		</div>
 
-	</div>
-	<input type="submit" value="Сохранить" />
-</div>
-}
 
-<script>
+
+
+		</form>
+
+		<!-- Модальное окно -->
+		<div class="modal fade" id="addProject" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			@Html.Partial("_AddProject")
+		</div>
+
+		<script>
 	$(function ()
 	{
 		let i = @(Model?.Participant?.Skills?.Count-1??0);
@@ -102,7 +160,6 @@
 				url: '@Url.Action("GetSkillsBlock","User")',
 				data: { index: i },
 				success: function (data) {
-					debugger;
 					$('#anotherSkills').append(data.value);
 				}
 			})
@@ -111,6 +168,15 @@
 
 	function deleteSkill(index) {
 		let position = ".skill_" + index;
+		let id = $('input[name="Participant.Skills[' + index + '].Id"]').val();
+		if (id !== undefined) {
+			$.ajax({
+				type: 'POST',
+				url: '@Url.Action("RemoveSkill","Participant")',
+				data: { id: id }
+			});
+		}
 		$(position).remove();
+
 	}
-</script>
+		</script>

@@ -13,7 +13,15 @@ namespace ng_project.Context
 		public DbSet<News> News { get; set; }
 		public DbSet<Email> Emails { get; set; }
 		public DbSet<Participant> Participants { get; set; }
-
+		public DbSet<Image> Images { get; set; }
+		public DbSet<ProjectImage> ProjectImages { get; set; }
+		public DbSet<MainProjectImage> MainProjectImages { get; set; }
+		
+		//public NgContext()
+		//{
+		//	Database.EnsureDeleted();   // удаляем бд со старой схемой
+		//	Database.EnsureCreated();   // создаем бд с новой схемой
+		//}
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			optionsBuilder
