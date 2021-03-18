@@ -14,9 +14,9 @@ namespace ng_project.web.Controllers
 {
 	public class AccountController : Controller
 	{
-		private INgProjectService service;
+		private INgMainService service;
 		private IUserService UserService;
-		public AccountController(INgProjectService service, IUserService UserService)
+		public AccountController(INgMainService service, IUserService UserService)
 		{
 			this.service = service;
 			this.UserService = UserService;
@@ -66,7 +66,7 @@ namespace ng_project.web.Controllers
 					email.EmailString = model.Email;
 					user.Email = email;
 					UserService.Registry(user);
-					await Authenticate(model.Email);
+					await Authenticate(model.Login);
 					return RedirectToAction("Index", "Home");
 				}
 				else

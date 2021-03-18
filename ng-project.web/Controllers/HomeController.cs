@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ng_project.Services;
 using ng_project.web.Models;
 
 namespace ng_project.web.Controllers
@@ -12,15 +13,17 @@ namespace ng_project.web.Controllers
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
-
-		public HomeController(ILogger<HomeController> logger)
+		private IProjectService projectService;
+		public HomeController(ILogger<HomeController> logger, IProjectService projectService)
 		{
 			_logger = logger;
+			this.projectService = projectService;
 		}
 
 		public IActionResult Index()
 		{
-			return View();
+			var model = projectService.GetAll();
+			return View(model);
 		}
 
 		public IActionResult Privacy()

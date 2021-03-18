@@ -1,0 +1,33 @@
+﻿@using ng_project.Entities;
+
+@model User;
+
+@*@Html.BeginForm("Add","Project", FormMethod.Post)
+{*@
+<form method="post" asp-action="Add" asp-controller="Project">
+	<input type="hidden" name="UserId" value="@(Model.Id)" />
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="staticBackdropLabel">Создать проект</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<label for="Name">Название проекта</label>
+				<input name="Name" type="text" class="form-control" value="" />
+				<label for="Description">Описание проекта</label>
+				<textarea class="form-control" name="Description" placeholder="Пример обязательного текстового поля" required></textarea>
+				<label for="ShortDescription">Краткое описание проекта</label>
+				<input name="ShortDescription" type="text" class="form-control" value="" />
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+				<button type="submit" class="btn btn-primary">Сохранить</button>
+			</div>
+		</div>
+	</div>
+</form>
+	
+	@*}*@

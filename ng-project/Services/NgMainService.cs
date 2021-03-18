@@ -11,14 +11,14 @@ namespace ng_project.Services
 
 	//</inheritdoc>
 	[Service]
-	public class NgProjectService : INgProjectService
+	public class NgMainService : INgMainService
 	{
-		private static NgProjectService _instance;
-		public static NgProjectService Instance
+		private static NgMainService _instance;
+		public static NgMainService Instance
 		{
 			get
 			{
-				return _instance ?? (_instance = new NgProjectService());
+				return _instance ?? (_instance = new NgMainService());
 			}
 		}
 
@@ -42,7 +42,7 @@ namespace ng_project.Services
 		{
 			return EntityManager<T,IdT>.Instance.FindAll(expression);
 		}
-		public NgProjectService()
+		public NgMainService()
 		{
 			this.UserManager = UserManager.Instance;
 			this.ProjectManager = ProjectManager.Instance;
@@ -82,6 +82,11 @@ namespace ng_project.Services
 		public void Save<T, IdT>(T model) where T : Entity<IdT>, new()
 		{
 			EntityManager<T, IdT>.Instance.Edit(model);
+		}
+
+		public void RemoveObjectById<T, IdT>(IdT id) where T : Entity<IdT>, new()
+		{
+			EntityManager<T, IdT>.Instance.Delete(id);
 		}
 	}
 }

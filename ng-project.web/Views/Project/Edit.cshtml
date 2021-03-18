@@ -1,0 +1,41 @@
+﻿@using ng_project.Entities;
+
+@model Project;
+
+<form method="post" asp-action="Edit" asp-controller="Project"  enctype="multipart/form-data">
+	@Html.HiddenFor(t => t.UserId)
+	@Html.HiddenFor(t => t.Id)
+	<div class="container">
+		<div>
+			<div>
+				<label>Загрузить изображение</label>
+				<input type="file" name="ImageDataLocal" class="form-control" />
+				<div class="mt-2">
+					@if (Model.ProjectImage != null && Model.ProjectImage.Data != null)
+					{
+						<input type="hidden" name="ProjectImage.Id" value="@(Model.ProjectImage.Id)" />
+						<img style='width:100%; height:200px;' src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.ProjectImage.Data))" />
+					}
+				</div>
+			</div>
+			<div>
+				<label>Загрузить главное изображение</label>
+				<input type="file" name="MainImageDataLocal" class="form-control" />
+				<div class="mt-2">
+					@if (Model.MainProjectImage != null && Model.MainProjectImage.Data != null)
+					{
+						<input type="hidden" name="MainProjectImage.Id" value="@(Model.MainProjectImage.Id)" />
+						<img style='width:100%; height:200px;' src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.MainProjectImage.Data))" />
+					}
+				</div>
+			</div>
+			@Html.LabelFor(t => t.Name)
+			@Html.EditorFor(t => t.Name, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.LabelFor(t => t.Description)
+			<textarea class="form-control" name="Description" placeholder="Пример обязательного текстового поля" required>@(Model.Description)</textarea>
+			@Html.LabelFor(t => t.ShortDescription)
+			@Html.EditorFor(t => t.ShortDescription, new { htmlAttributes = new { @class = "form-control" } })
+		</div>
+		<input type="submit" value="Сохранить" class="btn btn-primary mt-3" />
+	</div>
+</form>
