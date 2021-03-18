@@ -1,20 +1,116 @@
-﻿<div class="container-fluid">
+﻿
+@using System.Collections;
+@using ng_project.Entities;
+@using ng_project.Entities.Enum;
+ 
+@model User
+
+@using (Html.BeginForm("SaveUser","User",FormMethod.Post))
+{
+<div class="container-fluid">
+	@Html.HiddenFor(t => t.Id)
+	@Html.HiddenFor(t => t.Participant.Id)
+	@Html.HiddenFor(t => t.Email.Id)
+	@Html.HiddenFor(t => t.Email.UserId)
 	<div class="row justify-content-center">
 		<div class="col-md-6">
 			<div class="row">
 				<div class="col-md-6">
-					<label for="Name">Имя</label>
-					<input type="text" class="form-control" id="Name" placeholder="Имя.." value="" required="">
+					@Html.LabelFor(m => m.login)
+					@Html.EditorFor(m => m.login, new { htmlAttributes = new { @class = "form-control" } })
 				</div>
 				<div class="col-md-6">
-					<label for="LastName">Фамилия</label>
-					<input type="text" class="form-control" id="LastName" placeholder="Фамилия.." value="" required="">
+					@Html.LabelFor(m => m.Password)
+					@Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "form-control" } })
+				</div>
+				<div class="col-md-6">
+					@Html.LabelFor(m => m.FirstName)
+					@Html.EditorFor(m => m.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+				</div>
+				<div class="col-md-6">
+					@Html.LabelFor(m => m.LastName)
+					@Html.EditorFor(m => m.LastName, new { htmlAttributes = new { @class = "form-control" } })
+				</div>
+				<div class="col-md-12">
+					@Html.LabelFor(m => m.Email)
+					@Html.EditorFor(m => m.Email.EmailString, new { htmlAttributes = new { @class = "form-control" } })
+				</div>
+				<div class="col-md-12">
+					@*@Html.LabelFor(t => t.Participant.Roles)
+						@Html.GetEnumSelectList()*@
+					<label asp-for="Participant.Roles">Роль</label>
+					<select class="custom-select" asp-for="Participant.Roles" asp-items="Html.GetEnumSelectList<Roles>()"></select>
+				</div>
+				<div class="col-md-12">
+					<span>Навыки:</span>
+					<div>
+						@*@foreach (var skills in Model.Participant.Skills)
+		{
+			<input name="Participant.Skills[0].Name" type="text" class="form-control" value="@(Model.Participant.Skills[0].Name)" />
+		}*@
+						@if(Model.Participant != null)
+						{ 
+						<div>
+							@for (int skillIndex = 0; skillIndex < Model.Participant.Skills.Count; skillIndex++)
+							{
+
+							<div class="input-group mb-3 skill_@(skillIndex)">
+
+								<input name="Participant.Skills[@(skillIndex)].Name" type="text" class="form-control" value="@(Model.Participant.Skills[skillIndex].Name)" />
+								<span class="input-group-text btn btn-danger" onclick="deleteSkill(@(skillIndex))">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16">
+										<path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1L1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
+										<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+									</svg>
+								</span>
+								<input type="hidden" name="Participant.Skills[@(skillIndex)].Id" value="@(Model.Participant.Skills[skillIndex].Id)" />
+								<input type="hidden" name="Participant.Skills[@(skillIndex)].ParticipanId" value="@(Model.Participant.Skills[skillIndex].ParticipantId)" />
+							</div>
+								
+							}
+						</div>
+						}
+						
+
+						<div id="anotherSkills">
+
+						</div>
+						<div class="mt-2">
+							<span class="btn btn-info addSkills">Добавить навык</span>
+						</div>
+					</div>
 				</div>
 			</div>
-			
 		</div>
 		<div class="col-md-3">
 			<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
 		</div>
+
 	</div>
+	<input type="submit" value="Сохранить" />
 </div>
+}
+
+<script>
+	$(function ()
+	{
+		let i = @(Model?.Participant?.Skills?.Count-1??0);
+		$('.addSkills').bind("click", function () {
+			i++;
+			$.ajax({
+				type: 'GET',
+				url: '@Url.Action("GetSkillsBlock","User")',
+				data: { index: i },
+				success: function (data) {
+					debugger;
+					$('#anotherSkills').append(data.value);
+				}
+			})
+		})
+	})
+
+	function deleteSkill(index) {
+		let position = ".skill_" + index;
+		$(position).remove();
+	}
+</script>

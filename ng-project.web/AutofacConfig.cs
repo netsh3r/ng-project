@@ -18,15 +18,17 @@ namespace ng_project.web
 			var asmbly = Assembly.GetEntryAssembly();
 			var assembly = Assembly.Load("ng-project");
 			List<Type> types = new List<Type>();
-			foreach (Type type in assembly.GetTypes())
-			{
-				if (type.GetCustomAttributes(typeof(ServiceAttribute), true).Length > 0)
-				{
+			//foreach (Type type in assembly.GetTypes())
+			//{
+			//	if (type.GetCustomAttributes(typeof(ServiceAttribute), true).Length > 0)
+			//	{
 
-					builder.RegisterType(type).InstancePerLifetimeScope();
-					types.Add(type);
-				}
-			}
+			//		builder.RegisterType(type).InstancePerLifetimeScope();
+			//		types.Add(type);
+			//	}
+			//}
+			builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
+			builder.RegisterType<NgProjectService>().As<INgProjectService>().InstancePerLifetimeScope();
 			builder.RegisterType<SomeModel>().As<ISomeModel>().InstancePerLifetimeScope();
 		}
 	}

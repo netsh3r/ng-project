@@ -17,5 +17,7 @@ namespace ng_project.Managers
 		public abstract ICollection<T> FindAll();
 		//</ineritdoc>
 		public abstract T FindById(IdT id);
+		//</inheritdoc>
+		public abstract T Find(Func<T, bool> expression);
 	}
 }

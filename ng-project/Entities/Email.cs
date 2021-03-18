@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace ng_project.Entities
@@ -8,6 +9,7 @@ namespace ng_project.Entities
 	{
 		public User User { get; set; }
 		public int UserId { get; set; }
+		[Display(Name = "Email")]
 		public string EmailString { get; set; }
 	}
 }

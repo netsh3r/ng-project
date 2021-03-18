@@ -1,0 +1,22 @@
+﻿@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.AspNetCore.Authorization;
+
+
+@if (User.Identity.IsAuthenticated)
+{
+	<li class="nav-item">
+		<a asp-action="Profile" asp-controller="User" class="nav-link text-dark">@("Здравствуйте " + User.Identity.Name + "!")</a>
+	</li>
+	<li class="nav-item">
+		<a asp-action="LogOut" asp-controller="Account" class="btn btn-info">Выйти</a>
+	</li>
+}
+else
+{
+	<li class="nav-item">
+		<a asp-action="Registration" asp-controller="Account" class="btn btn-info mr-2">Регистрация</a>
+	</li>
+	<li class="nav-item">
+		<a asp-action="Login" asp-controller="Account" class="btn btn-info">Выполнить вход</a>
+	</li>
+}

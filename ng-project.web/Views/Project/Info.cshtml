@@ -1,4 +1,9 @@
-﻿<div class="text-center bg-light mb-3" style="height:175px">
+﻿@using ng_project.Entities;
+
+@model Project; 
+
+
+<div class="text-center bg-light mb-3" style="height:175px">
 	<h1 class="display-4 fw-normal">Название проекта</h1>
 </div>
 @*<div style="z-index:999999!important; position:absolute">
@@ -36,7 +41,7 @@
 							</div>
 							<div class="mt-1">
 								<p class="text-justify">
-									Pellentesque a tempus tellus. Nullam consequat enim velit, ac congue felis luctus vitae. Etiam at velit ut lectus egestas facilisis sit amet vel velit. Curabitur eu turpis mollis, blandit metus in, lobortis tortor. Quisque arcu turpis, sagittis sit amet nunc id, pretium accumsan massa. Suspendisse potenti. Quisque in auctor purus. Praesent accumsan, leo at porta sagittis, quam mi finibus nunc, eget tempus diam diam vel erat.
+									@Html.DisplayFor(t=> t.Description)
 								</p>
 							</div>
 						</div>
@@ -60,7 +65,7 @@
 							<img data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32" class="mr-2 rounded" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_17707defa5e%20text%20%7B%20fill%3A%23007bff%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A2pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_17707defa5e%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%23007bff%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2211.828125%22%20y%3D%2216.965625%22%3E32x32%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 32px; height: 32px;">
 							<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
 								<div class="d-flex justify-content-between align-items-center w-100">
-									<strong class="text-gray-dark">userName</strong>
+									<strong class="text-gray-dark">@(Model.Name)</strong>
 									@*<button type="button" class="btn btn-secondary">*@
 									<div class="justify-content-end">
 										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
@@ -77,7 +82,7 @@
 							<img data-src="holder.js/32x32?theme=thumb&amp;bg=007bff&amp;fg=007bff&amp;size=1" alt="32x32" class="mr-2 rounded" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_17707defa5e%20text%20%7B%20fill%3A%23007bff%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A2pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_17707defa5e%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20fill%3D%22%23007bff%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%2211.828125%22%20y%3D%2216.965625%22%3E32x32%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" data-holder-rendered="true" style="width: 32px; height: 32px;">
 							<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
 								<div class="d-flex justify-content-between align-items-center w-100">
-									<strong class="text-gray-dark">userName</strong>
+                                    <strong class="text-gray-dark">@(Model.Name)</strong>
 									@*<button type="button" class="btn btn-secondary">*@
 									<div class="justify-content-end">
 										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
@@ -110,13 +115,13 @@
 				</div>
 				<div class="col-md-3 box-shadow">
 					<div class="border-bottom">
-						<p class="h5 mt-2">Топ новостей</p>
+                        <p class="h5 mt-2">Топ новостей</p>
 					</div>
 					<div>
 						<div class="card" style="">
 							<div class="card-body">
 								<h5 class="card-title">Card title</h5>
-								<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <p class="card-text">@(Model.ShortDescription)</p>
 								<a href="#" class="btn btn-primary">Go somewhere</a>
 							</div>
 						</div>
@@ -134,7 +139,7 @@
 				<form class="needs-validation" novalidate="">
 					<div class="row">
 						<div class="col-md-6 mb-3">
-							<label for="firstName">First name</label>
+                            <label for="firstName"></label>
 							<input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
 							<div class="invalid-feedback">
 								Valid first name is required.
