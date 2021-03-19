@@ -84,15 +84,12 @@ namespace ng_project.Migrations
 
             modelBuilder.Entity("ng_project.Entities.News", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("ProjectId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int?>("ProjectId1")
+                    b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("PublishDate")
@@ -104,14 +101,35 @@ namespace ng_project.Migrations
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Titel")
+                    b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectId1");
+                    b.HasIndex("ProjectId");
 
                     b.ToTable("News");
+                });
+
+            modelBuilder.Entity("ng_project.Entities.NewsImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte[]>("Data")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<int>("NewsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NewsId")
+                        .IsUnique();
+
+                    b.ToTable("NewsImages");
                 });
 
             modelBuilder.Entity("ng_project.Entities.Participant", b =>
@@ -263,9 +281,22 @@ namespace ng_project.Migrations
                 {
                     b.HasOne("ng_project.Entities.Project", "Project")
                         .WithMany("News")
-                        .HasForeignKey("ProjectId1");
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Project");
+                });
+
+            modelBuilder.Entity("ng_project.Entities.NewsImage", b =>
+                {
+                    b.HasOne("ng_project.Entities.News", "News")
+                        .WithOne("NewsImage")
+                        .HasForeignKey("ng_project.Entities.NewsImage", "NewsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("News");
                 });
 
             modelBuilder.Entity("ng_project.Entities.Participant", b =>
@@ -310,6 +341,11 @@ namespace ng_project.Migrations
                         .IsRequired();
 
                     b.Navigation("Participant");
+                });
+
+            modelBuilder.Entity("ng_project.Entities.News", b =>
+                {
+                    b.Navigation("NewsImage");
                 });
 
             modelBuilder.Entity("ng_project.Entities.Participant", b =>

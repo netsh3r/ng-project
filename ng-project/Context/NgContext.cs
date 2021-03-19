@@ -8,6 +8,7 @@ namespace ng_project.Context
 {
 	public class NgContext : DbContext
 	{
+		public DbSet<NewsImage> NewsImages { get; set; }
 		public DbSet<User> Users { get; set; }
 		public DbSet<Project> Projects { get; set; }
 		public DbSet<News> News { get; set; }
@@ -16,7 +17,7 @@ namespace ng_project.Context
 		public DbSet<Image> Images { get; set; }
 		public DbSet<ProjectImage> ProjectImages { get; set; }
 		public DbSet<MainProjectImage> MainProjectImages { get; set; }
-		
+
 		//public NgContext()
 		//{
 		//	Database.EnsureDeleted();   // удаляем бд со старой схемой

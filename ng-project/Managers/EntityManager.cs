@@ -72,7 +72,7 @@ namespace ng_project.Managers
 				return _dbSet.ToList().FirstOrDefault(expression);
 			}
 		}
-		public ICollection<T> FindAll(Func<T, bool> expression)
+		public override ICollection<T> FindAll(Func<T, bool> expression)
 		{
 			using (var db = new NgContext())
 			{

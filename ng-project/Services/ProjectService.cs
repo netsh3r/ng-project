@@ -22,5 +22,10 @@ namespace ng_project.Services
 		{
 			return projectManager.FindAll();
 		}
+
+		public ICollection<Project> GetAll(Func<Project, bool> expression)
+		{
+			return projectManager.FindAll(expression);
+		}
 	}
 }

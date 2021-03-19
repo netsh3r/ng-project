@@ -12,15 +12,17 @@ namespace ng_project.web.Controllers
 {
 	public class UserController : Controller
 	{
-		public UserController(INgMainService service, IUserService userService)
+		public UserController(INgMainService service, IUserService userService, IProjectService projectService)
 		{
 			this.NgProjectService = service;
 			this.userService = userService;
+			this.projectService = projectService;
 		}
 
 		#region Services
 		private INgMainService NgProjectService;
 		private IUserService userService;
+		private IProjectService projectService;
 		#endregion
 		public IActionResult All()
 		{
@@ -97,7 +99,9 @@ namespace ng_project.web.Controllers
 			user.Participant.UserId = user.Id;
 			NgProjectService.Save<Participant, int>(user.Participant);
 			NgProjectService.Save<User, int>(user);
-			return View("Profile",user);
+			user.Projects = projectService.GetAll(t=> t.UserId == user.Id).ToList();
+			user.Image = NgProjectService.FindByFunc<Image, int>(t=> t.UserId == user.Id);
+			return View("Edit",user);
         }
 	}
 }

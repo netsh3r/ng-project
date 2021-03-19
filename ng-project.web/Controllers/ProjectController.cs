@@ -16,15 +16,19 @@ namespace ng_project.web.Controllers
 	public class ProjectController : Controller
 	{
 
-		public ProjectController(INgMainService ngService, IProjectService projectService)
+		public ProjectController(INgMainService ngService
+			, IProjectService projectService
+			, IUserService userService)
 		{
 			this.projectService = projectService;
 			this.ngService = ngService;
+			this.userService = userService;
 		}
 
 		#region Services
 		private INgMainService ngService;
 		private IProjectService projectService;
+		private IUserService userService;
 		#endregion
 
 		public IActionResult All()
@@ -97,6 +101,7 @@ namespace ng_project.web.Controllers
 		{
 			project.News = new List<News>();
 			ngService.AddProject(project);
+			project.User = ngService.FindUserById(project.UserId);
 			return View("info", project);
 		}
 		[HttpGet]

@@ -45,5 +45,19 @@ namespace ng_project.Managers
 				return model;
 			}
 		}
+
+		public override ICollection<Project> FindAll(Func<Project, bool> expression)
+		{
+			using (var db = new NgContext())
+			{
+				var model = db.Projects
+					.Include(t => t.User)
+					.Include(t => t.MainProjectImage)
+					.Include(t => t.ProjectImage)
+					.Where(expression)
+					.ToList();
+				return model;
+			}
+		}
 	}
 }

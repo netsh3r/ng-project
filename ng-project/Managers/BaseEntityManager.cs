@@ -7,6 +7,8 @@ namespace ng_project.Managers
 	//</ineritdoc>
 	public abstract class BaseEntityManager<T, IdT> : IBaseEntityManager<T, IdT>
 	{
+		//</inheritdoc>
+		public abstract ICollection<T> FindAll(Func<T, bool> expression);
 		//</ineritdoc>
 		public abstract void Add(T entity);
 		//</ineritdoc>

@@ -12,10 +12,15 @@ namespace ng_project.Entities
 	}
 	public class Image : ImageBase
 	{
-		
 		public User User { get; set; }
 		public int UserId { get; set; }
 		
+	}
+
+	public class NewsImage :ImageBase
+	{
+		public News News { get; set; }
+		public int NewsId { get; set; }
 	}
 
 	public class ProjectImage : ImageBase

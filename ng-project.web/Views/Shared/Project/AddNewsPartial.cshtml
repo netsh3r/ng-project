@@ -1,0 +1,25 @@
+﻿<form method="post" asp-action="AddNews" asp-controller="News">
+	<input type="hidden" name="ProjectId" value="@(Model.Id)" />
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="staticBackdropLabel">Новая запись</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<label for="Title">Тема</label>
+				<input name="Title" type="text" class="form-control" value="" />
+				<label for="Description">Текст новости</label>
+				<textarea class="form-control" name="Description" placeholder="Пример обязательного текстового поля" required></textarea>
+				<label>Загрузить изображение</label>
+				<input type="file" name="ImageDataLocal" class="form-control" />
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+				<button type="submit" class="btn btn-primary">Сохранить</button>
+			</div>
+		</div>
+	</div>
+</form>

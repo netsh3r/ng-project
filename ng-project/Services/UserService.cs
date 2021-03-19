@@ -9,6 +9,14 @@ namespace ng_project.Services
 {
 	public class UserService : IUserService
 	{
+		private static UserService _instance;
+		public static UserService Instance
+		{
+			get
+			{
+				return _instance ?? (_instance = new UserService());
+			}
+		}
 		private UserManager userManager;
 		public UserService()
 		{

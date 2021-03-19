@@ -1,0 +1,27 @@
+﻿@using ng_project.Entities;
+@using ng_project.Services;
+
+@{ 
+	var user = UserService.Instance.FindUser(t => t.login == User.Identity.Name);
+
+}
+
+<div class="container">
+	<form>
+		<div>
+			<label for="Letter">Сопроводительное письмо</label>
+			<textarea class="form-control" name="UserLetter" placeholder="Опишите, почему хотите стать частью проекта и что можете делать" style="height:250px;"></textarea>
+			<div class="d-flex justify-content-center">
+				@*<button class="btn btn-success mt-2">Стать частью проекта</button>*@
+				<input type="submit" class="btn btn-success mt-2" value="Стать частью проекта" />
+			</div>
+			
+			@*<label for="FirstName">Имя</label>
+			<input type="text" name="FirstName" value="@(user.FirstName)" class="form-control"/>
+			<label for="LastName">Фамилия</label>
+			<input type="text" name="LastName" value="@(user.LastName)" class="form-control"/>
+			<label for="Email.EmailString">Почта</label>
+			<input type="text" name="Email.EmailString" value="@(user.Email.EmailString)" class="form-control"/>*@
+		</div>
+	</form>
+</div>
