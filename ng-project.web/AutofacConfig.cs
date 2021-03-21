@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using ng_project.SDK;
 using ng_project.Services;
 using ng_project.web.Models;
 using System;

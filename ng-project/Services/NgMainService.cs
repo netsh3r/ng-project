@@ -1,6 +1,5 @@
 ﻿using ng_project.Entities;
 using ng_project.Managers;
-using ng_project.SDK;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -10,7 +9,6 @@ namespace ng_project.Services
 {
 
 	//</inheritdoc>
-	[Service]
 	public class NgMainService : INgMainService
 	{
 		private static NgMainService _instance;

@@ -20,5 +20,6 @@ namespace ng_project.Entities
 		/// </summary>
 		public User User { get; set; }
 		public int UserId { get; set; }
+		public List<ProjectParticipant> ProjectParticipant { get; set; } = new List<ProjectParticipant>();
 	}
 }

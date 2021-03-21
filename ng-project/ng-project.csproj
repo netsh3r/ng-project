@@ -19,8 +19,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ng-project.SDK\ng-project.SDK.csproj" />
-  </ItemGroup>
-
 </Project>

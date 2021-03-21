@@ -29,6 +29,14 @@ namespace ng_project.Context
 			   //.UseLazyLoadingProxies()
 			   .UseSqlServer(@"Server=DESKTOP-BO6C3SK;Initial Catalog=ng_project;Integrated Security=True;");
 		}
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<ProjectParticipant>()
+				.HasOne(t => t.Project)
+				.WithMany(t => t.ProjectParticipant)
+				.OnDelete(DeleteBehavior.NoAction);
+		}
 	}
 }
  

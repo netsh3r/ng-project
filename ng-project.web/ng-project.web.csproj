@@ -30,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ng-project.SDK\ng-project.SDK.csproj" />
     <ProjectReference Include="..\ng-project\ng-project.csproj" />
   </ItemGroup>
 

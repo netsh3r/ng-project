@@ -2160,24 +2160,13 @@
         "dependencies": {
           "Microsoft.AspNetCore.Http": "2.2.2",
           "Microsoft.EntityFrameworkCore.Proxies": "5.0.4",
-          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.2",
-          "ng-project.SDK": "1.0.0"
+          "Microsoft.EntityFrameworkCore.SqlServer": "5.0.2"
         },
         "compile": {
           "bin/placeholder/ng-project.dll": {}
         },
         "runtime": {
           "bin/placeholder/ng-project.dll": {}
-        }
-      },
-      "ng-project.SDK/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v3.1",
-        "compile": {
-          "bin/placeholder/ng-project.SDK.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/ng-project.SDK.dll": {}
         }
       }
     }
@@ -7503,11 +7492,6 @@
       "type": "project",
       "path": "../ng-project/ng-project.csproj",
       "msbuildProject": "../ng-project/ng-project.csproj"
-    },
-    "ng-project.SDK/1.0.0": {
-      "type": "project",
-      "path": "../ng-project.SDK/ng-project.SDK.csproj",
-      "msbuildProject": "../ng-project.SDK/ng-project.SDK.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -7515,8 +7499,7 @@
       "Microsoft.NET.Test.Sdk >= 16.5.0",
       "NUnit >= 3.12.0",
       "NUnit3TestAdapter >= 3.16.1",
-      "ng-project >= 1.0.0",
-      "ng-project.SDK >= 1.0.0"
+      "ng-project >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -7555,9 +7538,6 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\projects\\ng-project\\ng-project.SDK\\ng-project.SDK.csproj": {
-              "projectPath": "C:\\projects\\ng-project\\ng-project.SDK\\ng-project.SDK.csproj"
-            },
             "C:\\projects\\ng-project\\ng-project\\ng-project.csproj": {
               "projectPath": "C:\\projects\\ng-project\\ng-project\\ng-project.csproj"
             }

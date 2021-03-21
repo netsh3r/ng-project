@@ -200,6 +200,28 @@ namespace ng_project.Migrations
                     b.ToTable("ProjectImages");
                 });
 
+            modelBuilder.Entity("ng_project.Entities.ProjectParticipant", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ParticipantId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParticipantId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("ProjectParticipant");
+                });
+
             modelBuilder.Entity("ng_project.Entities.Skills", b =>
                 {
                     b.Property<int>("Id")
@@ -332,6 +354,25 @@ namespace ng_project.Migrations
                     b.Navigation("Project");
                 });
 
+            modelBuilder.Entity("ng_project.Entities.ProjectParticipant", b =>
+                {
+                    b.HasOne("ng_project.Entities.Participant", "Participant")
+                        .WithMany("ProjectParticipant")
+                        .HasForeignKey("ParticipantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ng_project.Entities.Project", "Project")
+                        .WithMany("ProjectParticipant")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Participant");
+
+                    b.Navigation("Project");
+                });
+
             modelBuilder.Entity("ng_project.Entities.Skills", b =>
                 {
                     b.HasOne("ng_project.Entities.Participant", "Participant")
@@ -350,6 +391,8 @@ namespace ng_project.Migrations
 
             modelBuilder.Entity("ng_project.Entities.Participant", b =>
                 {
+                    b.Navigation("ProjectParticipant");
+
                     b.Navigation("Skills");
                 });
 
@@ -360,6 +403,8 @@ namespace ng_project.Migrations
                     b.Navigation("News");
 
                     b.Navigation("ProjectImage");
+
+                    b.Navigation("ProjectParticipant");
                 });
 
             modelBuilder.Entity("ng_project.Entities.User", b =>
