@@ -35,7 +35,7 @@ namespace ng_project.web.Controllers
 		[HttpPost]
 		public void RemoveSkill(int id)
 		{
-			projectService.RemoveObjectById<Skills,int>(id);
+			projectService.RemoveObjectById<Skill,int>(id);
 		}
 	}
 }

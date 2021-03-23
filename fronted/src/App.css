@@ -68,11 +68,11 @@
   animation: svetyash-chiysya 1s ease-in-out infinite alternate;
   }
 
-  @keyframes svetyash-chiysya {
+@keyframes svetyash-chiysya {
   from {
   text-shadow: 0 0 10px #f5f0f0, 0 0 20px #101010, 0 0 30px #101010, 0 0 40px #101010, 0 0 50px #9052ad, 0 0 60px #9052ad, 0 0 70px #9052ad;
   }
   to {
   text-shadow: 0 0 20px #f5f0f0, 0 0 30px #f54da1, 0 0 40px #f54da1, 0 0 50px #f54da1, 0 0 60px #f54da1, 0 0 70px #f54da1, 0 0 80px #f54da1;
   }
-  }
+}

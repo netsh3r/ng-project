@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ng-project.web", "ng-projec
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ng-project", "ng-project\ng-project.csproj", "{3920C839-806F-449C-88D3-CC60C26F7FE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ng_project.Web.React", "ng_project.Web.React\ng_project.Web.React.csproj", "{0A9987C9-1D09-478B-B51B-2DBA7CD926B5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{3920C839-806F-449C-88D3-CC60C26F7FE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3920C839-806F-449C-88D3-CC60C26F7FE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3920C839-806F-449C-88D3-CC60C26F7FE9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0A9987C9-1D09-478B-B51B-2DBA7CD926B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0A9987C9-1D09-478B-B51B-2DBA7CD926B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0A9987C9-1D09-478B-B51B-2DBA7CD926B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0A9987C9-1D09-478B-B51B-2DBA7CD926B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

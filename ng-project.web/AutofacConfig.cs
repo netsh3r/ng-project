@@ -26,6 +26,7 @@ namespace ng_project.web
 			//		types.Add(type);
 			//	}
 			//}
+			builder.RegisterType<SkillService>().As<ISkillService>().InstancePerLifetimeScope();
 			builder.RegisterType<ProjectService>().As<IProjectService>().InstancePerLifetimeScope();
 			builder.RegisterType<ParticipantService>().As<IParticipantService>().InstancePerLifetimeScope();
 			builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();

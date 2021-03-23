@@ -10,7 +10,8 @@ namespace ng_project.Entities
 		/// <summary>
 		/// Навыки
 		/// </summary>
-		public List<Skills> Skills { get; set; } = new List<Skills>();
+		public List<SkillsParticipant> Skills { get; set; } = new List<SkillsParticipant>();
+
 		/// <summary>
 		/// Роль в команде
 		/// </summary>

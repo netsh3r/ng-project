@@ -26,6 +26,7 @@ namespace ng_project.Managers
 				var model = db.Projects
 					.Include(t => t.News)
 					.Include(t => t.User)
+					.Include(t => t.User.Image)
 					.Include(t => t.ProjectImage)
 					.Include(t => t.MainProjectImage)
 					.FirstOrDefault(t => t.Id == id);
@@ -39,6 +40,7 @@ namespace ng_project.Managers
 			{
 				var model = db.Projects
 					.Include(t => t.User)
+					.Include(t => t.User.Image)
 					.Include(t => t.MainProjectImage)
 					.Include(t=> t.ProjectImage)
 					.ToList();

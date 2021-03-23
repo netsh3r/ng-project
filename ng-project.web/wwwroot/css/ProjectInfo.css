@@ -1,0 +1,323 @@
+﻿.project-info .body .command-page{
+	
+}
+
+	.project-info .body .command-page .name{
+		font-size:15pt;
+	}
+	.project-info .body .command-page .btn{
+		margin-top:20px;
+		font-size:13pt;
+		border-radius:0.4em;
+		padding:5px 40px;
+		color:white;
+	}
+	.project-info .body .command-page .text > textarea {
+		width: 100%;
+		height: 350px;
+		margin-top: 15px;
+		border-radius: 0.5em;
+		background: #545151;
+		/*border:1px solid black;*/
+		box-shadow: inset 0 0 14px 1px black;
+		border: none;
+		color: white;
+		padding: 15px;
+	}
+	.project-info .header .page-cover {
+		width: 100%;
+		height: 250px;
+		border-radius: 1em;
+		position: relative;
+	}
+
+	.project-info .header .page-cover img {
+		width: 100%;
+		height: 100%;
+		border-radius: 1em;
+	}
+
+.page-list-main .description {
+	width: 100%;
+	height: auto;
+	margin-top:20px;
+	border-radius:0.5em;
+}
+
+.page-list-main .creator {
+	width: 100%;
+	height: 80px;
+	border-radius: 0.5em;
+	position: relative;
+}
+	.page-list-main .creator .text img {
+		margin-left:15px;
+		width: 50px;
+		height: 50px;
+		border-radius:50%;
+		top:-10px;
+		right:-65px;
+		position:absolute;
+	}
+
+	.page-list-main .creator .text {
+		position: absolute;
+		top: 25px;
+		left: 4em;
+		font-weight: bold;
+		font-size: 12pt;
+	}
+
+	.project-info {
+		border-radius: 1em;
+		background: rgb(2,0,36);
+		background: linear-gradient(350deg, rgba(26,25,25,1) 0%, rgba(39,37,37,1) 100%);
+		height: 100%;
+	}
+	.project-info .header .page-cover .text{
+		font-size:15pt;
+		font-weight:bold;
+		position:absolute;
+		bottom:1em;
+		left:5em;
+	}
+
+	.project-info .body .pages-list-blue {
+		border-bottom: 1px solid #0DB5FD;
+	}
+		.project-info .body .pages-list-blue .active {
+			background: #0DB5FD;
+			border-radius:0.25em 0.25em 0 0;
+		}
+	.project-info .body .project-info-pages{
+		position:relative;
+		width:100%;
+	}
+		.project-info .body .project-info-pages .subscribe {
+			position: absolute;
+			right: 0;
+			top: 0;
+			border: 2px solid #0DB5FD;
+			border-radius:0.5em;
+		}
+
+			.project-info .body .project-info-pages .subscribe .block{
+				position:relative;
+				width:100%;
+				height:100%;
+			}
+				.project-info .body .project-info-pages .subscribe .block .text {
+					padding: 0.2em 1em;
+					margin-right: 40px;
+				}
+			.project-info .body .project-info-pages .subscribe .block .count {
+				position:absolute;
+				right:0;
+				width: 40px;
+				height: 100%;
+				background: linear-gradient(150deg, rgba(9,187,254,1) 0%, rgba(40,130,232,1) 100%);
+				text-align:center;
+			}
+
+	.project-info .body .page-list-info-body {
+		width: 100%;
+		margin-right: auto;
+		margin-left: auto;
+		padding-left: 5em;
+		padding-right: 5em;
+	}
+		.project-info .body .news-list .news-list-item .text {
+			padding: 10px 25px 10px 25px;
+			
+		}
+			.project-info .body .news-list .news-list-item .text .DateTime {
+				color: #5F5C5C;
+			}
+			.project-info .body .news-list .news-list-item .text .news-description {
+				display: -webkit-box;
+				-webkit-line-clamp: 3;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+			}
+			.project-info .body .page-list-info-body #carouselPageListInfoImages,
+			.project-info .body .news-list .news-list-item .carouselPageListNewsImagesMain {
+				width: 100%;
+				height: 100%;
+			}
+
+			.project-info .body .page-list-info-body #carouselPageListInfoImages .carousel-page-inner,
+			.project-info .body .news-list .news-list-item .carouselPageListNewsImagesMain .carousel-page-inner {
+				width: 100%;
+				height: 100%;
+				border-radius: 0.5em;
+			}
+
+			.project-info .body .page-list-info-body #carouselPageListInfoImages .carousel-page-list-image,
+			.project-info .body .news-list .news-list-item .carouselPageListNewsImagesMain .carousel-page-list-image {
+				width: 100%;
+				height: 100%;
+				background: red;
+			}
+
+		.project-info .body .page-list-main .image {
+			width: 100%;
+			height: 350px;
+			background: #0DB5FD;
+			border-radius: 0.5em;
+		}
+
+		.project-info .body .page-list-news .comments,
+		.project-info .body .page-list-news .top-news {
+			height: 430px;
+			width: 100%;
+			background: #2C2A2A;
+			border-radius: 1em;
+		}
+			.project-info .body .page-list-news .top-news .list-items {
+				
+				width: 100%;
+				height: 100%;
+			}
+				.project-info .body .page-list-news .top-news .list-items .top-news-item {
+					padding: 15px;
+					cursor:pointer;
+				}
+				.project-info .body .page-list-news .top-news .list-items .top-news-item:hover {
+					background: #545151;
+				}
+				.project-info .body .page-list-news .top-news .list-items .top-news-item .date-time-str {
+					color: #5F5C5C;
+				}
+					.project-info .body .page-list-news .top-news .list-items .top-news-item .top-news-border {
+						border-bottom:1px solid white;
+					}
+			.project-info .body .page-list-news .comments .text,
+			.project-info .body .page-list-news .top-news .text {
+				height: 30px;
+				border-radius: 0.5em 0.5em 0 0;
+				font-weight: bold;
+				padding-left: 20px;
+			}
+			.project-info .body .page-list-news .top-news .text 
+			{
+				text-align:center;
+			}
+			.project-info .body .page-list-news .top-news .list-items,
+			.project-info .body .page-list-news .comments .list-items {
+				width: 100%;
+				height: 400px;
+			}
+			/*.project-info .body .page-list-news .top-news .list-items {
+				background: red;
+			}*/
+			.project-info .body .page-list-news .comments .list-items .block{
+				width:100%;
+				height:100%;
+			}
+		.project-info .body .page-list-news .news .add-news .new-news-block{
+			width:100%;
+			height:30px;
+			position:relative;
+			padding:10px 0;
+		}
+			.project-info .body .page-list-news .news .add-news .new-news-block .publish-btn{
+				font-weight:bold;
+				width:125px;
+				border-radius:0.3em;
+				padding:0 5px 0 5px;
+				right:0;
+				position:absolute;
+			}
+			.project-info .body .page-list-news .news .add-news .new-news-block .set-photo {
+				font-weight: bold;
+				border-radius: 0.3em;
+				padding: 0 5px 0 5px;
+				right: 130px;
+				position: absolute;
+			}
+			.project-info .body .page-list-news .news .add-news .new-news-block .set-photo img{
+				width:30px;
+			}
+			.project-info .body .page-list-news .news .add-news .input-new-news .comment-border {
+				margin-top: 10px;
+				border-bottom: 1px solid white;
+			}
+			.project-info .body .page-list-news .news .add-news{
+				width: 100%;
+				height: auto;
+				background: #545151;
+				border-radius: 0.5em;
+				padding: 15px;
+			}
+			.project-info .body .page-list-news .news .news-list {
+				margin-top:25px;
+				width: 100%;
+				height: auto;
+			}
+				.project-info .body .page-list-news .news .news-list .news-list-item {
+					width: 100%;
+					height: 500px;
+					background: #2C2A2A;
+					border-radius: 1em;
+					margin-bottom:25px;
+				}
+
+					.project-info .body .page-list-news .news .news-list .news-list-item .images {
+						width: 100%;
+						height: 350px;
+						background: #0DB5FD;
+						border-radius: 0.5em;
+					}
+			/*.project-info .body .page-list-news .news .add-news .input-new-news{
+				width:100%;
+				height:90px;
+			}*/
+			.project-info .body .page-list-news .comments .list-items .block .comment-input {
+				padding: 15px;
+			}
+				.project-info .body .page-list-news .comments .list-items .block .comment-input input,
+				.project-info .body .page-list-news .news .add-news textarea {
+					width: 100%;
+					background: #545151;
+					border-radius: 0.5em;
+					border: 0;
+					padding-left: 15px;
+					color: white;
+				}
+				.project-info .body .page-list-news .news .add-news textarea {
+					height:80px;
+				}
+				.project-info .body .page-list-news .news {
+					width: 100%;
+					height: auto;
+					/*background:red;*/
+				} 
+
+				.project-info .body .page-list-news .comments .list-items .block .item-overflow {
+					padding:0 15px 15px 15px;
+					overflow-x: auto;
+					height:345px;
+				}
+
+				.project-info .body .page-list-news .comments .list-items .block .item {
+					margin-top: 15px;
+					width: 100%;
+					height: 50px;
+				}
+				.project-info .body .page-list-news .user-img
+				{
+					width:50px;
+					height:50px;
+					border-radius:50%;
+				}
+					.project-info .body .page-list-news .add-news .user-img {
+						width: 40px;
+						height: 40px;
+					}
+					.project-info .body .page-list-news .comments .list-items .block .item .user-name {
+						color: #646161;
+					}
+				.project-info .body .page-list-news .comments .list-items .block .item .comment-border {
+					margin-top: 5px;
+					border-bottom: 1px solid #646161;
+				}

@@ -4,29 +4,93 @@
 
 @model List<Participant>
 
-@foreach(Roles role in Enum.GetValues(typeof(Roles)))
-{
-<div>
-	
-<div class="container-fluid">
-	<div class="my-3 p-3 bg-white rounded shadow-sm">
-		<h6 class="border-bottom border-gray pb-2 mb-0">@(role)</h6>
-		@foreach (var participant in Model.Where(t => t.Roles == role))
-		{
-			<div class="media text-muted pt-3">
-				<svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"></rect><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
-				<div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-					<div class="d-flex justify-content-between align-items-center w-100">
-						<strong class="text-gray-dark">@(participant.User.FirstName) @(participant.User.LastName)</strong>
-						<a asp-area="" asp-controller="Participant" asp-action="Index">Follow</a>
+<link rel="stylesheet" href="~/css/Project.css" />
+<link rel="stylesheet" href="~/css/Participant.css" />
+<div class="participant">
+
+	<div class="container-fluid pl-5 pr-5">
+		<div class="project-type">
+			<div class="d-flex flex-nowrap">
+				<div class="project-type-item select">
+					<div class="icon">
+						<img src="~/images/icon/game.png" />
 					</div>
-					<span class="d-block"></span>
+					<div class="text">
+						ИГРЫ
+					</div>
+				</div>
+				<div class="project-type-item">
+					<div class="icon">
+						<img src="~/images/icon/music.png" />
+					</div>
+					<div class="text">
+						МУЗЫКА
+					</div>
+				</div>
+				<div class="project-type-item">
+					<div class="icon">
+						<img src="~/images/icon/study.png" />
+					</div>
+					<div class="text">
+						ОБРАЗОВАНИЕ
+					</div>
 				</div>
 			</div>
-		}
 		</div>
+		<div class="row mt-5">
+			<div class="col-4">
+				<div class="participant-item">
+					<div class="opacityBackground">
+						<div class="block BlueTheme">
+							<div class="name">
+								ПРОГРАММИСТЫ
+							</div>
+							<div class="count">
+								количество участников: 10
+							</div>
+						</div>
+					</div>
+					
+					<div class="description">
+						Отвечают за написание кода
+					</div>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="participant-item">
+					<div class="block OrangeTheme">
+						<div class="name">
+							ПРОГРАММИСТЫ
+						</div>
+						<div class="count">
+							количество участников: 10
+						</div>
+					</div>
+					<div class="description">
+						Отвечают за написание кода
+					</div>
+				</div>
+			</div>
+			<div class="col-4">
+				<div class="participant-item">
+					<div class="block RedTheme">
+						<div class="name">
+							ПРОГРАММИСТЫ
+						</div>
+						<div class="count">
+							количество участников: 10
+						</div>
+					</div>
+					<div class="description">
+						Отвечают за написание кода
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </div>
-	
-</div>
+@foreach (Roles role in Enum.GetValues(typeof(Roles)))
+{
 }
 

@@ -12,14 +12,17 @@ namespace ng_project.web.Controllers
 {
 	public class UserController : Controller
 	{
-		public UserController(INgMainService service, IUserService userService, IProjectService projectService)
+		public UserController(INgMainService service, IUserService userService, IProjectService projectService,
+			ISkillService skillService)
 		{
 			this.NgProjectService = service;
 			this.userService = userService;
 			this.projectService = projectService;
+			this.skillService = skillService;
 		}
 
 		#region Services
+		private ISkillService skillService;
 		private INgMainService NgProjectService;
 		private IUserService userService;
 		private IProjectService projectService;

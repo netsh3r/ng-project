@@ -30,5 +30,18 @@ namespace ng_project.Managers
 				return model;
 			}
 		}
+		public override ICollection<Participant> FindAll(Func<Participant, bool> func)
+		{
+			using (var db = new NgContext())
+			{
+				var model = db.Participants
+					.Include(t => t.Skills)
+					.Include(t => t.User)
+					.Include(t=> t.Skills)
+					.Where(func)
+					.ToList();
+				return model;
+			}
+		}
 	}
 }

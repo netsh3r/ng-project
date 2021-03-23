@@ -222,7 +222,7 @@ namespace ng_project.Migrations
                     b.ToTable("ProjectParticipant");
                 });
 
-            modelBuilder.Entity("ng_project.Entities.Skills", b =>
+            modelBuilder.Entity("ng_project.Entities.Skill", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -232,14 +232,31 @@ namespace ng_project.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.HasKey("Id");
+
+                    b.ToTable("Skills");
+                });
+
+            modelBuilder.Entity("ng_project.Entities.SkillsParticipant", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<int>("ParticipantId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SkillId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ParticipantId");
 
-                    b.ToTable("Skills");
+                    b.HasIndex("SkillId");
+
+                    b.ToTable("SkillsParticipants");
                 });
 
             modelBuilder.Entity("ng_project.Entities.User", b =>
@@ -365,7 +382,7 @@ namespace ng_project.Migrations
                     b.HasOne("ng_project.Entities.Project", "Project")
                         .WithMany("ProjectParticipant")
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Participant");
@@ -373,7 +390,7 @@ namespace ng_project.Migrations
                     b.Navigation("Project");
                 });
 
-            modelBuilder.Entity("ng_project.Entities.Skills", b =>
+            modelBuilder.Entity("ng_project.Entities.SkillsParticipant", b =>
                 {
                     b.HasOne("ng_project.Entities.Participant", "Participant")
                         .WithMany("Skills")
@@ -381,7 +398,15 @@ namespace ng_project.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ng_project.Entities.Skill", "Skill")
+                        .WithMany("Participant")
+                        .HasForeignKey("SkillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Participant");
+
+                    b.Navigation("Skill");
                 });
 
             modelBuilder.Entity("ng_project.Entities.News", b =>
@@ -405,6 +430,11 @@ namespace ng_project.Migrations
                     b.Navigation("ProjectImage");
 
                     b.Navigation("ProjectParticipant");
+                });
+
+            modelBuilder.Entity("ng_project.Entities.Skill", b =>
+                {
+                    b.Navigation("Participant");
                 });
 
             modelBuilder.Entity("ng_project.Entities.User", b =>

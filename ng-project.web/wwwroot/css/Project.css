@@ -1,0 +1,79 @@
+﻿.project-item{
+	cursor:pointer;
+}
+
+.project-item .project-text-block .profile-img {
+	background: #0DB5FD;
+	width: 3.5em;
+	height: 3.5em;
+	border-radius: 50%;
+}
+
+.project-item .project-text-block .profile-img img{
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+.project-item .project-text-block .project-creator-name {
+	color: #7D7D7D;
+	font-size:13pt;
+}
+.project-item .project-text-block .project-name {
+	font-weight:bold;
+	font-size:15pt;
+}
+
+.project-sub-type .project-type-item,
+.project-type .project-type-item {
+	margin-right: 20px;
+	background: #3e3c3c;
+	padding: 1em 0;
+	width:135px;
+	border-radius: 1em;
+	cursor: pointer;
+}
+
+.project-sub-type .select,
+.project-type .select {
+	background: #5b5858;
+}
+
+.project-sub-type .project-type-item {
+	padding: 0.5em 2em;
+	border-radius: 0.7em;
+}
+
+.project-sub-type .project-type-item:hover,
+.project-type .project-type-item:hover {
+	background: #5b5858;
+}
+.project-type .project-type-item .text{
+	display:none;
+}
+.project-type .project-type-item:hover .text {
+	display: block;
+}
+	.project-sub-type .project-type-item .text,
+	.project-type .project-type-item .text {
+		text-align: center;
+	}
+
+	.project-type .project-type-item .icon {
+		display: flex;
+		justify-content: center;
+	}
+	.project-type .project-type-item .icon img {
+		width: 2.5em;
+	}
+
+.project-card{
+	height:15em;
+	width:100%;
+	border-radius:1em;
+}
+
+.project-card img{
+	height: 100%;
+	width: 100%;
+	border-radius: 1em;
+}

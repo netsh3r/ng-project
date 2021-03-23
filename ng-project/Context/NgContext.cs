@@ -8,6 +8,8 @@ namespace ng_project.Context
 {
 	public class NgContext : DbContext
 	{
+		public DbSet<SkillsParticipant> SkillsParticipants { get; set; }
+		public DbSet<Skill> Skills { get; set; }
 		public DbSet<NewsImage> NewsImages { get; set; }
 		public DbSet<User> Users { get; set; }
 		public DbSet<Project> Projects { get; set; }

@@ -5,186 +5,32 @@
 @{
     ViewData["Title"] = "Домашняя страница";
 }
+<link rel="stylesheet" href="~/css/Home.css" />
+<div class="mt-3">
+	<div class="container">
+		<div class="Home">
+			<div>
+				@Html.Partial("Home/_MainViewImage")
+			</div>
+			<div class=" mt-5">
+				@Html.Partial("Home/_MainViewPosition")
+			</div>
+			<div class="mt-5">
 
-<!-- Главня информация -->
-<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-	<div class="col-md-5 p-lg-5 mx-auto my-5">
-		<h1 class="display-4 fw-normal">NG PROJECT</h1>
-		<p class="lead fw-normal">Создай свой проект, расскажи о нем людям и найди единомышленников</p>
-		<a class="btn btn-outline-secondary" href="#">Подробнее</a>
+			</div>
+		</div>
 	</div>
-	<div class="product-device shadow-sm d-none d-md-block"></div>
-	<div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
 </div>
 
-<div>
-	<div class="row m-1">
-		<div class="col-md-6 text-center">
-			<div class="btn-light">
-				<div class="my-3 py-3">
-					<h2 class="display-5">Создатель</h2>
-					<p class="lead">Расскажи о своем проект</p>
-				</div>
-				<div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-			</div>
-		</div>
-		<div class="col-md-6 text-center">
-			<div class="btn-light">
-				<div class="my-3 py-3">
-					<h2 class="display-5">Участник</h2>
-					<p class="lead">Стань частью чего-то нового</p>
-				</div>
-				<div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
-			</div>
 
-		</div>
-	</div>
-	<div class="text-center mb-lg-3 mt-lg-4">
-		<p class="lead fw-normal border-bottom" style="font-size:30px;">Последние записи</p>
-	</div>
-	<div class="container-fluid pl-4 pr-4">
-		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-			@for(int i= Model.Count-1; i>=0 && i> Model.Count-7; i--)
-			{
-			<div class="col-md-4">
-				<div class="page-link border-0">
-					<div class="card shadow-sm">
-						
-						@*@if (Model[i].MainProjectImage != null && Model[i].MainProjectImage.Data != null)
-						{
-							<img style='width:100%; height:225px' src="data:image/jpeg;base64,@(Convert.ToBase64String(Model[i].MainProjectImage.Data))" />
-						}
-						else
-						{
-							<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-						}*@
-						<div class="card-body">
-							<p class="card-text">@(Model[i].ShortDescription)</p>
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="btn-group">
-									@*<button type="button" class="btn btn-sm btn-outline-secondary">View</button>*@
-									<a asp-action="Info" asp-controller="Project" asp-route-id="@(Model[i].Id)" class="btn btn-sm btn-outline-secondary">View</a>
-									@if (Model[i].User.login == User.Identity.Name)
-									{
-										@*<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>*@
-										<a asp-action="Edit" asp-controller="Project" asp-route-id="@(Model[i].Id)" class="btn btn-sm btn-outline-secondary">Edit</a>
-									}
-
-								</div>
-								<small class="text-muted">9 mins</small>
-								@(Model[i].User.login)
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			}
-		</div>
-	</div>
-			@*<div class="container-fluid pl-4 pr-4">
-					<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-						<div class="col-md-4">
-							<div class="card shadow-sm">
-								<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-								<div class="card-body">
-									<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-									<div class="d-flex justify-content-between align-items-center">
-										<div class="btn-group">
-											<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-											<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-										</div>
-										<small class="text-muted">9 mins</small>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="card shadow-sm">
-								<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-								<div class="card-body">
-									<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-									<div class="d-flex justify-content-between align-items-center">
-										<div class="btn-group">
-											<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-											<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-										</div>
-										<small class="text-muted">9 mins</small>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="card shadow-sm">
-								<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-								<div class="card-body">
-									<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-									<div class="d-flex justify-content-between align-items-center">
-										<div class="btn-group">
-											<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-											<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-										</div>
-										<small class="text-muted">9 mins</small>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-						<div class="col-md-4">
-							<div class="card shadow-sm">
-								<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-								<div class="card-body">
-									<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-									<div class="d-flex justify-content-between align-items-center">
-										<div class="btn-group">
-											<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-											<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-										</div>
-										<small class="text-muted">9 mins</small>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="card shadow-sm">
-								<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-								<div class="card-body">
-									<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-									<div class="d-flex justify-content-between align-items-center">
-										<div class="btn-group">
-											<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-											<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-										</div>
-										<small class="text-muted">9 mins</small>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="card shadow-sm">
-								<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-
-								<div class="card-body">
-									<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-									<div class="d-flex justify-content-between align-items-center">
-										<div class="btn-group">
-											<button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-											<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-										</div>
-										<small class="text-muted">9 mins</small>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-
-				</div>*@
-
-		</div>
+<script>
+	$('.Right').hover(() =>
+	{
+		$('.Main-view-participant').show();
+		$('.Main-view-Creator').hide();
+	})
+	$('.Left').hover(() => {
+		$('.Main-view-participant').hide();
+		$('.Main-view-Creator').show();
+	})
+</script>

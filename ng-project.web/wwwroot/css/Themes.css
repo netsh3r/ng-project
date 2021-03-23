@@ -1,0 +1,61 @@
+﻿.BlueTheme {
+	background: #0DB5FD;
+	background: linear-gradient(150deg, rgba(9,187,254,1) 0%, rgba(40,130,232,1) 100%) !important;
+}
+
+.OrangeTheme {
+	background: #FDA588;
+	background: linear-gradient(150deg, rgba(253,145,93,1) 0%, rgba(254,97,150,1) 100%) !important;
+}
+
+.RedTheme {
+	background: #E16570;
+	background: linear-gradient(150deg, rgba(255,136,124,1) 0%, rgba(182,50,95,1) 100%) !important;
+}
+
+.BlueThemeColor {
+	background: #0DB5FD;
+}
+
+.BtnBorderBlue {
+	border: 1px solid #0DB5FD;
+}
+.BtnBorderOrange {
+	border: 1px solid #FDA588;
+}
+.BtnBorderRed {
+	border: 1px solid #E16570;
+}
+
+::-webkit-scrollbar-button {
+	background-image: url('');
+	background-repeat: no-repeat;
+	width: 6px;
+	height: 0px
+}
+
+::-webkit-scrollbar-track {
+	background-color: #E6E6E6;
+	box-shadow: 0px 0px 3px #000 inset;
+}
+
+::-webkit-scrollbar-thumb {
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background-color: #727272;
+	box-shadow: 0px 1px 1px #fff inset;
+	background-image: url('https://yraaa.ru/_pu/24/59610063.png');
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+::-webkit-resizer {
+	background-image: url('');
+	background-repeat: no-repeat;
+	width: 7px;
+	height: 0px
+}
+
+::-webkit-scrollbar {
+	width: 11px;
+}

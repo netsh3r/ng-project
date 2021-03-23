@@ -18,5 +18,9 @@ namespace ng_project.Services
 		{
 			return participantManager.FindAll().ToList();
 		}
+		//public List<Participant> FindAll(Func<Participant,bool> func)
+		//{
+
+		//}
 	}
 }

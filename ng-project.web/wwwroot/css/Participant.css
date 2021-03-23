@@ -1,0 +1,44 @@
+﻿.participant {
+	width: 100%;
+	min-height: calc(100vh - 100px);
+}
+
+	.participant .participant-item {
+		height: 350px;
+		width: 100%;
+		cursor: pointer;
+	}
+.opacityBackground {
+	background: white;
+	height: 300px;
+	border-radius: 0.8em;
+}
+		.participant .participant-item:hover .block{
+			opacity:.7;
+		}
+		.participant .participant-item .block {
+			
+			height: 300px;
+			border-radius: 0.8em;
+			position: relative;
+			text-align: center;
+		}
+		.participant .participant-item .description{
+			padding-top:10px;
+			text-align:center;
+			font-size:15pt;
+		}
+
+		.participant .participant-item .block .name {
+			width: 100%;
+			position: absolute;
+			font-size: 25pt;
+			top: 2em;
+		}
+
+			.participant .participant-item .block .count {
+				width: 100%;
+				position: absolute;
+				top: 7em;
+				font-size:20pt;
+			}
