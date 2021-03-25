@@ -8,8 +8,8 @@ namespace ng_project.Entities.interfaces
 	/// Базовый интерфейс сущности
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	interface IEntityBase<T>
+	interface IEntityBase
 	{
-		T Id { get; set; }
+		int Id { get; set; }
 	}
 }

@@ -17,7 +17,7 @@ namespace ng_project.Managers
 		/// Удалить запись из бд
 		/// </summary>
 		/// <param name="id"></param>
-		void Delete(IdT id);
+		void Delete(int id);
 		/// <summary>
 		/// Изменить значение сущности
 		/// </summary>
@@ -28,7 +28,7 @@ namespace ng_project.Managers
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		T FindById(IdT id);
+		T FindById(int id);
 		/// <summary>
 		/// Получить все данные из бд
 		/// </summary>

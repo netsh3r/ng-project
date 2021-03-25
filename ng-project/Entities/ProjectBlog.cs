@@ -7,7 +7,7 @@ namespace ng_project.Entities
 	/// <summary>
 	/// Блог проекта
 	/// </summary>
-	public class ProjectBlog : Entity<long>
+	public class ProjectBlog : Entity
 	{
 		/// <summary>
 		/// Заголовок

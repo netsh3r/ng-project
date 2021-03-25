@@ -7,7 +7,7 @@ namespace ng_project.Entities
 	/// <summary>
 	/// Навыки
 	/// </summary>
-	public class Skill:Entity<int>
+	public class Skill:Entity
 	{
 		/// <summary>
 		/// Наименование навыка

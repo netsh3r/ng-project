@@ -10,7 +10,7 @@ namespace ng_project.Entities
 	/// <summary>
 	/// Сущность пользователь
 	/// </summary>
-	public class User : Entity<int>
+	public class User : Entity
 	{
 		/// <summary>
 		/// Ссылка на сущность типа подписчик
@@ -63,6 +63,6 @@ namespace ng_project.Entities
 		/// <summary>
 		/// Список созданных проектов пользователя
 		/// </summary>
-		public List<Project> Projects { get; set; }
+		public List<Project> Projects { get; set; } = new List<Project>();
 	}
 }

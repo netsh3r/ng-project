@@ -7,7 +7,7 @@ namespace ng_project.Entities
 	/// <summary>
 	/// Подписчик
 	/// </summary>
-	public class Subscriber : Entity<int>
+	public class Subscriber : Entity
 	{
 		/// <summary>
 		/// Ссылка на пользователя

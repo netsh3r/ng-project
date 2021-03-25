@@ -10,6 +10,8 @@ namespace ng_project.Services
 	/// </summary>
 	public interface IBaseService<T, IdT>
 	{
+		ICollection<T> FindAllWithIncude(Func<object, bool> func);
+		T FindByFuncWithInclude(Expression<Func<object, bool>> func);
 		IBaseService<T, IdT> GetWithInclude(Expression<Func<T, object>> expression);
 		/// <summary>
 		/// Найти всех участников
@@ -28,7 +30,7 @@ namespace ng_project.Services
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		T FindById(IdT id);
+		T FindById(int id);
 		/// <summary>
 		/// Найти сущность по особому условию
 		/// </summary>

@@ -24,19 +24,19 @@ namespace ng_project.Services
 		private UserManager UserManager;
 		private ProjectManager ProjectManager;
 		#endregion
-		public T FindByFunc<T, IdT>(Func<T, bool> func) where T : Entity<IdT>, new()
+		public T FindByFunc<T, IdT>(Func<T, bool> func) where T : Entity, new()
 		{
 			return EntityManager<T, IdT>.Instance.Find(func);
 		}
-		public T GetById<T,IdT>(IdT id) where T : Entity<IdT>, new()
+		public T GetById<T,IdT>(int id) where T : Entity, new()
 		{
 			return EntityManager<T, IdT>.Instance.FindById(id);
 		}
-		public ICollection<T> GetAll<T,IdT>() where T:Entity<IdT>, new()
+		public ICollection<T> GetAll<T,IdT>() where T:Entity, new()
 		{
 			return EntityManager<T,IdT>.Instance.FindAll();
 		}
-		public ICollection<T> GetAll<T,IdT>(Func<T,bool> expression) where T:Entity<IdT>, new()
+		public ICollection<T> GetAll<T,IdT>(Func<T,bool> expression) where T:Entity, new()
 		{
 			return EntityManager<T,IdT>.Instance.FindAll(expression);
 		}
@@ -72,17 +72,17 @@ namespace ng_project.Services
 			ProjectManager.Add(project);
 		}
 
-		public void Add<T, IdT>(T model) where T : Entity<IdT>, new()
+		public void Add<T, IdT>(T model) where T : Entity, new()
 		{
 			EntityManager<T, IdT>.Instance.Add(model);
 		}
 
-		public void Save<T, IdT>(T model) where T : Entity<IdT>, new()
+		public void Save<T, IdT>(T model) where T : Entity, new()
 		{
 			EntityManager<T, IdT>.Instance.Save(model);
 		}
 
-		public void RemoveObjectById<T, IdT>(IdT id) where T : Entity<IdT>, new()
+		public void RemoveObjectById<T, IdT>(int id) where T : Entity, new()
 		{
 			EntityManager<T, IdT>.Instance.Delete(id);
 		}

@@ -10,12 +10,12 @@ namespace ng_project.Entities
 	/// Основной класс сущности
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	public class Entity<T> : BaseEntity<T>
+	public class Entity : BaseEntity
 	{
 		/// <summary>
 		/// Generic идентификатор
 		/// </summary>
 		[Key]
-		public override T Id { get; set; }
+		public override int Id { get; set; }
 	}
 }

@@ -8,7 +8,7 @@ namespace ng_project.Models
 {
 	public class ExpressionEntity
 	{
-		public void SetExpression<T,TProperty>(Expression<Func<T, TProperty>> expression) where T:Entity<int>,new() where TProperty : Entity<int>,new()
+		public void SetExpression<T,TProperty>(Expression<Func<T, TProperty>> expression) where T:Entity,new() where TProperty : Entity,new()
 		{
 			this.localExpression = expression;
 			//this.ModelType = typeof(T);

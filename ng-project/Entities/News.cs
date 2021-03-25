@@ -7,7 +7,7 @@ namespace ng_project.Entities
     /// <summary>
     /// Новости проекта
     /// </summary>
-    public class News : Entity <int>
+    public class News : Entity
     {
         /// <summary>
         /// Изображения новости

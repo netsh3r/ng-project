@@ -8,7 +8,7 @@ using System.Text;
 
 namespace ng_project.Services
 {
-	public abstract class MainService<T, IdT> : BaseService<T, IdT> where T : Entity<IdT>, new()
+	public abstract class MainService<T, IdT> : BaseService<T, IdT> where T : Entity, new()
 	{
 		public MainService(){
 			this.entityManager = EntityManager<T, IdT>.Instance;
@@ -20,6 +20,14 @@ namespace ng_project.Services
 			return this;
 		}
 		private EntityManager<T, IdT> entityManager { get; set; }
+		public override T FindByFuncWithInclude(Expression<Func<object, bool>> func)
+		{
+			return entityManager.Find(ExpressionObject, func);
+		}
+		public override ICollection<T> FindAllWithIncude(Func<object, bool> func)
+		{
+			return entityManager.FindAll(ExpressionObject, func);
+		}
 		public override ICollection<T> FindAll()
 		{
 			if(ExpressionObject != null)
@@ -33,13 +41,13 @@ namespace ng_project.Services
 		{
 			return entityManager.FindAll(func);
 		}
-
+		
 		public override T FindByFunc(Func<T, bool> func)
 		{
 			return entityManager.Find(func);
 		}
 
-		public override T FindById(IdT id)
+		public override T FindById(int id)
 		{
 			return entityManager.FindById(id);
 		}

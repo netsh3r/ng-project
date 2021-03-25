@@ -1,0 +1,33 @@
+﻿@using ng_project.Entities;
+@using ng_project.Entities.Enum;
+
+@model User;
+
+<div>
+	Проекты:
+</div>
+<div class="row mb-lg-3">
+	@for (int projectIndex = 0; projectIndex < Model.Projects.Count; projectIndex++)
+	{
+		<input type="hidden" name="Projects[projectIndex].Id" value="@(Model.Projects[projectIndex].Id)" />
+		<div class="col-6 mt-3" onclick="window.location.href='@Url.Action("Info","Project",new { id=Model.Projects[projectIndex].Id})'">
+			<div class="project-item-block">
+				<div class="project-item">
+					@{
+						var hasImage = Model.Projects[projectIndex].MainProjectImage != null && Model.Projects[projectIndex].MainProjectImage.Data != null;
+					}
+					<div class="project-card @(hasImage ? "": "BlueTheme")">
+						@if (hasImage)
+						{
+							<img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Projects[projectIndex].MainProjectImage.Data))" />
+						}
+						<div class="name">
+							@(Model.Projects[projectIndex].Name)
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	}
+</div>

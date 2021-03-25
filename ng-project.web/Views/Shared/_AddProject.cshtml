@@ -6,8 +6,8 @@
 {*@
 <form method="post" asp-action="Add" asp-controller="Project">
 	<input type="hidden" name="UserId" value="@(Model.Id)" />
-	<div class="modal-dialog">
-		<div class="modal-content">
+	<div class="modal-dialog ">
+		<div class="modal-content OrangeTheme">
 			<div class="modal-header">
 				<h5 class="modal-title" id="staticBackdropLabel">Создать проект</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -15,6 +15,8 @@
 				</button>
 			</div>
 			<div class="modal-body">
+				<label for="ProjectType.Name">Тип проекта</label>
+				<input name="ProjectType.Name" class="form-control" value=""/>
 				<label for="Name">Название проекта</label>
 				<input name="Name" type="text" class="form-control" value="" />
 				<label for="Description">Описание проекта</label>

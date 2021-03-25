@@ -6,9 +6,9 @@ using System.Text;
 namespace ng_project.Entities
 {
 	//</inheritdoc>
-	public abstract class BaseEntity<T> : IEntityBase<T>
+	public abstract class BaseEntity : IEntityBase
 	{
 		//</inheritdoc>
-		public abstract T Id { get; set; }
+		public abstract int Id { get; set; }
 	}
 }

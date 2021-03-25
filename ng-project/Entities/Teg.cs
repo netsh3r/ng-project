@@ -7,7 +7,7 @@ namespace ng_project.Entities
 	/// <summary>
 	/// Обозначение новости
 	/// </summary>
-	public class Teg :Entity<int>
+	public class Teg :Entity
 	{
 		/// <summary>
 		/// Название

@@ -47,9 +47,18 @@ namespace ng_project.web.Controllers
 				login = t.login,
 				Password = t.Password,
 				Projects = t.Projects,
-				Subscriber = t.Subscriber,
-				Worker = t.Worker
-			}).FindByFunc(t => t.login == User.Identity.Name);
+				Subscriber = new Subscriber()
+				{
+					Id = t.Subscriber.Id,
+					Projects = t.Subscriber.Projects
+				},
+				Worker = new Worker()
+				{
+					Id = t.Worker.Id,
+					Projects = t.Worker.Projects,
+					Skills = t.Worker.Skills
+				}
+			}).FindByFuncWithInclude(t => (t as User).login == User.Identity.Name);
 			return View("Edit",user);
 		}
 		public IActionResult Profile(int? id)

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ng_project.Entities
 {
-	public class Roles : Entity<int>
+	public class Roles : Entity
 	{
 		public string Name { get; set; }
 	}

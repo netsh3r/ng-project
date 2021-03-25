@@ -7,7 +7,7 @@ namespace ng_project.Entities
 	/// <summary>
 	/// тип проекта
 	/// </summary>
-	public class ProjectType : Entity<int>
+	public class ProjectType : Entity
 	{
 		/// <summary>
 		/// Название проекта

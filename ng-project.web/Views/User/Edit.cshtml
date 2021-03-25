@@ -11,92 +11,49 @@
 	<form asp-action="SaveUser" asp-controller="User" method="post" enctype="multipart/form-data">
 		<div class="container-fluid">
 			@Html.HiddenFor(t => t.Id)
-			@*@Html.HiddenFor(t => t.Participant.Id)*@
+			@Html.HiddenFor(t => t.Worker.Id)
+			@Html.HiddenFor(t=> t.Subscriber.Id)
+			@Html.HiddenFor(t=> t.Creator.Id)
 			@Html.HiddenFor(t => t.Email.Id)
 			@Html.HiddenFor(t => t.Email.UserId)
 			<div class="row justify-content-center">
 				<div class="col-md-6">
 					<div class="row">
-						<div class="col-md-6">
-							@Html.LabelFor(m => m.login)
-							@Html.EditorFor(m => m.login, new { htmlAttributes = new { @class = "form-control" } })
-						</div>
-						<div class="col-md-6">
-							@Html.LabelFor(m => m.Password)
-							@Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "form-control" } })
-						</div>
-						<div class="col-md-6">
-							@Html.LabelFor(m => m.FirstName)
-							@Html.EditorFor(m => m.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-						</div>
-						<div class="col-md-6">
-							@Html.LabelFor(m => m.LastName)
-							@Html.EditorFor(m => m.LastName, new { htmlAttributes = new { @class = "form-control" } })
-						</div>
-						<div class="col-md-12">
-							@Html.LabelFor(m => m.Email)
-							@Html.EditorFor(m => m.Email.EmailString, new { htmlAttributes = new { @class = "form-control" } })
-						</div>
+						@Html.Partial("User/_Main")
 						@*<div class="col-md-12">
 							<label asp-for="Participant.Roles">Роль</label>
 							<select class="custom-select" asp-for="Participant.Roles" asp-items="Html.GetEnumSelectList<Roles>()"></select>
 						</div>*@
 						<div class="col-md-12 mt-3">
-							<span>Навыки:</span>
-							<div class="input-group">
-								<input name="new-skill" type="text" class="form-control" value="" placeholder="Введите название навыка"/>
-                                <span class="input-group-text add-skills-btn BlueThemeColor addSkills">
-                                	Добавить
-                                </span>
-							</div>
-							
-                            	
-							<div class="row participant-skills">
-								@*@if (Model.Participant != null)
-								{
-									<div>
-										<div>
-											@for (int skillIndex = 0; skillIndex < Model.Participant.Skills.Count; skillIndex++)
-											{
-												<input type="hidden" name="" value="@(Model.Participant.Skills[skillIndex].Id)"/>
-												<input type="hidden" name="" value="@(Model.Participant.Skills[skillIndex].ParticipantId)" />
-												<input type="hidden" name="" value="@(Model.Participant.Skills[skillIndex].SkillId)" />                                                                                          
-												<div class="participant-skill-item">
-	                                                <span>c#</span>
-	                                            </div>
-											}
-										</div>
-									</div>
-								}*@
-								
-							</div>
+							@Html.Partial("User/Skills")
 							<div>
 
-
+								@Html.Partial("User/Projects")
 
 								<div id="anotherSkills">
 
 								</div>
+								
 								<div>
-									Проекты:
+									Проекты, в которых вы являетесь участником:
 								</div>
 								<div class="row mb-lg-3">
-									@for (int projectIndex = 0; projectIndex < Model.Projects.Count; projectIndex++)
+									@for (int projectIndex = 0; projectIndex < Model.Worker.Projects.Count; projectIndex++)
 									{
-										<input type="hidden" name="Projects[projectIndex].Id" value="@(Model.Projects[projectIndex].Id)" />
-										<div class="col-6 mt-3" onclick="window.location.href='@Url.Action("Info","Project",new { id=Model.Projects[projectIndex].Id})'">
+										<input type="hidden" name="Participant.Projects[projectIndex].Id" value="@(Model.Worker.Projects[projectIndex].Id)" />
+										<div class="col-6 mt-3" onclick="window.location.href='@Url.Action("Info","Project",new { id=Model.Worker.Projects[projectIndex].Id})'">
 											<div class="project-item-block">
 												<div class="project-item">
 													@{
-														var hasImage = Model.Projects[projectIndex].MainProjectImage != null && Model.Projects[projectIndex].MainProjectImage.Data != null;
+														var hasImage = Model.Worker.Projects[projectIndex].MainProjectImage != null && Model.Worker.Projects[projectIndex].MainProjectImage.Data != null;
 													}
 													<div class="project-card @(hasImage ? "": "BlueTheme")">
 														@if (hasImage)
 														{
-															<img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Projects[projectIndex].MainProjectImage.Data))" />
+															<img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Worker.Projects[projectIndex].MainProjectImage.Data))" />
 														}
 														<div class="name">
-															@(Model.Projects[projectIndex].Name)
+															@(Model.Worker.Projects[projectIndex].Name)
 														</div>
 													</div>
 												</div>
@@ -105,67 +62,11 @@
 										</div>
 									}
 								</div>
-								<div>
-									Проекты, в которых вы являетесь участником:
-								</div>
-								<div class="row mb-lg-3">
-									@*@for (int projectIndex = 0; projectIndex < Model.Participant.Projects.Count; projectIndex++)
-									{
-										<input type="hidden" name="Participant.Projects[projectIndex].Id" value="@(Model.Participant.Projects[projectIndex].Id)" />
-										<div class="col-6 mt-3" onclick="window.location.href='@Url.Action("Info","Project",new { id=Model.Participant.Projects[projectIndex].Id})'">
-											<div class="project-item-block">
-												<div class="project-item">
-													@{
-														var hasImage = Model.Participant.Projects[projectIndex].MainProjectImage != null && Model.Participant.Projects[projectIndex].MainProjectImage.Data != null;
-													}
-													<div class="project-card @(hasImage ? "": "BlueTheme")">
-														@if (hasImage)
-														{
-															<img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Participant.Projects[projectIndex].MainProjectImage.Data))" />
-														}
-														<div class="name">
-															@(Model.Participant.Projects[projectIndex].Name)
-														</div>
-													</div>
-												</div>
-											</div>
-
-										</div>
-									}*@
-								</div>
-								<div>
-									Подписки:
-								</div>
-								<div class="row mb-lg-3">
-									@*@for (int projectIndex = 0; projectIndex < Model.Subscriber.Projects.Count; projectIndex++)
-									{
-										<input type="hidden" name="Subscriber.Projects[projectIndex].Id" value="@(Model.Subscriber.Projects[projectIndex].Id)" />
-										<div class="col-6 mt-3" onclick="window.location.href='@Url.Action("Info","Project",new { id=Model.Subscriber.Projects[projectIndex].Id})'">
-											<div class="project-item-block">
-												<div class="project-item">
-													@{
-														var hasImage = Model.Subscriber.Projects[projectIndex].MainProjectImage != null && Model.Subscriber.Projects[projectIndex].MainProjectImage.Data != null;
-													}
-													<div class="project-card @(hasImage ? "": "BlueTheme")">
-														@if (hasImage)
-														{
-															<img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Subscriber.Projects[projectIndex].MainProjectImage.Data))" />
-														}
-														<div class="name">
-															@(Model.Subscriber.Projects[projectIndex].Name)
-														</div>
-													</div>
-												</div>
-											</div>
-
-										</div>
-									}*@
-								</div>
+								@Html.Partial("User/SubscribeProjects")
 							</div>
 						</div>
 					</div>
 					<div class="mt-2 d-flex d-inline">
-						@* <span class="btn btn-info addSkills mr-2">Добавить навык</span> *@
 						<button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#addProject">
 							Добавить проект
 						</button>

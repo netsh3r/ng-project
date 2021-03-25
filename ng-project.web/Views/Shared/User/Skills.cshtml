@@ -1,0 +1,33 @@
+﻿@using ng_project.Entities;
+@using ng_project.Entities.Enum;
+
+@model User;
+
+<span>Навыки:</span>
+<div class="input-group">
+	<input name="new-skill" type="text" class="form-control" value="" placeholder="Введите название навыка" />
+	<span class="input-group-text add-skills-btn BlueThemeColor addSkills">
+		Добавить
+	</span>
+</div>
+
+
+<div class="row participant-skills">
+	@*@if (Model.Worker != null)
+		{
+			<div>
+				<div>
+					@for (int skillIndex = 0; skillIndex < Model.Worker.Skills.Count; skillIndex++)
+					{
+						<input type="hidden" name="" value="@(Model.Worker.Skills[skillIndex].Id)"/>
+						<input type="hidden" name="" value="@(Model.Worker.Skills[skillIndex])" />
+						<input type="hidden" name="" value="@(Model.Worker.Skills[skillIndex].SkillId)" />
+						<div class="participant-skill-item">
+							<span>c#</span>
+						</div>
+					}
+				</div>
+			</div>
+		}*@
+
+</div>

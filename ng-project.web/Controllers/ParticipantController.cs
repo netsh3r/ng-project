@@ -24,7 +24,14 @@ namespace ng_project.web.Controllers
 		}
 		public IActionResult All()
 		{
-			var model = participantService.GetWithInclude(t => new Worker { User = t.User, Id = t.Id }).FindAll();
+			var model = participantService.GetWithInclude(t => new Worker 
+			{
+				User = t.User, 
+				Id = t.Id,
+				Skills = t.Skills,
+				Projects = t.Projects,
+				UserId = t.UserId
+			}).FindAll();
 			return View(model);
 		}
 		public IActionResult Index()

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ng_project.Entities
 {
-	public class ImageBase : Entity<int>
+	public class ImageBase : Entity
 	{
 		[Display(Name = "Изображение")]
 		public byte[] Data { get; set; }

@@ -10,12 +10,12 @@ namespace ng_project.Entities
 	/// <summary>
 	/// Проект
 	/// </summary>
-	public class Project : Entity<int>
+	public class Project : Entity
 	{
 		/// <summary>
 		/// Тип проекта
 		/// </summary>
-		public ProjectType ProjectType { get; set; }
+		public ProjectType ProjectType { get; set; } = new ProjectType();
 		/// <summary>
 		/// Идентификатор типа проекта
 		/// </summary>

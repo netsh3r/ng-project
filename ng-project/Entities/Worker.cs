@@ -8,7 +8,7 @@ namespace ng_project.Entities
 	/// <summary>
 	/// Сотрудник
 	/// </summary>
-	public class Worker : Entity<int>
+	public class Worker : Entity
 	{
 		/// <summary>
 		/// Ссылка на пользователя
@@ -21,10 +21,10 @@ namespace ng_project.Entities
 		/// <summary>
 		/// Список проектов сотрудника
 		/// </summary>
-		public List<Project> Projects { get; set; }
+		public List<Project> Projects { get; set; } = new List<Project>();
 		/// <summary>
 		/// Навыки
 		/// </summary>
-		public List<Skill> Skills { get; set; }
+		public List<Skill> Skills { get; set; } = new List<Skill>();
 	}
 }

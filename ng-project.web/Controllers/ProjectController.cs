@@ -70,7 +70,24 @@ namespace ng_project.web.Controllers
 		[Authorize]
 		public IActionResult Edit(int id)
 		{
-			var model = projectService.FindById(id);
+			var model = projectService.GetWithInclude(t=> new Project
+			{ 
+				Id = t.Id,
+				CreationDate = t.CreationDate,
+				Description = t.Description,
+				MainProjectImage = t.MainProjectImage,
+				Name= t.Name,
+				News = t.News,
+				ProjectImage =t.ProjectImage,
+				ProjectType = t.ProjectType,
+				ProjectTypeId = t.ProjectTypeId,
+				ShortDescription = t.ShortDescription,
+				Skills = t.Skills,
+				Subscribers = t.Subscribers,
+				User = t.User,
+				UserId = t.UserId,
+				Workers = t.Workers
+			}).FindById(id);
 			return View(model);
 		}
 
@@ -121,7 +138,24 @@ namespace ng_project.web.Controllers
 
 		public IActionResult Info(int id)
 		{
-			var model = projectService.FindById(id);
+			var model = projectService.GetWithInclude(t => new Project
+			{
+				Id = t.Id,
+				CreationDate = t.CreationDate,
+				Description = t.Description,
+				MainProjectImage = t.MainProjectImage,
+				Name = t.Name,
+				News = t.News,
+				ProjectImage = t.ProjectImage,
+				ProjectType = t.ProjectType,
+				ProjectTypeId = t.ProjectTypeId,
+				ShortDescription = t.ShortDescription,
+				Skills = t.Skills,
+				Subscribers = t.Subscribers,
+				User = t.User,
+				UserId = t.UserId,
+				Workers = t.Workers
+			}).FindById(id);
 			return View("Info", model);
 		}
 

@@ -7,7 +7,7 @@ namespace ng_project.Entities
 	/// <summary>
 	/// Создатель
 	/// </summary>
-	public class Creator : Entity<int>
+	public class Creator : Entity
 	{
 		/// <summary>
 		/// Ссылка на пользователя

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ng_project.Entities
 {
-	public class ProjectInfo : Entity<long>
+	public class ProjectInfo : Entity
 	{
 		
 	}

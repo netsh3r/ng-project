@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ng_project.Entities
 {
-	public class Email : Entity<int>
+	public class Email : Entity
 	{
 		public User User { get; set; }
 		public int UserId { get; set; }
