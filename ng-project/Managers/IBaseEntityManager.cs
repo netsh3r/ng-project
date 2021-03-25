@@ -22,7 +22,7 @@ namespace ng_project.Managers
 		/// Изменить значение сущности
 		/// </summary>
 		/// <param name="entity"></param>
-		void Edit(T entity);
+		void Save(T entity);
 		/// <summary>
 		/// Получить сущность по id
 		/// </summary>

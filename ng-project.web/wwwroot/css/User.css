@@ -1,4 +1,39 @@
-﻿.user-image img
+﻿.skill-input-group{
+	display: flex;
+	flex-wrap: nowrap;
+}
+.add-skills-btn:hover{
+	opacity: .7;
+}
+.add-skills-btn{
+	border-radius: 0 0.25em 0.25em 0;
+	height: 100%;
+	color: white;
+	border: 1px solid #0DB5FD;
+	cursor: pointer;
+}
+
+.participant-skills{
+	width: 100%;
+	padding:1em 0.5em;
+}
+.participant-skills .participant-skill-item{
+	margin-left: 0.25em;
+	margin-right: 0.25em;
+	font-size: 15pt;
+	background-color:#3e3c3c;
+	border-radius: 0.25em;
+	padding: 0.5em;
+	text-align: center;
+	max-width: 5em;
+	cursor: pointer;
+}
+
+.participant-skills .participant-skill-item:hover{
+	background: #5b5858;
+}
+
+.user-image img
 {
 	width:100%;
 }

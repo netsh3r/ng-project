@@ -1,0 +1,51 @@
+<div class="page-list-info page-list-main">
+						<div class="row">
+							<div class="col-1"></div>
+							<div class="col-5">
+								<div class="image">
+									<div id="carouselPageListInfoImages" class="carousel slide" data-ride="carousel">
+										<div class="carousel-inner carousel-page-inner">
+											<div class="carousel-item active carousel-page-list-image">
+												@*<img src="..." class="d-block w-100" alt="...">*@
+												<div class="BlueTheme" style="width:100%;height:100%;border-radius: 0.5em;">
+
+												</div>
+											</div>
+											<div class="carousel-item carousel-page-list-image">
+												@*<img src="..." class="d-block w-100" alt="...">*@
+												<div class="OrangeTheme" style="width:100%;height:100%;border-radius: 0.5em;">
+
+												</div>
+											</div>
+										</div>
+										<a class="carousel-control-prev" href="#carouselPageListInfoImages" role="button" data-slide="prev">
+											<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+											<span class="sr-only">Предыдущий</span>
+										</a>
+										<a class="carousel-control-next" href="#carouselPageListInfoImages" role="button" data-slide="next">
+											<span class="carousel-control-next-icon" aria-hidden="true"></span>
+											<span class="sr-only">Следующий</span>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="creator BlueTheme">
+									<div class="text d-flex flex-nowrap">
+										<span>
+											СОЗДАТЕЛЬ: @(Model.User.LastName) @(Model.User.FirstName)
+										</span>
+										@if (Model.MainProjectImage != null && Model.MainProjectImage.Data != null)
+										{
+											<img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.User.Image.Data))" />
+										}
+									</div>
+								</div>
+								<div class="description">
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit purus leo, at eleifend tortor luctus non. Phasellus lobortis, dolor in pellentesque imperdiet, justo ex eleifend nisi, tempor molestie urna quam sed dui. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam hendrerit faucibus vehicula. Nunc mollis id tortor ut consectetur. Donec lorem velit, dignissim a porta at, dapibus quis purus. Vivamus fringilla molestie leo, ut dictum lectus aliquam et. Nulla facilisi. Sed libero nisl, suscipit a iaculis at, sodales at augue.
+									Proin lacinia condimentum purus, quis porta turpis aliquet eleifend. Aliquam erat volutpat. Pellentesque in purus at felis hendrerit tristique. Morbi placerat placerat condimentum. Aliquam erat volutpat. Aenean velit ligula, molestie porta ex tincidunt, iaculis rhoncus ante. Donec a justo sed turpis auctor sollicitudin quis ut nisl. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc ut scelerisque augue, a semper magna.
+								</div>
+							</div>
+							<div class="col-1"></div>
+						</div>
+					</div>

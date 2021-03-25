@@ -2,7 +2,7 @@
 @using ng_project.Entities;
 @using ng_project.Entities.Enum;
 
-@model List<Participant>
+@model List<Worker>
 
 <link rel="stylesheet" href="~/css/Project.css" />
 <link rel="stylesheet" href="~/css/Participant.css" />
@@ -90,7 +90,8 @@
 	</div>
 
 </div>
-@foreach (Roles role in Enum.GetValues(typeof(Roles)))
+@*@foreach (Roles role in Enum.GetValues(typeof(Roles)))
 {
-}
+
+}*@
 

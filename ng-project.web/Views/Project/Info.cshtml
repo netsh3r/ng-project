@@ -7,7 +7,6 @@
 	var hasUserImage = Model.User.Image != null && Model.User.Image.Data != null;
 }
 <link rel="stylesheet" href="~/css/ProjectInfo.css" />
-
 <div class="container-fluid">
 	<div class="project-info">
 		<div class="header">
@@ -36,353 +35,26 @@
 						<a class="nav-link " id="command-tab" data-toggle="tab" href="#command" role="tab" aria-controls="command" aria-selected="true">Стать частью</a>
 					</li>
 				</ul>
-				<div class="subscribe">
+				<div class="subscribe" onclick="DoSubscribe()">
 					<div class="d-flex flex-nowrap block">
 						<div class="text">
 							Подписаться
 						</div>
 						<div class="count">
-							10
+							@(Model.Subscribers?.Count??0)
 						</div>
 					</div>
-				
-					
 				</div>
 			</div>
 			<div class="page-list-info-body tab-content  mt-3 page-list-content">
 				<div class="tab-pane active" id="main" role="tabpanel" aria-labelledby="main-tab">
-					<div class="page-list-info page-list-main">
-						<div class="row">
-							<div class="col-1"></div>
-							<div class="col-5">
-								<div class="image">
-									<div id="carouselPageListInfoImages" class="carousel slide" data-ride="carousel">
-										<div class="carousel-inner carousel-page-inner">
-											<div class="carousel-item active carousel-page-list-image">
-												@*<img src="..." class="d-block w-100" alt="...">*@
-												<div class="BlueTheme" style="width:100%;height:100%;border-radius: 0.5em;">
-
-												</div>
-											</div>
-											<div class="carousel-item carousel-page-list-image">
-												@*<img src="..." class="d-block w-100" alt="...">*@
-												<div class="OrangeTheme" style="width:100%;height:100%;border-radius: 0.5em;">
-
-												</div>
-											</div>
-										</div>
-										<a class="carousel-control-prev" href="#carouselPageListInfoImages" role="button" data-slide="prev">
-											<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-											<span class="sr-only">Предыдущий</span>
-										</a>
-										<a class="carousel-control-next" href="#carouselPageListInfoImages" role="button" data-slide="next">
-											<span class="carousel-control-next-icon" aria-hidden="true"></span>
-											<span class="sr-only">Следующий</span>
-										</a>
-									</div>
-								</div>
-							</div>
-							<div class="col-4">
-								<div class="creator BlueTheme">
-									<div class="text d-flex flex-nowrap">
-										<span>
-											СОЗДАТЕЛЬ: @(Model.User.LastName) @(Model.User.FirstName)
-										</span>
-										@if (hasUserImage)
-										{
-											<img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.User.Image.Data))" />
-										}
-									</div>
-								</div>
-								<div class="description">
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit purus leo, at eleifend tortor luctus non. Phasellus lobortis, dolor in pellentesque imperdiet, justo ex eleifend nisi, tempor molestie urna quam sed dui. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam hendrerit faucibus vehicula. Nunc mollis id tortor ut consectetur. Donec lorem velit, dignissim a porta at, dapibus quis purus. Vivamus fringilla molestie leo, ut dictum lectus aliquam et. Nulla facilisi. Sed libero nisl, suscipit a iaculis at, sodales at augue.
-									Proin lacinia condimentum purus, quis porta turpis aliquet eleifend. Aliquam erat volutpat. Pellentesque in purus at felis hendrerit tristique. Morbi placerat placerat condimentum. Aliquam erat volutpat. Aenean velit ligula, molestie porta ex tincidunt, iaculis rhoncus ante. Donec a justo sed turpis auctor sollicitudin quis ut nisl. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc ut scelerisque augue, a semper magna.
-								</div>
-							</div>
-							<div class="col-1"></div>
-						</div>
-					</div>
+					@Html.Partial("Project/MainPartial")
 				</div>
 				<div class="tab-pane" id="news" role="tabpanel" aria-labelledby="news-tab">
-					<div class="page-list-info page-list-news">
-						<div class="row">
-							<div class="col-3">
-								<div class="comments">
-									<div class="text BlueThemeColor">
-										КОММЕНТАРИИ (10)
-									</div>
-									<div class="list-items">
-										<div class="block">
-											<div class="comment-input">
-												<input placeholder="Введите текст" />
-											</div>
-											
-											<div class="item-overflow">
-												<div class="item">
-													<div class="row">
-														<div class="col-2">
-															<div class="user-img BlueThemeColor">
-
-															</div>
-														</div>
-														<div class="col-10">
-															<div class="user-name">
-																netsh3r
-															</div>
-															<div class="comment-text">
-																комментарий
-															</div>
-
-															<div class="comment-border"></div>
-														</div>
-													</div>
-												</div>
-												<div class="item">
-													<div class="row">
-														<div class="col-2">
-															<div class="user-img BlueThemeColor">
-
-															</div>
-														</div>
-														<div class="col-10">
-															<div class="user-name">
-																netsh3r
-															</div>
-															<div class="comment-text">
-																комментарий
-															</div>
-
-															<div class="comment-border"></div>
-														</div>
-													</div>
-												</div>
-												<div class="item">
-													<div class="row">
-														<div class="col-2">
-															<div class="user-img BlueThemeColor">
-
-															</div>
-														</div>
-														<div class="col-10">
-															<div class="user-name">
-																netsh3r
-															</div>
-															<div class="comment-text">
-																комментарий
-															</div>
-
-															<div class="comment-border"></div>
-														</div>
-													</div>
-												</div>
-												<div class="item">
-													<div class="row">
-														<div class="col-2">
-															<div class="user-img BlueThemeColor">
-
-															</div>
-														</div>
-														<div class="col-10">
-															<div class="user-name">
-																netsh3r
-															</div>
-															<div class="comment-text">
-																комментарий
-															</div>
-
-															<div class="comment-border"></div>
-														</div>
-													</div>
-												</div>
-												<div class="item">
-													<div class="row">
-														<div class="col-2">
-															<div class="user-img BlueThemeColor">
-
-															</div>
-														</div>
-														<div class="col-10">
-															<div class="user-name">
-																netsh3r
-															</div>
-															<div class="comment-text">
-																комментарий
-															</div>
-
-															<div class="comment-border"></div>
-														</div>
-													</div>
-												</div>
-												<div class="item">
-													<div class="row">
-														<div class="col-2">
-															<div class="user-img BlueThemeColor">
-
-															</div>
-														</div>
-														<div class="col-10">
-															<div class="user-name">
-																netsh3r
-															</div>
-															<div class="comment-text">
-																комментарий
-															</div>
-
-															<div class="comment-border"></div>
-														</div>
-													</div>
-												</div>
-											</div>
-											
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-6">
-								<div class="news">
-									<div class="add-news">
-										<div class="input-new-news">
-											<div class="row">
-												<div class="col-1">
-													<div class="user-img BlueThemeColor">
-													</div>
-												</div>
-												<div class="col-11">
-													<textarea placeholder="Что у вас нового"></textarea>
-												</div>
-
-											</div>
-											<div class="comment-border"></div>
-										</div>
-										<div class="new-news-block">
-											<div class="set-photo">
-												<img src="~/images/icon/Photo.png" />
-											</div>
-											<div class="publish-btn BlueThemeColor"> 
-												Опубликовать
-											</div>
-										</div>
-									</div>
-									<div class="news-list">
-										<div class="news-list-item">
-											<div class="images">
-												<div id="carouselPageListNewsImages_0" class="carousel slide carouselPageListNewsImagesMain" data-ride="carousel">
-													<div class="carousel-inner carousel-page-inner">
-														<div class="carousel-item active carousel-page-list-image">
-															@*<img src="..." class="d-block w-100" alt="...">*@
-															<div class="BlueTheme" style="width:100%;height:100%;border-radius: 0.5em;">
-
-															</div>
-														</div>
-														<div class="carousel-item carousel-page-list-image">
-															@*<img src="..." class="d-block w-100" alt="...">*@
-															<div class="OrangeTheme" style="width:100%;height:100%;border-radius: 0.5em;">
-
-															</div>
-														</div>
-													</div>
-													<a class="carousel-control-prev" href="#carouselPageListNewsImages_0" role="button" data-slide="prev">
-														<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-														<span class="sr-only">Предыдущий</span>
-													</a>
-													<a class="carousel-control-next" href="#carouselPageListNewsImages_0" role="button" data-slide="next">
-														<span class="carousel-control-next-icon" aria-hidden="true"></span>
-														<span class="sr-only">Следующий</span>
-													</a>
-												</div>
-											</div>
-											<div class="text">
-												<div class="DateTime">
-													@(DateTime.Now.ToShortDateString())
-												</div>
-												<div class="news-name">
-													Наш первый релиз!
-												</div>
-												<div class="news-description mt-3">
-													Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
-												</div>
-											</div>
-										</div>
-										<div class="news-list-item">
-											<div class="images">
-												<div id="carouselPageListNewsImages" class="carousel slide carouselPageListNewsImagesMain" data-ride="carousel">
-													<div class="carousel-inner carousel-page-inner">
-														<div class="carousel-item active carousel-page-list-image">
-															@*<img src="..." class="d-block w-100" alt="...">*@
-															<div class="BlueTheme" style="width:100%;height:100%;border-radius: 0.5em;">
-
-															</div>
-														</div>
-														<div class="carousel-item carousel-page-list-image">
-															@*<img src="..." class="d-block w-100" alt="...">*@
-															<div class="OrangeTheme" style="width:100%;height:100%;border-radius: 0.5em;">
-
-															</div>
-														</div>
-													</div>
-													<a class="carousel-control-prev" href="#carouselPageListNewsImages" role="button" data-slide="prev">
-														<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-														<span class="sr-only">Предыдущий</span>
-													</a>
-													<a class="carousel-control-next" href="#carouselPageListNewsImages" role="button" data-slide="next">
-														<span class="carousel-control-next-icon" aria-hidden="true"></span>
-														<span class="sr-only">Следующий</span>
-													</a>
-												</div>
-											</div>
-											<div class="text">
-												<div class="DateTime">
-													@(DateTime.Now.ToShortDateString())
-												</div>
-												<div class="news-name">
-													Наш первый релиз!
-												</div>
-												<div class="news-description mt-3">
-													Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-3">
-								<div class="top-news">
-									<div class="text BlueThemeColor">
-										ТОП НОВОСТЕЙ
-									</div>
-									<div class="list-items">
-										@*<div class="block">*@
-											<div class="top-news-item">
-												<div class="date-time-str">
-													@(DateTime.Now.ToShortDateString())
-												</div>
-												<div class="news-description">
-													Наш первый релиз!
-												</div>
-												<div class="top-news-border"></div>
-											</div>
-										@*</div>*@
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					@Html.Partial("Project/ShowNewsPartial")
 				</div>
 				<div class="tab-pane" id="command" role="tabpanel" aria-labelledby="command-tab">
-					<div class="command-page">
-						<div class="name">
-							Сопроводительное письмо
-						</div>
-						<div class="text">
-							<textarea placeholder="Введите текст ..."></textarea>
-						</div>
-						<div class="d-flex justify-content-center">
-							<div class="btn BtnBorderBlue">
-								Стать частью проекта
-							</div>
-						</div>
-					</div>
-					
+					@Html.Partial("Project/BecomePart")
 				</div>
 			</div>
 			<div class="mt-5">
@@ -392,8 +64,43 @@
 	</div>
 </div>
 
-@*<script>
-			$(function () {
-				$('#command-tab').tab('show')
-			})
-</script>*@
+<script>
+	$(document).ready(function () {
+		ShowLoader();
+		$('.project-info .body .project-info-pages .subscribe').hover(function () {
+			$('.project-info .body .project-info-pages .subscribe .block').toggleClass('BlueTheme');
+		})
+
+		$.ajax({
+			type: 'POST',
+			url: '@Url.ActionLink("IsSubdcribe","Project")',
+			data: { projectId: @(Model.Id)},
+			success: function (data) {
+				if (data == true) {
+					$('.project-info .body .project-info-pages .subscribe').addClass('BlueTheme');
+					let text = $('.project-info .body .project-info-pages .subscribe .text')
+					text.empty();
+					text.append("Вы подписаны")
+				}
+			}
+		})
+		HideLoader();
+	})
+
+	function DoSubscribe() {
+		$.ajax({
+			type: 'POST',
+			url: '@Url.ActionLink("Subscribe","Project")',
+			data: { projectId: @(Model.Id)},
+			success: function () {
+				$('.project-info .body .project-info-pages .subscribe .text').empty();
+				$('.project-info .body .project-info-pages .subscribe .text').append("Вы подписаны");
+				var count = $('.project-info .body .project-info-pages .subscribe .count');
+				var item = Number(count.val());
+				count.empty();
+				count.append(item + 1);
+				$('.project-info .body .project-info-pages .subscribe').addClass('BlueTheme');
+			}
+		})
+	}
+</script>

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ng_project.Services
 {
-	public class UserService : IUserService
+	public class UserService : MainService<User,int>, IUserService
 	{
 		private static UserService _instance;
 		public static UserService Instance
@@ -39,7 +39,7 @@ namespace ng_project.Services
 
 		public void Save(User user)
 		{
-			userManager.Edit(user);
+			userManager.Save(user);
 		}
 	}
 }

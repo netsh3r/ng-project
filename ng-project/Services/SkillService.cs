@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ng_project.Services
 {
-	public class SkillService:ISkillService
+	public class SkillService:MainService<Skill,int>, ISkillService
 	{
 		private static SkillService _instance;
 		public static SkillService Instance

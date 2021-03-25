@@ -79,7 +79,7 @@ namespace ng_project.Services
 
 		public void Save<T, IdT>(T model) where T : Entity<IdT>, new()
 		{
-			EntityManager<T, IdT>.Instance.Edit(model);
+			EntityManager<T, IdT>.Instance.Save(model);
 		}
 
 		public void RemoveObjectById<T, IdT>(IdT id) where T : Entity<IdT>, new()

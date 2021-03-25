@@ -27,8 +27,9 @@ namespace ng_project.web
 			//	}
 			//}
 			builder.RegisterType<SkillService>().As<ISkillService>().InstancePerLifetimeScope();
+			builder.RegisterType<SubscriveService>().As<ISubscribeService>().InstancePerLifetimeScope();
 			builder.RegisterType<ProjectService>().As<IProjectService>().InstancePerLifetimeScope();
-			builder.RegisterType<ParticipantService>().As<IParticipantService>().InstancePerLifetimeScope();
+			builder.RegisterType<WorkerService>().As<IParticipantService>().InstancePerLifetimeScope();
 			builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
 			builder.RegisterType<NgMainService>().As<INgMainService>().InstancePerLifetimeScope();
 			builder.RegisterType<SomeModel>().As<ISomeModel>().InstancePerLifetimeScope();

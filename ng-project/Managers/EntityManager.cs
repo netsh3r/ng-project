@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ng_project.Context;
 using ng_project.Entities;
+using ng_project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,36 +39,46 @@ namespace ng_project.Managers
 		{
 			using (var db = new NgContext())
 			{
+				db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 				var dbSet = db.Set<T>();
 				dbSet.Remove(new T(){Id = id});
 				db.SaveChanges();
 			}
 		}
 
-		public override void Edit(T entity)
+		public override void Save(T entity)
 		{
 			using (var db = new NgContext())
 			{
 				var dbSet = db.Set<T>();
-				//dbSet.Entry(entity).State = EntityState.Modified;
-				//db.Entry(entity).State = EntityState.Modified;
 				dbSet.Update(entity);
 				db.SaveChanges();
 			}
 		}
-		
+
 		public override ICollection<T> FindAll()
 		{
 			using(var db = new NgContext())
 			{
+				db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 				var _dbSet = db.Set<T>();
 				return _dbSet.ToList();
+			}
+		}
+		public override ICollection<T> FindAll(Expression<Func<T,object>> expression)
+		{
+			using (var db = new NgContext())
+			{
+				db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+				var _dbSet = db.Set<T>().Select(expression).ToList();
+				return _dbSet.Cast<T>().ToList();
 			}
 		}
 		public override T Find(Func<T, bool> expression)
 		{
 			using(var db = new NgContext())
 			{
+				db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 				var _dbSet = db.Set<T>();
 				return _dbSet.ToList().FirstOrDefault(expression);
 			}
@@ -76,6 +87,7 @@ namespace ng_project.Managers
 		{
 			using (var db = new NgContext())
 			{
+				db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 				var _dbSet = db.Set<T>();
 				return _dbSet.ToList().Where(expression).ToList();
 			}
@@ -84,6 +96,7 @@ namespace ng_project.Managers
 		{
 			using (var db = new NgContext())
 			{
+				db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 				var _dbSet = db.Set<T>();
 				return _dbSet.Find(id);
 			}

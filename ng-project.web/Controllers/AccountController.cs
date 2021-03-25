@@ -65,6 +65,8 @@ namespace ng_project.web.Controllers
 					var email = new Email();
 					email.EmailString = model.Email;
 					user.Email = email;
+					user.Worker = new Worker();
+					user.Subscriber = new Subscriber();
 					UserService.Registry(user);
 					await Authenticate(model.Login);
 					return RedirectToAction("Index", "Home");

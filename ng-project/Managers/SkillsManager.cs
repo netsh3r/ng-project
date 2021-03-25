@@ -22,8 +22,11 @@ namespace ng_project.Managers
 		{
 			using(var db = new NgContext())
 			{
+				db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 				var model = db.Skills
-					.Include(t => t.Participant)
+					//.AsNoTracking()
+					//.Include(t => t.Participant)
+					//.AsNoTracking()
 					.FirstOrDefault(t => t.Id == id);
 				return model;
 			}
@@ -33,9 +36,11 @@ namespace ng_project.Managers
 		{
 			using(var db= new NgContext())
 			{
-				var allSkiillsParticipant = db.SkillsParticipants.
-					Include(t => t.Skill).Where(t => t.ParticipantId == participantId).Select(t => t.Skill).ToList();
-				return allSkiillsParticipant;
+				//db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+				//var allSkiillsParticipant = db.Skills
+				//	.Where(t => t.ParticipantId == participantId).Select(t => t.Skill).ToList();
+				//return allSkiillsParticipant;
+				return null;
 			}
 		}
 	}

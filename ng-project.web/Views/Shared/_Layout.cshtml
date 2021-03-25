@@ -14,7 +14,18 @@
 </head>
 <body>
 	<script src="~/lib/jquery/dist/jquery.js"></script>
-		
+		<div class="loader-main-block ">
+        	<div class="loader-bacdrop">
+            	
+            </div>
+        	<div class="loader-block">
+        		<div class="loader">
+        			<div class="loader-item">
+        
+        			</div>
+        		</div>
+        	</div>
+        </div>
 		<nav class="navbar navbar-expand-sm navbar-toggleable-sm mb-3">
 			<div class="container">
 				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NG PROJECT</a>
@@ -53,7 +64,20 @@
 	</footer>*@
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script>
+
+function ShowLoader()
+{
+	$('.loader-main-block .loader-bacdrop').show();
+  	$('.loader-main-block .loader-block').show();
+}
+function HideLoader()
+{
+	$('.loader-main-block .loader-bacdrop').hide();
+  	$('.loader-main-block .loader-block').hide();
+}
+</script>
 	@RenderSection("Scripts", required: false)
 </body>
 </html>

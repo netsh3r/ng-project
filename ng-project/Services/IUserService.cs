@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ng_project.Services
 {
-	public interface IUserService
+	public interface IUserService : IBaseService<User, int>
 	{
 		/// <summary>
 		/// Авторизоваться

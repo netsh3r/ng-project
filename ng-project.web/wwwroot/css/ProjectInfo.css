@@ -1,4 +1,18 @@
-﻿.project-info .body .command-page{
+﻿.send-become-success{
+	padding: 2em 10em;
+}
+.send-become-success .succes-block{
+	height: 350px;
+	border-radius: 1em;
+}
+.send-become-success .succes-block .text{
+	width: 100%;
+	position: relative;
+	top: 40%;
+	text-align: center;
+	font-size: 18pt;
+}
+.project-info .body .command-page{
 	
 }
 
@@ -11,6 +25,10 @@
 		border-radius:0.4em;
 		padding:5px 40px;
 		color:white;
+		cursor: pointer;
+	}
+	.project-info .body .command-page .btn:hover{
+		background: #0DB5FD;
 	}
 	.project-info .body .command-page .text > textarea {
 		width: 100%;
@@ -99,13 +117,16 @@
 			top: 0;
 			border: 2px solid #0DB5FD;
 			border-radius:0.5em;
+			cursor:pointer;
 		}
+		.project-info .body .project-info-pages .subscribe .subscribe-hover{
 
-			.project-info .body .project-info-pages .subscribe .block{
-				position:relative;
-				width:100%;
-				height:100%;
-			}
+		}
+		.project-info .body .project-info-pages .subscribe .block {
+			position: relative;
+			width: 100%;
+			height: 100%;
+		}
 				.project-info .body .project-info-pages .subscribe .block .text {
 					padding: 0.2em 1em;
 					margin-right: 40px;

@@ -9,8 +9,7 @@ namespace ng_project.web.Models
 {
     public class RegisterModel :LoginModel
     {
-        
-
+		public bool IsParticipant { get; set; }
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Пароль введен неверно")]
         public string ConfirmPassword { get; set; }

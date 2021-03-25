@@ -4,6 +4,7 @@ using ng_project.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace ng_project.Managers
@@ -18,23 +19,48 @@ namespace ng_project.Managers
 				return _instance ?? (_instance = new UserManager());
 			}
 		}
+
+		public Expression<Func<User, Worker>> GetEx()
+		{
+			return null;
+		}
+
+
 		public override User Find(Func<User, bool> expression)
 		{
 			using(var db = new NgContext())
 			{
-				var user = db.Users.Include(t => t.Email)
-					.Include(t => t.Participant)
-					.Include(t => t.Participant.Skills)
+				db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+				Type project = typeof(Project);
+				object tttd = GetEx();
+				var user = db.Users
+					//.AsNoTracking()
+					//.Include(t => t.Email)
+					//.AsNoTracking()
+					.Include(t => t.Worker)
+					//.AsNoTracking()
+						.ThenInclude(t => t.Projects)
+					//.AsNoTracking()
+					.Include(t => t.Worker)
+						.ThenInclude(t => t.Skills)
+					//.AsNoTracking()
+					.Include(t => t.Subscriber)
+					//.AsNoTracking()
+						.ThenInclude(t => t.Projects)
+					//.AsNoTracking()
 					.Include(t => t.Projects)
-					.Include(t => t.Image)
+					//.AsNoTracking()
+					//.Include(t => t.Image)
+					//.AsNoTracking()
 					.FirstOrDefault(expression);
 				return user;
 			}
 		}
-		public override void Edit(User entity)
+		public override void Save(User entity)
 		{
 			using (var db = new NgContext())
 			{
+				db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 				db.Users.Update(entity);
 				db.SaveChangesAsync();
 			}

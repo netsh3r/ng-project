@@ -35,7 +35,21 @@ namespace ng_project.web.Controllers
 		[HttpGet]
 		public IActionResult Profile()
 		{
-			var user = userService.FindUser(t => t.login == User.Identity.Name);
+			var user = userService.GetWithInclude(t=> new User
+			{ 
+				Id = t.Id,
+				FirstName = t.FirstName,
+				LastName = t.LastName,
+				Email = t.Email,
+				CreationDate = t.CreationDate,
+				Creator = t.Creator,
+				Image = t.Image,
+				login = t.login,
+				Password = t.Password,
+				Projects = t.Projects,
+				Subscriber = t.Subscriber,
+				Worker = t.Worker
+			}).FindByFunc(t => t.login == User.Identity.Name);
 			return View("Edit",user);
 		}
 		public IActionResult Profile(int? id)
@@ -44,7 +58,22 @@ namespace ng_project.web.Controllers
 			User user = null;
 			if(id != null)
             {
-				user = NgProjectService.FindUserById(id.Value);
+				//user = NgProjectService.FindUserById(id.Value);
+				user = userService.GetWithInclude(t => new User
+				{
+					Id = t.Id,
+					FirstName = t.FirstName,
+					LastName = t.LastName,
+					Email = t.Email,
+					CreationDate = t.CreationDate,
+					Creator = t.Creator,
+					Image = t.Image,
+					login = t.login,
+					Password = t.Password,
+					Projects = t.Projects,
+					Subscriber = t.Subscriber,
+					Worker = t.Worker
+				}).FindById(id.Value);
 			}
 			return View(user);		
 		}
@@ -77,6 +106,21 @@ namespace ng_project.web.Controllers
 		{
 			return Convert.ToBase64String(image);
 		}
+
+		[HttpGet]
+		public HtmlString AddNewSkill(int index, string name)
+		{
+			var skill = new Skill();
+			skill.Name = name;
+			NgProjectService.Add<Skill,int>(skill);
+			return new HtmlString(
+				string.Format(@"
+<div class=""participant-skill-item"">
+{0}
+</div>
+",name)
+				);
+		}
 		[HttpPost]
 		public IActionResult SaveUser(User user)
         {
@@ -99,10 +143,10 @@ namespace ng_project.web.Controllers
 			{
 				user.Image = null;
 			}
-			user.Participant.UserId = user.Id;
-			NgProjectService.Save<Participant, int>(user.Participant);
+			user.Worker.User = user;
+			NgProjectService.Save<Worker, int>(user.Worker);
 			NgProjectService.Save<User, int>(user);
-			user.Projects = projectService.GetAll(t=> t.UserId == user.Id).ToList();
+			user.Projects = projectService.FindAll(t=> t.UserId == user.Id).ToList();
 			user.Image = NgProjectService.FindByFunc<Image, int>(t=> t.UserId == user.Id);
 			return View("Edit",user);
         }

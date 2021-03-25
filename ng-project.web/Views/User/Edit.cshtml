@@ -11,7 +11,7 @@
 	<form asp-action="SaveUser" asp-controller="User" method="post" enctype="multipart/form-data">
 		<div class="container-fluid">
 			@Html.HiddenFor(t => t.Id)
-			@Html.HiddenFor(t => t.Participant.Id)
+			@*@Html.HiddenFor(t => t.Participant.Id)*@
 			@Html.HiddenFor(t => t.Email.Id)
 			@Html.HiddenFor(t => t.Email.UserId)
 			<div class="row justify-content-center">
@@ -37,35 +37,41 @@
 							@Html.LabelFor(m => m.Email)
 							@Html.EditorFor(m => m.Email.EmailString, new { htmlAttributes = new { @class = "form-control" } })
 						</div>
-						<div class="col-md-12">
+						@*<div class="col-md-12">
 							<label asp-for="Participant.Roles">Роль</label>
 							<select class="custom-select" asp-for="Participant.Roles" asp-items="Html.GetEnumSelectList<Roles>()"></select>
-						</div>
-						<div class="col-md-12">
+						</div>*@
+						<div class="col-md-12 mt-3">
 							<span>Навыки:</span>
-							<div>
-								@if (Model.Participant != null)
+							<div class="input-group">
+								<input name="new-skill" type="text" class="form-control" value="" placeholder="Введите название навыка"/>
+                                <span class="input-group-text add-skills-btn BlueThemeColor addSkills">
+                                	Добавить
+                                </span>
+							</div>
+							
+                            	
+							<div class="row participant-skills">
+								@*@if (Model.Participant != null)
 								{
 									<div>
-										@for (int skillIndex = 0; skillIndex < Model.Participant.Skills.Count; skillIndex++)
-										{
-
-											<div class="input-group mb-3 skill_@(skillIndex)">
-
-												@*<input name="Participant.Skills[@(skillIndex)].Name" type="text" class="form-control" value="@(Model.Participant.Skills[skillIndex].Name)" />*@
-												<span class="input-group-text btn btn-danger" onclick="deleteSkill(@(skillIndex))">
-													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16">
-														<path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1L1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
-														<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-													</svg>
-												</span>
-												<input type="hidden" name="Participant.Skills[@(skillIndex)].Id" value="@(Model.Participant.Skills[skillIndex].Id)" />
-												<input type="hidden" name="Participant.Skills[@(skillIndex)].ParticipanId" value="@(Model.Participant.Skills[skillIndex].ParticipantId)" />
-											</div>
-
-										}
+										<div>
+											@for (int skillIndex = 0; skillIndex < Model.Participant.Skills.Count; skillIndex++)
+											{
+												<input type="hidden" name="" value="@(Model.Participant.Skills[skillIndex].Id)"/>
+												<input type="hidden" name="" value="@(Model.Participant.Skills[skillIndex].ParticipantId)" />
+												<input type="hidden" name="" value="@(Model.Participant.Skills[skillIndex].SkillId)" />                                                                                          
+												<div class="participant-skill-item">
+	                                                <span>c#</span>
+	                                            </div>
+											}
+										</div>
 									</div>
-								}
+								}*@
+								
+							</div>
+							<div>
+
 
 
 								<div id="anotherSkills">
@@ -78,7 +84,7 @@
 									@for (int projectIndex = 0; projectIndex < Model.Projects.Count; projectIndex++)
 									{
 										<input type="hidden" name="Projects[projectIndex].Id" value="@(Model.Projects[projectIndex].Id)" />
-										<div class="col-6 mt-3" onclick="window.location.href='@Url.Action("Info","Project",new { id=Model.Projects[projectIndex].Id})'"	>
+										<div class="col-6 mt-3" onclick="window.location.href='@Url.Action("Info","Project",new { id=Model.Projects[projectIndex].Id})'">
 											<div class="project-item-block">
 												<div class="project-item">
 													@{
@@ -95,15 +101,71 @@
 													</div>
 												</div>
 											</div>
-											
+
 										</div>
 									}
+								</div>
+								<div>
+									Проекты, в которых вы являетесь участником:
+								</div>
+								<div class="row mb-lg-3">
+									@*@for (int projectIndex = 0; projectIndex < Model.Participant.Projects.Count; projectIndex++)
+									{
+										<input type="hidden" name="Participant.Projects[projectIndex].Id" value="@(Model.Participant.Projects[projectIndex].Id)" />
+										<div class="col-6 mt-3" onclick="window.location.href='@Url.Action("Info","Project",new { id=Model.Participant.Projects[projectIndex].Id})'">
+											<div class="project-item-block">
+												<div class="project-item">
+													@{
+														var hasImage = Model.Participant.Projects[projectIndex].MainProjectImage != null && Model.Participant.Projects[projectIndex].MainProjectImage.Data != null;
+													}
+													<div class="project-card @(hasImage ? "": "BlueTheme")">
+														@if (hasImage)
+														{
+															<img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Participant.Projects[projectIndex].MainProjectImage.Data))" />
+														}
+														<div class="name">
+															@(Model.Participant.Projects[projectIndex].Name)
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									}*@
+								</div>
+								<div>
+									Подписки:
+								</div>
+								<div class="row mb-lg-3">
+									@*@for (int projectIndex = 0; projectIndex < Model.Subscriber.Projects.Count; projectIndex++)
+									{
+										<input type="hidden" name="Subscriber.Projects[projectIndex].Id" value="@(Model.Subscriber.Projects[projectIndex].Id)" />
+										<div class="col-6 mt-3" onclick="window.location.href='@Url.Action("Info","Project",new { id=Model.Subscriber.Projects[projectIndex].Id})'">
+											<div class="project-item-block">
+												<div class="project-item">
+													@{
+														var hasImage = Model.Subscriber.Projects[projectIndex].MainProjectImage != null && Model.Subscriber.Projects[projectIndex].MainProjectImage.Data != null;
+													}
+													<div class="project-card @(hasImage ? "": "BlueTheme")">
+														@if (hasImage)
+														{
+															<img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Subscriber.Projects[projectIndex].MainProjectImage.Data))" />
+														}
+														<div class="name">
+															@(Model.Subscriber.Projects[projectIndex].Name)
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									}*@
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="mt-2 d-flex d-inline">
-						<span class="btn btn-info addSkills mr-2">Добавить навык</span>
+						@* <span class="btn btn-info addSkills mr-2">Добавить навык</span> *@
 						<button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#addProject">
 							Добавить проект
 						</button>
@@ -138,20 +200,26 @@
 		</div>
 
 		<script>
+		
 	$(function ()
 	{
-		let i = @(Model?.Participant?.Skills?.Count-1??0);
+		@*let i = @(Model?.Participant?.Skills?.Count-1??0);
+		
 		$('.addSkills').bind("click", function () {
 			i++;
+			let skillInput = $('input[name="new-skill"]');
+			let skillName = skillInput.val();
+			
 			$.ajax({
 				type: 'GET',
 				url: '@Url.Action("GetSkillsBlock","User")',
-				data: { index: i },
+				data: { index: i,name:skillName,participantId:@(Model.Participant?.Id??0) },
 				success: function (data) {
 					$('#anotherSkills').append(data.value);
+					skillInput.val("");
 				}
 			})
-		})
+		})*@
 	})
 
 	function deleteSkill(index) {

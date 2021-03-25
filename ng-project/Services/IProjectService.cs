@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ng_project.Services
 {
-	public interface IProjectService
+	public interface IProjectService : IBaseService<Project, int>
 	{
 
 		/// <summary>
@@ -19,5 +19,7 @@ namespace ng_project.Services
 		/// <returns></returns>
 		ICollection<Project> GetAll();
 		ICollection<Project> GetAll(Func<Project, bool> expression);
+		void AddSubscribe(int projectId, int subscriberId);
+		void AddParticipant(int projectId, int workerId);
 	}
 }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Html;
 
 namespace ng_project.web.Controllers
 {
@@ -18,19 +19,47 @@ namespace ng_project.web.Controllers
 
 		public ProjectController(INgMainService ngService
 			, IProjectService projectService
-			, IUserService userService)
+			, IUserService userService
+			, ISubscribeService subscribeService)
 		{
 			this.projectService = projectService;
 			this.ngService = ngService;
 			this.userService = userService;
+			this.subscribeService = subscribeService;
 		}
 
 		#region Services
 		private INgMainService ngService;
 		private IProjectService projectService;
 		private IUserService userService;
+		private ISubscribeService subscribeService;
 		#endregion
-
+		[HttpPost]
+		public bool IsSubdcribe(int projectId)
+		{
+			var project = projectService.FindById(projectId);
+			var user = userService.FindUser(t => t.login == User.Identity.Name);
+			if(project.Subscribers.Select(t=> t.Id).ToList().Contains(user.Subscriber.Id))
+			{
+				return true;
+			}
+			return false;
+		}
+		[HttpPost]
+		public void Subscribe(int projectId)
+		{
+			var user = userService.FindUser(t => t.login == User.Identity.Name);
+			projectService.AddSubscribe(projectId, user.Subscriber.Id);
+		}
+		 
+		[HttpPost]
+		public IActionResult SendBecome(int projectId, string text)
+		{
+			var user = userService.FindUser(t => t.login == User.Identity.Name);
+			projectService.AddParticipant(projectId, user.Worker.Id);
+			return PartialView("Project/SendBecomeSuccess");
+		}
+		
 		public IActionResult All()
 		{
 			var model = projectService.GetAll();

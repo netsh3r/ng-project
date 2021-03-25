@@ -18,17 +18,51 @@ namespace ng_project.Managers
 				return _instance ?? (_instance = new ProjectManager());
 			}
 		}
-
-		public override Project FindById(int id)
+		public void AddSubscriber(int projectId, int subscriberId)
 		{
 			using(var db = new NgContext())
 			{
 				var model = db.Projects
-					.Include(t => t.News)
+					.Include(t=> t.Subscribers)
+					.FirstOrDefault(t=> t.Id == projectId);
+				var subscriber = db.Subscribers.Find(subscriberId);
+				model.Subscribers.Add(subscriber);
+				db.SaveChanges();
+			}
+		}
+		public void AddParticipant(int projectId, int workerId)
+		{
+			using (var db = new NgContext())
+			{
+				var model = db.Projects
+					.Include(t => t.Workers)
+					.FirstOrDefault(t => t.Id == projectId);
+				var worker = db.Participants.Find(workerId);
+				model.Workers.Add(worker);
+				db.SaveChanges();
+			}
+		}
+		public override Project FindById(int id)
+		{
+			using(var db = new NgContext())
+			{
+				db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+				var model = db.Projects
+					//.AsNoTracking()
+					//.Include(t => t.News)
+					//.AsNoTracking()
+					.Include(t => t.Workers)
+					//.AsNoTracking()
 					.Include(t => t.User)
-					.Include(t => t.User.Image)
+					//.AsNoTracking()
+						.ThenInclude(t => t.Image)
+					//.AsNoTracking()
 					.Include(t => t.ProjectImage)
-					.Include(t => t.MainProjectImage)
+					//.AsNoTracking()
+					.Include(t => t.Subscribers)
+					//.AsNoTracking()
+					//.Include(t => t.MainProjectImage)
+					//.AsNoTracking()
 					.FirstOrDefault(t => t.Id == id);
 				return model;
 			}
@@ -38,11 +72,20 @@ namespace ng_project.Managers
 		{
 			using(var db = new NgContext())
 			{
+				db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 				var model = db.Projects
+					.AsNoTracking()
 					.Include(t => t.User)
-					.Include(t => t.User.Image)
+						.ThenInclude(t => t.Image)
+					//.AsNoTracking()
+					.Include(t => t.Workers)
+					//.AsNoTracking()
+					
+					//.AsNoTracking()
 					.Include(t => t.MainProjectImage)
+					//.AsNoTracking()
 					.Include(t=> t.ProjectImage)
+					//.AsNoTracking()
 					.ToList();
 				return model;
 			}
@@ -52,10 +95,17 @@ namespace ng_project.Managers
 		{
 			using (var db = new NgContext())
 			{
+				db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 				var model = db.Projects
+					.AsNoTracking()
 					.Include(t => t.User)
+					.AsNoTracking()
 					.Include(t => t.MainProjectImage)
+					.AsNoTracking()
 					.Include(t => t.ProjectImage)
+					.AsNoTracking()
+					.Include(t => t.Workers)
+					.AsNoTracking()
 					.Where(expression)
 					.ToList();
 				return model;

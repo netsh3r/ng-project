@@ -34,22 +34,22 @@ namespace ng_project.web.Controllers
 				Title = model.Title,
 				Text = model.Description
 			};
-			if (model.ImageDataLocal != null)
-			{
-				byte[] imageData = null;
-				// считываем переданный файл в массив байтов
-				using (var binaryReader = new BinaryReader(model.ImageDataLocal.OpenReadStream()))
-				{
-					imageData = binaryReader.ReadBytes((int)model.ImageDataLocal.Length);
-				}
-				if (news.NewsImage == null)
-				{
-					news.NewsImage = new NewsImage();
-				}
+			//if (model.ImageDataLocal != null)
+			//{
+			//	byte[] imageData = null;
+			//	// считываем переданный файл в массив байтов
+			//	using (var binaryReader = new BinaryReader(model.ImageDataLocal.OpenReadStream()))
+			//	{
+			//		imageData = binaryReader.ReadBytes((int)model.ImageDataLocal.Length);
+			//	}
+			//	if (news.NewsImage == null)
+			//	{
+			//		news.NewsImage = new NewsImage();
+			//	}
 
-				news.NewsImage.Data = imageData;
-			}
-			mainService.Add<News, int>(news);
+			//	news.NewsImage.Data = imageData;
+			//}
+			//mainService.Add<News, int>(news);
 			var project = projectService.FindById(model.ProjectId);
 			return RedirectToAction("Info", "Project", project);
 		}
