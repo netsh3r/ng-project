@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
 using ng_project.Entities;
+using ng_project.EntityExpression;
 using ng_project.Models;
 using ng_project.Services;
 using System;
@@ -224,42 +225,12 @@ namespace ng_project.web.Controllers
 			NgProjectService.Save<User, int>(user);
 			user.Projects = projectService.FindAll(t=> t.UserId == user.Id).ToList();
 			user.Image = NgProjectService.FindByFunc<Image, int>(t=> t.UserId == user.Id);
-			var newuser = userService.GetWithInclude(t => new User
-			{
-				Id = t.Id,
-				FirstName = t.FirstName,
-				LastName = t.LastName,
-				Email = t.Email,
-				CreationDate = t.CreationDate,
-				Creator = t.Creator,
-				Image = t.Image,
-				login = t.login,
-				Password = t.Password,
-				Projects = t.Projects,
-				//Subscriber = new Subscriber()
-				//{
-				//	Id = t.Subscriber.Id
-				//},
-				//Worker = new Worker()
-				//{
-				//	Id = t.Worker.Id,
-				//	Projects = t.Worker.Projects,
-				//	Skills = t.Worker.Skills
-				//}
-			}).FindByFuncWithInclude(t => (t as User).login == User.Identity.Name);
-			newuser.Subscriber = subscribeService.GetWithInclude(t => new Subscriber()
-			{
-				Id = t.Id,
-				UserId = t.UserId,
-				ProjectSubscribers = t.ProjectSubscribers
-			}).FindByFuncWithInclude(t => (t as Subscriber).UserId == user.Id);
-			newuser.Worker = participantService.GetWithInclude(t => new Worker()
-			{
-				Projects = t.Projects,
-				Id = t.Id,
-				Skills = t.Skills,
-				UserId = t.UserId
-			}).FindByFuncWithInclude(s => (s as Worker).UserId == user.Id);
+			var newuser = userService.GetWithInclude(UserExpression.Main())
+				.FindByFuncWithInclude(UserExpression.FindByLogin(User.Identity.Name));
+			newuser.Subscriber = subscribeService.GetWithInclude(SubscriberExpression.UserSubscriber())
+				.FindByFuncWithInclude(SubscriberExpression.FindByUserId(user.Id));
+			newuser.Worker = participantService.GetWithInclude(WorkerExpression.UserWorker())
+				.FindByFuncWithInclude(WorkerExpression.FindByUserId(user.Id));
 			return View("Edit",newuser);
         }
 	}

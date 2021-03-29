@@ -78,6 +78,7 @@ namespace ng_project.admin.web.Controllers
 		{
 			var model = projectTypeService.GetWithInclude(t=> new ProjectType()
 			{
+				IconName = t.IconName,
 				Id = t.Id,
 				ProjectSubType = t.ProjectSubType,
 				ProjectTypesRoles = t.ProjectTypesRoles,

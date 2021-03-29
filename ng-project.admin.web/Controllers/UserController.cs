@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
 using ng_project.Entities;
+using ng_project.EntityExpression;
 using ng_project.Models;
 using ng_project.Services;
 using System;
@@ -91,31 +92,7 @@ namespace ng_project.admin.web.Controllers
 		[HttpGet]
 		public IActionResult Edit(int id)
 		{
-			var model = userService.GetWithInclude(t => new User
-			{
-				Roles = t.Roles,
-				Id = t.Id,
-				FirstName = t.FirstName,
-				LastName = t.LastName,
-				Email = t.Email,
-				CreationDate = t.CreationDate,
-				Creator = t.Creator,
-				Image = t.Image,
-				login = t.login,
-				Password = t.Password,
-				Projects = t.Projects,
-				//Subscriber = new Subscriber()
-				//{
-				//	Id = t.Subscriber.Id,
-				//	Projects = t.Subscriber.Projects
-				//},
-				//Worker = new Worker()
-				//{
-				//	Id = t.Worker.Id,
-				//	Projects = t.Worker.Projects,
-				//	Skills = t.Worker.Skills
-				//}
-			}).FindByFuncWithInclude(t=> (t as User).Id == id);
+			var model = userService.GetWithInclude(UserExpression.Main()).FindByFuncWithInclude(t=> (t as User).Id == id);
 			return View(model);
 		}
 		[HttpPost]
