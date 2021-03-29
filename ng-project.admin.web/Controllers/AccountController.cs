@@ -109,6 +109,7 @@ namespace ng_project.admin.web.Controllers
 			{
 				foreach (var role in user.Roles)
 				{
+					var roleName = rolesService.FindById(role.Id);
 					claims.Add(new Claim(ClaimTypes.Role, role.Name));
 				}
 			}

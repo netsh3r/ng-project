@@ -43,12 +43,12 @@ namespace ng_project.web.Controllers
 					Name = t.Name,
 					RolesUsers= t.RolesUsers}).FindAll().ToList();
 				var roles = tt.Where(t => t.Users != null && t.Users.Count > 0
-				&& t.Users.Select(s => s.Id).ToList().Contains(user.Id)).ToList();
+				&& t.Users.Select(s => s.Id).ToList().Contains(user.Id))?.ToList() ?? null;
 				user.RolesUsers = roles?.Select(t=> new RolesUser() 
 				{
 					RolesId= t.Id,
 					UsersId = user.Id
-				}).ToList() ?? new List<RolesUser>();
+				}).ToList() ?? null;
 				//user.Roles = roles.Count > 0 ? roles.Where(t => t.Users.Select(s => s.Id).ToList().Contains(user.Id)).ToList() : new List<Roles>();
 				//user.Roles = tt.Where(t => t.Users!=null 
 				//	&& t.Users.Count > 0
@@ -107,7 +107,8 @@ namespace ng_project.web.Controllers
 			{
 				foreach (var role in user.Roles)
 				{
-					claims.Add(new Claim(ClaimTypes.Role, role.Name));
+					var roleName = rolesService.FindById(role.Id);
+					claims.Add(new Claim(ClaimTypes.Role, roleName.Name));
 				}
 			}
 

@@ -9,3 +9,6 @@
 /ng-project/bin
 /.idea
 /.vscode
+*/obj
+*/.vs
+*/bin
