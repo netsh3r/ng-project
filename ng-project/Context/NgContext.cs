@@ -29,8 +29,8 @@ namespace ng_project.Context
 
 		public NgContext()
 		{
-			//Database.EnsureDeleted();   // удаляем бд со старой схемой
-			//Database.EnsureCreated();
+			Database.EnsureDeleted();   // удаляем бд со старой схемой
+										//Database.EnsureCreated();
 		}
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
