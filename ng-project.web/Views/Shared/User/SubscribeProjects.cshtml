@@ -9,7 +9,7 @@
 <div class="row mb-lg-3">
 	@for (int projectIndex = 0; projectIndex < Model.Subscriber.Projects.Count; projectIndex++)
 		{
-			<input type="hidden" name="Subscriber.Projects[projectIndex].Id" value="@(Model.Subscriber.Projects[projectIndex].Id)" />
+			@*<input type="hidden" name="Subscriber.Projects[projectIndex].Id" value="@(Model.Subscriber.Projects[projectIndex].Id)" />*@
 			<div class="col-6 mt-3" onclick="window.location.href='@Url.Action("Info","Project",new { id=Model.Subscriber.Projects[projectIndex].Id})'">
 				<div class="project-item-block">
 					<div class="project-item">

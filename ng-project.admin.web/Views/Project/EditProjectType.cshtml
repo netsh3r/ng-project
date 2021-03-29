@@ -1,0 +1,95 @@
+﻿@using ng_project.Entities;
+@using ng_project.Services;
+
+@model ProjectType;
+@{
+	var rolesService = RolesService.Instance;
+}
+<link rel="stylesheet" href="~/css/Skill.css" />
+<form asp-action="EditProjectType" asp-controller="Project" method="post">
+	<div class="row">
+		<div class="col-md-6">
+			@Html.HiddenFor(t => t.Id)
+			@Html.LabelFor(m => m.Name)
+			@Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.LabelFor(m => m.IconName)
+			@Html.EditorFor(m => m.IconName, new { htmlAttributes = new { @class = "form-control" } })
+			<span>подтипы:</span>
+			<div class="input-group">
+				<input name="new-skill" type="text" class="form-control" id="new-skill-inp" value="" placeholder="Введите название навыка" />
+				<span class="input-group-text add-skills-btn addSkills btn" style="cursor:pointer">
+					Добавить
+				</span>
+			</div>
+			<div class="row participant-skills">
+				@for (int skillIndex = 0; skillIndex < Model.ProjectSubType.Count; skillIndex++)
+				{
+					<span class="participant-skill-item">@(Model.ProjectSubType[skillIndex].Name)</span>
+				}
+			</div>
+			<div>
+				Желаемые роли:
+				<div class="user-roles">
+					<div class="select-user-roles">
+
+					</div>
+					<div class="row roleItems participant-skills">
+						@if (Model.Roles != null)
+						{
+							foreach (var role in Model.Roles)
+							{
+								var roleNew = rolesService.FindById(role.Id);
+								<span class="participant-skill-item">@(roleNew.Name)</span>
+							}
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<input type="submit" value="Сохранить" class="btn btn-primary mt-3" />
+</form>
+<script>
+	$(document).ready(function ()
+	{
+		debugger;
+		let skillCount = -1;
+		$('.addSkills').bind('click', function ()
+		{
+			skillCount++;
+			let text = $('input[name="new-skill"]').val();
+			if (text !== "") {
+				$.ajax({
+					type: 'GET',
+					url: '@Url.ActionLink("AddNewSubType", "Project")',
+					data: { subTypeName: text.toString(), index: skillCount, projectTypeId:@(Model.Id)},
+					success: function (data) {
+						debugger;
+						$('input[name="new-skill"]').val("");
+						$('.participant-skills').append(data.value);
+					}
+				})
+			}
+		})
+		$.ajax({
+			type: 'GET',
+			url: '@Url.Action("GetRoles","Project")',
+			success: function(data){
+				$('.select-user-roles').append(data.value);
+				var roleIndex = -1;
+				$('.AddRole').bind('click', function () {
+					let roleId = $('select[name="select-roles"]').val();
+					roleIndex++;
+					$.ajax({
+						type: 'GET',
+						url: '@Url.Action("SetRoles","Project")',
+						data: { roleId: roleId, projectTypeId:@(Model.Id)},
+						success: function (data) {
+							$('.roleItems').append(data.value);
+						}
+					})
+				})
+			}
+		});
+	})
+</script>

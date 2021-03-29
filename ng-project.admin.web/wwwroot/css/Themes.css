@@ -1,0 +1,125 @@
+﻿.BlueTheme {
+	background: #0DB5FD;
+	background: linear-gradient(150deg, rgba(9,187,254,1) 0%, rgba(40,130,232,1) 100%) !important;
+}
+
+.OrangeTheme {
+	background: #FDA588;
+	background: linear-gradient(150deg, rgba(253,145,93,1) 0%, rgba(254,97,150,1) 100%) !important;
+}
+
+.RedTheme {
+	background: #E16570;
+	background: linear-gradient(150deg, rgba(255,136,124,1) 0%, rgba(182,50,95,1) 100%) !important;
+}
+
+.BlueThemeColor {
+	background: #0DB5FD;
+}
+
+.BtnBorderBlue {
+	border: 1px solid #0DB5FD;
+}
+.BtnBorderOrange {
+	border: 1px solid #FDA588;
+}
+.BtnBorderRed {
+	border: 1px solid #E16570;
+}
+
+::-webkit-scrollbar-button {
+	background-image: url('');
+	background-repeat: no-repeat;
+	width: 6px;
+	height: 0px
+}
+
+::-webkit-scrollbar-track {
+	background-color: #E6E6E6;
+	box-shadow: 0px 0px 3px #000 inset;
+}
+
+::-webkit-scrollbar-thumb {
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background-color: #727272;
+	box-shadow: 0px 1px 1px #fff inset;
+	background-image: url('https://yraaa.ru/_pu/24/59610063.png');
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+::-webkit-resizer {
+	background-image: url('');
+	background-repeat: no-repeat;
+	width: 7px;
+	height: 0px
+}
+
+::-webkit-scrollbar {
+	width: 11px;
+}
+.loader-main-block .show{
+	display: block;
+}
+.loader-bacdrop{
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1040;
+	width: 100vw;
+	height: 100vh;
+	background-color: #000;
+	opacity: .7;
+}
+
+.loader-block {
+	overflow-x: hidden;
+	overflow-y: auto;
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1050;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	outline: 0;
+}
+.loader-block .loader{
+	margin: auto auto;
+	border: 2px solid #eae4ea;
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	position: relative;
+	top:40%;
+	box-shadow: 0 -2px 2px rgba(0,0,0,.2);
+	border-bottom: 2px solid #0DB5FD;
+	animation: loader 3s linear infinite;
+}
+.loader-block .loader:before {
+	content: '';
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	bottom: 10px;
+	right: 10px;
+}
+.loader:before {
+	border-bottom: 2px solid #d355be;
+	animation: loader 2s linear infinite;
+	border-radius: 50%;
+}
+@keyframes loader {
+	0%
+	{
+		transform: rotate(0deg);
+	}
+	100%
+	{
+		transform: rotate(360deg);
+
+	}
+}

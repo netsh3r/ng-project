@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
+using ng_project.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text;
 
 namespace ng_project.Entities
@@ -12,10 +14,21 @@ namespace ng_project.Entities
 	/// </summary>
 	public class Project : Entity
 	{
+		//public Project()
+		//{
+		//	Subscribers = ProjectSubscribers.Select(t=> t.Subscribers).ToList();
+		//}
+		public virtual List<Comment> Comments { get; set; } = new List<Comment>();
+		public virtual List<ProjectSubscriber> ProjectSubscribers { get; set; } = new List<ProjectSubscriber>();
 		/// <summary>
 		/// Тип проекта
 		/// </summary>
-		public ProjectType ProjectType { get; set; } = new ProjectType();
+		public ProjectType ProjectType { get; set; }
+		/// <summary>
+		/// Тип проекта
+		/// </summary>
+		public ProjectSubType ProjectSubType { get; set; }
+		public int ProjectSubTypeId { get; set; }
 		/// <summary>
 		/// Идентификатор типа проекта
 		/// </summary>
@@ -27,15 +40,32 @@ namespace ng_project.Entities
 		/// <summary>
 		/// Необходимые навыки для проекта
 		/// </summary>
-		public List<Skill> Skills { get; set; }
+		public virtual List<Skill> Skills { get; set; }
 		/// <summary>
 		/// Подписчики 
 		/// </summary>
-		public List<Subscriber> Subscribers { get; set; }
+		[NotMapped]
+		public List<Subscriber> Subscribers { 
+			get 
+			{
+				return ProjectSubscribers.Select(t => new Subscriber()
+				{ 
+					Id = t.SubscribersId.Value
+				}).ToList();
+			}
+			set
+			{
+				ProjectSubscribers = Subscribers?.Select(t => new ProjectSubscriber()
+				{
+					ProjectsId = Id,
+					SubscribersId = t.Id
+				}).ToList();
+			}
+		}
 		/// <summary>
 		/// Сотрудники проекта
 		/// </summary>
-		public List<Worker> Workers { get; set; }
+		public virtual List<Worker> Workers { get; set; }
 		/// <summary>
 		/// Обложка
 		/// </summary>
@@ -74,6 +104,6 @@ namespace ng_project.Entities
 		/// <summary>
 		/// Новости проекта
 		/// </summary>
-		public List<News> News { get; set; }
+		public virtual List<News> News { get; set; }
 	}
 }

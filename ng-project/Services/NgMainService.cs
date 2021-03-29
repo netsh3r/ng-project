@@ -72,9 +72,9 @@ namespace ng_project.Services
 			ProjectManager.Add(project);
 		}
 
-		public void Add<T, IdT>(T model) where T : Entity, new()
+		public int Add<T, IdT>(T model) where T : Entity, new()
 		{
-			EntityManager<T, IdT>.Instance.Add(model);
+			return EntityManager<T, IdT>.Instance.Add(model);
 		}
 
 		public void Save<T, IdT>(T model) where T : Entity, new()

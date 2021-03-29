@@ -25,13 +25,14 @@ namespace ng_project.Managers
 				return _instance ?? (_instance = new EntityManager<T, IdT>());
 			}
 		}
-		public override void Add(T entity)
+		public override int Add(T entity)
 		{
 			using(var db = new NgContext())
 			{
 				var _dbSet = db.Set<T>();
-				_dbSet.Add(entity);
+				var item = _dbSet.Add(entity);
 				db.SaveChanges();
+				return item.Entity.Id;
 			}
 		}
 
@@ -51,10 +52,10 @@ namespace ng_project.Managers
 			using (var db = new NgContext())
 			{
 				var dbSet = db.Set<T>();
-				dbSet.Update(entity);
+				db.Update(entity);
 				db.SaveChanges();
 			}
-		}
+		} 
 
 		public override ICollection<T> FindAll()
 		{
@@ -70,7 +71,7 @@ namespace ng_project.Managers
 			using (var db = new NgContext())
 			{
 				db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-				var _dbSet = db.Set<T>().Select(expression).ToList();
+				var _dbSet = db.Set<T>().Select(expression).AsNoTracking().ToList();
 				return _dbSet.Cast<T>().ToList();
 			}
 		}
@@ -78,9 +79,9 @@ namespace ng_project.Managers
 		{
 			using(var db = new NgContext())
 			{
-				db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+				//db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 				var _dbSet = db.Set<T>();
-				return _dbSet.ToList().FirstOrDefault(expression);
+				return _dbSet.FirstOrDefault(expression);
 			}
 		}
 		public override ICollection<T> FindAll(Func<T, bool> expression)
@@ -106,16 +107,16 @@ namespace ng_project.Managers
 		{
 			using(var db = new NgContext())
 			{
-				var _dbSet = db.Set<T>().Select(expression).FirstOrDefault(t=> (t as T).Id == id);
+				var _dbSet = db.Set<T>().Select(expression).ToList().FirstOrDefault(t=> (t as T).Id == id);
 				return (T)_dbSet;
 			}
 		}
 
-		public override T Find(Expression<Func<T, object>> expression, Expression<Func<object, bool>> func)
+		public override T Find(Expression<Func<T, object>> expression, Func<object, bool> func)
 		{
 			using (var db = new NgContext())
 			{
-				var _dbSet = db.Set<T>().Select(expression).FirstOrDefault(func);
+				var _dbSet = db.Set<T>().Select(expression).AsEnumerable().FirstOrDefault(func);
 				return (T)_dbSet;
 			}
 		}
@@ -125,8 +126,17 @@ namespace ng_project.Managers
 			using (var db = new NgContext())
 			{
 				db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-				var _dbSet = db.Set<T>().Select(expression).ToList().Where(func);
+				var _dbSet = db.Set<T>().Select(expression).AsNoTracking().ToList().Where(func);
 				return _dbSet.Cast<T>().ToList();
+			}
+		}
+
+		public override void RemoveLink(object link)
+		{
+			using(var db = new NgContext())
+			{
+				db.Remove(link);
+				db.SaveChanges();
 			}
 		}
 	}

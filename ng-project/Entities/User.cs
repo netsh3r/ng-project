@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
+using ng_project.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text;
 
 namespace ng_project.Entities
@@ -12,10 +14,47 @@ namespace ng_project.Entities
 	/// </summary>
 	public class User : Entity
 	{
+		public List<NewsComment> NewsComments { get; set; }
+		/// <summary>
+		/// Комментарии пользователя
+		/// </summary>
+		public List<Comment> Comments { get; set; }
+		/// <summary>
+		/// Роли
+		/// </summary>
+		public virtual List<RolesUser> RolesUsers { get; set; } = new List<RolesUser>();
+		[NotMapped]
+		public List<Roles> Roles
+		{
+			get
+			{
+				return RolesUsers.Select(t => new Roles()
+				{
+					Id = t.RolesId
+				}).ToList();
+			}
+			//get
+			//{
+			//	return RolesUsers.Select(t => new Roles()
+			//	{
+			//		Id = t.RolesId
+			//	}).ToList();
+			//}
+			//set
+			//{
+			//	Roles = value;
+			//	RolesUsers = Roles.Select(t =>
+			//	new RolesUser()
+			//	{
+			//		UsersId = Id,
+			//		RolesId = t.Id
+			//	}).ToList();
+			//}
+		}
 		/// <summary>
 		/// Ссылка на сущность типа подписчик
 		/// </summary>
-		public Subscriber Subscriber { get; set; }
+		public Subscriber Subscriber { get; set; } = new Subscriber();
 		/// <summary>
 		/// Ссылка на сущность типа Сотрудник
 		/// если пользователь собирается быть участником
@@ -63,6 +102,6 @@ namespace ng_project.Entities
 		/// <summary>
 		/// Список созданных проектов пользователя
 		/// </summary>
-		public List<Project> Projects { get; set; } = new List<Project>();
+		public virtual List<Project> Projects { get; set; } = new List<Project>();
 	}
 }

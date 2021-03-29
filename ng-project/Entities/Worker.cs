@@ -1,6 +1,7 @@
 ﻿using ng_project.Entities.Enum;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace ng_project.Entities
@@ -13,7 +14,7 @@ namespace ng_project.Entities
 		/// <summary>
 		/// Ссылка на пользователя
 		/// </summary>
-		public User User { get; set; }
+		public virtual User User { get; set; }
 		/// <summary>
 		/// Идентификатор пользователя
 		/// </summary>
@@ -21,10 +22,10 @@ namespace ng_project.Entities
 		/// <summary>
 		/// Список проектов сотрудника
 		/// </summary>
-		public List<Project> Projects { get; set; } = new List<Project>();
+		public virtual List<Project> Projects { get; set; } 
 		/// <summary>
 		/// Навыки
 		/// </summary>
-		public List<Skill> Skills { get; set; } = new List<Skill>();
+		public virtual List<Skill> Skills { get; set; }
 	}
 }

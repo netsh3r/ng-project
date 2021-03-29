@@ -12,7 +12,7 @@ namespace ng_project.Entities
 		/// <summary>
 		/// Ссылка на пользователя
 		/// </summary>
-		public User User { get; set; }
+		public virtual User User { get; set; }
 		/// <summary>
 		/// идентификатор пользователя
 		/// </summary>

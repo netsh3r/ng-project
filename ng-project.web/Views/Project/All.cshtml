@@ -1,117 +1,123 @@
 ﻿@using ng_project.Entities;
-
+@using ng_project.Services;
 @model List<Project>
-
+@{
+	var projectTypeService = ProjectTypeService.Instance;
+	var projectTypes = projectTypeService.FindAll().ToList();
+	var projectSubTypeService = ProjectSubTypeService.Instance;
+	var projectSubType = new List<List<ProjectSubType>>();
+	var indexProjType = 0;
+}
 <link rel="stylesheet" href="~/css/Project.css" />
 <div class="container-fluid pl-5 pr-5">
 	<div class="project-type">
 		<div class="d-flex flex-nowrap">
-			<div class="project-type-item select">
-				<div class="icon">
-					<img src="~/images/icon/game.png" />
-				</div>
-				<div class="text">
-					ИГРЫ
-				</div>
-			</div>
-			<div class="project-type-item">
-				<div class="icon">
-					<img src="~/images/icon/music.png" />
-				</div>
-				<div class="text">
-					МУЗЫКА
-				</div>
-			</div>
-			<div class="project-type-item">
-				<div class="icon">
-					<img src="~/images/icon/study.png" />
-				</div>
-				<div class="text">
-					ОБРАЗОВАНИЕ
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="project-sub-type mt-4">
-		<div class="d-flex flex-nowrap">
-			<div class="project-type-item select">
-				<div class="text">
-					RPG
-				</div>
-			</div>
-			<div class="project-type-item">
-				<div class="text">
-					HORROR
-				</div>
-			</div>
-			<div class="project-type-item">
-				<div class="text">
-					ACTION
-				</div>
-			</div>
-			<div class="project-type-item">
-				<div class="text">
-					HORROR
-				</div>
-			</div>
-			<div class="project-type-item">
-				<div class="text">
-					HORROR
-				</div>
-			</div>
-			<div class="project-type-item">
-				<div class="text">
-					HORROR
-				</div>
-			</div>
-		</div>
-			
-		</div>
-	</div>
-<div class="container-fluid mt-4 pl-5 pr-5">
-	<div class="row">
-		
-		@foreach (var Project in Model)
-		{
-		<div class="col-md-4 mt-4">
-			<div class="project-item" onclick="window.location.href='@Url.Action("Info","Project",new { id=Project.Id})'">
-				@{
-					var hasImage = Project.MainProjectImage != null && Project.MainProjectImage.Data != null;
-					var hasUserImage = Project.User.Image != null && Project.User.Image.Data != null;
-				}
-				<div class="project-card @(hasImage ? "": "BlueTheme")">
-				@if(hasImage)
-				{
-					<img src="data:image/jpeg;base64,@(Convert.ToBase64String(Project.MainProjectImage.Data))" />
-				}
-				</div>
-				<div class="project-text-block mt-2">
-					<div class="row">
-						<div class="col-2">
-							<div class="profile-img ">
-								@if (hasUserImage)
-								{
-									<img src="data:image/jpeg;base64,@(Convert.ToBase64String(Project.User.Image.Data))" />
-								}
-							</div>
-						</div>
-						<div class="col-10">
-							<div class="row">
-								<span class="project-creator-name">
-									@(Project.User.login)
-								</span>
-							</div>
-							<div class="row">
-								<span class="project-name">
-									@(Project.Name)
-								</span>
-							</div>
-						</div>
-
+			@foreach (var item in projectTypes)
+			{
+				<div class="project-type-item" id="project_type_@(item.Id)" onclick="loadSubType(@(item.Id),@(indexProjType++))">
+					<div class="icon">
+						<img src="~/images/icon/@(item.IconName).png" />
+					</div>
+					<div class="text">
+						@(item.Name)
 					</div>
 				</div>
-			</div>
+			}
 		</div>
-		}
+	</div>
+	
+	<div class="project-sub-type mt-4">
+		<div class="d-flex flex-nowrap">
+			@foreach (var subTypeItem in projectTypes[0].ProjectSubType)
+			{
+				<div class="project-type-item">
+					<div class="text">
+						@(subTypeItem.Name)
+					</div>
+				</div>
+			}
+
+		</div>
 	</div>
 </div>
+<div class="container-fluid mt-4 pl-5 pr-5">
+	<div class="row project-items-block">
+	</div>
+</div>
+<script>
+	$(document).ready(function ()
+	{
+		ShowLoader();
+		$('.project-type-item:first').addClass("select")
+		$.ajax({
+			type: 'GET',
+			url: '@Url.Action("GetSubTypes","Project")',
+			data: { projectTypeId:@(projectTypes[0].Id) },
+			success: function (data) {
+				let blockSubType = $('.project-sub-type');
+				blockSubType.empty();
+				blockSubType.append(data.value);
+				$('.project_sub_type:eq(0)').addClass('select');
+				var subTypeId = $('.project_sub_type:first input[name="project_sub_type_id"]').val();
+				$.ajax({
+					type: 'GET',
+					url: '@Url.Action("GetProjects","Project")',
+					data: { projectTypeId:@(projectTypes[0].Id), projectSubType: subTypeId },
+					success: function (data) {
+						let projectItemsBlock = $('.project-items-block');
+						projectItemsBlock.empty();
+						projectItemsBlock.append(data.value);
+						HideLoader();
+					}
+				})
+			}
+		})
+	})
+	function loadSubType(projectTypesId,index) {
+
+		debugger;
+		$('.project-type-item').removeClass("select")
+		$('.project-type-item:eq('+index+')').addClass("select")
+		$.ajax({
+			type: 'GET',
+			url: '@Url.Action("GetSubTypes","Project")',
+			data: { projectTypeId:projectTypesId },
+			success: function (data) {
+				let blockSubType = $('.project-sub-type');
+				blockSubType.empty();
+				blockSubType.append(data.value);
+				$('.project_sub_type:eq(0)').addClass('select');
+				var subTypeId = $('.project_sub_type:first input[name="project_sub_type_id"]').val();
+				$.ajax({
+					type: 'GET',
+					url: '@Url.Action("GetProjects","Project")',
+					data: { projectTypeId:projectTypesId, projectSubType: subTypeId },
+					success: function (data) {
+						debugger;
+						let projectItemsBlock = $('.project-items-block');
+						projectItemsBlock.empty();
+						projectItemsBlock.append(data.value);
+						HideLoader();
+					}
+				})
+			}
+		})
+	}
+	function loadProject(projectTypeId, subTypeId,index) {
+		$('.project_sub_type').removeClass('select');
+		$('.project_sub_type:eq('+index+')').addClass('select');
+		$.ajax({
+			type: 'GET',
+			url: '@Url.Action("GetProjects","Project")',
+			data: { projectTypeId:projectTypeId, projectSubType: subTypeId },
+			success: function (data) {
+				let projectItemsBlock = $('.project-items-block');
+				projectItemsBlock.empty();
+				projectItemsBlock.append(data.value);
+				HideLoader();
+			}
+		})
+	}
+
+
+</script>

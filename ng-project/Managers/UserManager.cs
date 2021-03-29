@@ -37,18 +37,18 @@ namespace ng_project.Managers
 					//.AsNoTracking()
 					//.Include(t => t.Email)
 					//.AsNoTracking()
-					.Include(t => t.Worker)
-					//.AsNoTracking()
-						.ThenInclude(t => t.Projects)
-					//.AsNoTracking()
-					.Include(t => t.Worker)
-						.ThenInclude(t => t.Skills)
-					//.AsNoTracking()
-					.Include(t => t.Subscriber)
-					//.AsNoTracking()
-						.ThenInclude(t => t.Projects)
-					//.AsNoTracking()
-					.Include(t => t.Projects)
+					//.Include(t => t.Worker)
+					////.AsNoTracking()
+					//	.ThenInclude(t => t.Projects)
+					////.AsNoTracking()
+					//.Include(t => t.Worker)
+					//	.ThenInclude(t => t.Skills)
+					////.AsNoTracking()
+					//.Include(t => t.Subscriber)
+					////.AsNoTracking()
+					//	.ThenInclude(t => t.Projects)
+					////.AsNoTracking()
+					//.Include(t => t.Projects)
 					//.AsNoTracking()
 					//.Include(t => t.Image)
 					//.AsNoTracking()
@@ -56,14 +56,14 @@ namespace ng_project.Managers
 				return user;
 			}
 		}
-		public override void Save(User entity)
-		{
-			using (var db = new NgContext())
-			{
-				db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-				db.Users.Update(entity);
-				db.SaveChangesAsync();
-			}
-		}
+		//public override void Save(User entity)
+		//{
+		//	using (var db = new NgContext())
+		//	{
+		//		db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+		//		db.Users.Update(entity);
+		//		db.SaveChangesAsync();
+		//	}
+		//}
 	}
 }

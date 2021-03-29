@@ -1,0 +1,13 @@
+﻿@using ng_project.Entities;
+
+@model ProjectType;
+
+<form asp-action="AddProjectType" asp-controller="Project" method="post">
+	<div class="row">
+		<div class="col-md-6">
+			@Html.LabelFor(m => m.Name)
+			@Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
+		</div>
+	</div>
+	<input type="submit" value="Сохранить" class="btn btn-primary mt-3" />
+</form>

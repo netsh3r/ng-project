@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ng_project.Entities;
 using ng_project.Services;
 using ng_project.web.Models;
@@ -9,11 +10,12 @@ using System.Threading.Tasks;
 
 namespace ng_project.web.Controllers
 {
+	//[Authorize(Roles = "admin")]
 	public class ParticipantController : Controller
 	{
-		private IParticipantService participantService;
+		private IWorkerService participantService;
 		private INgMainService projectService;
-		public ParticipantController(IParticipantService participantService, INgMainService projectService)
+		public ParticipantController(IWorkerService participantService, INgMainService projectService)
 		{
 			this.participantService = participantService;
 			this.projectService = projectService;

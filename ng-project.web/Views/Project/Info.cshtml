@@ -37,6 +37,7 @@
 				</ul>
 				<div class="subscribe" onclick="DoSubscribe()">
 					<div class="d-flex flex-nowrap block">
+						<input type="hidden" name="isSubscribe" value="false" />
 						<div class="text">
 							Подписаться
 						</div>
@@ -45,6 +46,18 @@
 						</div>
 					</div>
 				</div>
+				@if (Model.User.login == User.Identity.Name)
+				{
+					<div class="edit" onclick="DoSubscribe()">
+						<div class="d-flex flex-nowrap block">
+							<input type="hidden" name="isSubscribe" value="false" />
+							<div class="text">
+								<a asp-action="Edit" asp-controller="Project" asp-route-id="@(Model.Id)" style="color:white">Редактировать</a>
+							</div>
+						</div>
+					</div>
+				}
+
 			</div>
 			<div class="page-list-info-body tab-content  mt-3 page-list-content">
 				<div class="tab-pane active" id="main" role="tabpanel" aria-labelledby="main-tab">
@@ -70,6 +83,9 @@
 		$('.project-info .body .project-info-pages .subscribe').hover(function () {
 			$('.project-info .body .project-info-pages .subscribe .block').toggleClass('BlueTheme');
 		})
+		$('.project-info .body .project-info-pages .edit').hover(function () {
+			$('.project-info .body .project-info-pages .edit .block').toggleClass('BlueTheme');
+		})
 
 		$.ajax({
 			type: 'POST',
@@ -81,6 +97,7 @@
 					let text = $('.project-info .body .project-info-pages .subscribe .text')
 					text.empty();
 					text.append("Вы подписаны")
+					$('input[name="isSubscribe"]').val(true);
 				}
 			}
 		})
@@ -88,18 +105,36 @@
 	})
 
 	function DoSubscribe() {
+		let isSubscribe = $('input[name="isSubscribe"]').val();
+		
+		let url = '@Url.ActionLink("Subscribe", "Project")';
+		if (isSubscribe === "true") {
+			url = '@Url.ActionLink("DeleteSubscribe", "Project")';
+		}
+
 		$.ajax({
 			type: 'POST',
-			url: '@Url.ActionLink("Subscribe","Project")',
+			url: url,
 			data: { projectId: @(Model.Id)},
 			success: function () {
-				$('.project-info .body .project-info-pages .subscribe .text').empty();
-				$('.project-info .body .project-info-pages .subscribe .text').append("Вы подписаны");
 				var count = $('.project-info .body .project-info-pages .subscribe .count');
-				var item = Number(count.val());
+				var item = Number(count.text());
 				count.empty();
-				count.append(item + 1);
-				$('.project-info .body .project-info-pages .subscribe').addClass('BlueTheme');
+				if (isSubscribe === "false") {
+					$('.project-info .body .project-info-pages .subscribe .text').empty();
+					$('.project-info .body .project-info-pages .subscribe .text').append("Вы подписаны");
+					count.append(item + 1);
+					$('input[name="isSubscribe"]').val(true);
+				}
+				else
+				{
+					$('.project-info .body .project-info-pages .subscribe .text').empty();
+					$('.project-info .body .project-info-pages .subscribe .text').append("Подписаться");
+					count.append(item - 1);
+					$('input[name="isSubscribe"]').val(false);
+				}
+				
+				$('.project-info .body .project-info-pages .subscribe').toggleClass('BlueTheme');
 			}
 		})
 	}

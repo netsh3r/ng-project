@@ -31,7 +31,7 @@ namespace ng_project.Services
 		/// <typeparam name="T"></typeparam>
 		/// <typeparam name="IdT"></typeparam>
 		/// <param name="model"></param>
-		void Add<T, IdT>(T model) where T : Entity, new();
+		int Add<T, IdT>(T model) where T : Entity, new();
 		/// <summary>
 		/// Получить generic объект по ID
 		/// </summary>

@@ -5,7 +5,8 @@
 
 <span>Навыки:</span>
 <div class="input-group">
-	<input name="new-skill" type="text" class="form-control" value="" placeholder="Введите название навыка" />
+	<input name="new-skill" type="text" class="form-control" id="new-skill-inp" value="" placeholder="Введите название навыка" />
+	@*<input type="text" name="name" data-autocomplete-source='@Url.Action("GetSkillItems", "Project")' />*@
 	<span class="input-group-text add-skills-btn BlueThemeColor addSkills">
 		Добавить
 	</span>
@@ -13,21 +14,46 @@
 
 
 <div class="row participant-skills">
-	@*@if (Model.Worker != null)
-		{
-			<div>
-				<div>
-					@for (int skillIndex = 0; skillIndex < Model.Worker.Skills.Count; skillIndex++)
-					{
-						<input type="hidden" name="" value="@(Model.Worker.Skills[skillIndex].Id)"/>
-						<input type="hidden" name="" value="@(Model.Worker.Skills[skillIndex])" />
-						<input type="hidden" name="" value="@(Model.Worker.Skills[skillIndex].SkillId)" />
-						<div class="participant-skill-item">
-							<span>c#</span>
-						</div>
-					}
-				</div>
-			</div>
-		}*@
-
+	@for (int skillIndex = 0; skillIndex < Model.Worker.Skills.Count; skillIndex++)
+	{
+		<span class="participant-skill-item">@(Model.Worker.Skills[skillIndex].Name)</span>
+	}
 </div>
+
+<script>
+	$(document).ready(function ()
+	{
+		let skillCount = -1;
+		$('.addSkills').bind('click', function ()
+		{
+			skillCount++;
+			let text = $('input[name="new-skill"]').val();
+			if (text !== "") {
+				$.ajax({
+					type: 'GET',
+					url: '@Url.ActionLink("AddNewSkill", "User")',
+					data: { skillName: text.toString(), index: skillCount, workerId:@(Model.Worker.Id) },
+					success: function (data) {
+						$('input[name="new-skill"]').val("");
+						$('.participant-item-block').append(data.value);
+					}
+				})
+			}
+		})
+	})
+	@*AddNewSkills() {
+		let text = $('input[name="new-skill"]').val();
+		if (text !== "") {
+			$.ajax({
+			type: 'GET',
+			url: '@Url.ActionLink("AddNewSkill", "User")',
+			data: {skillName:text.toString()},
+			success: function (data) {
+				$('input[name="new-skill"]').val("");
+				$('.participant-skills').append(data.value);
+			}
+		})
+		}
+
+	}*@
+</script>

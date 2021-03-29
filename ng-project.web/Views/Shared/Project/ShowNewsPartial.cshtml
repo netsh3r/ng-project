@@ -1,263 +1,149 @@
-﻿<div class="page-list-info page-list-news">
-						<div class="row">
-							<div class="col-3">
-								<div class="comments">
-									<div class="text BlueThemeColor">
-										КОММЕНТАРИИ (10)
-									</div>
-									<div class="list-items">
-										<div class="block">
-											<div class="comment-input">
-												<input placeholder="Введите текст" />
-											</div>
+﻿@using ng_project.Entities;
+
+@model Project;  
+
+<div class="page-list-info page-list-news">
+	<div class="row">
+		<div class="col-3">
+			<div class="comments">
+				<div class="text BlueThemeColor">
+					КОММЕНТАРИИ (<span class="comment-coutn">@(Model.Comments.Count)</span>)
+				</div>
+				<div class="list-items">
+					<div class="block">
+						<div class="comment-input">
+							<input placeholder="Введите текст" id="new-comment" name="new-comment"/>
+						</div>
 											
-											<div class="item-overflow">
-												<div class="item">
-													<div class="row">
-														<div class="col-2">
-															<div class="user-img BlueThemeColor">
+						<div class="item-overflow comment-items-list">
+							@foreach (var item in Model.Comments.OrderByDescending(t=> t.PublishDate).ToList())
+							{
+								<div class="item">
+									<div class="row">
+										<div class="col-2">
+											<div class="user-img BlueThemeColor">
 
-															</div>
-														</div>
-														<div class="col-10">
-															<div class="user-name">
-																netsh3r
-															</div>
-															<div class="comment-text">
-																комментарий
-															</div>
-
-															<div class="comment-border"></div>
-														</div>
-													</div>
-												</div>
-												<div class="item">
-													<div class="row">
-														<div class="col-2">
-															<div class="user-img BlueThemeColor">
-
-															</div>
-														</div>
-														<div class="col-10">
-															<div class="user-name">
-																netsh3r
-															</div>
-															<div class="comment-text">
-																комментарий
-															</div>
-
-															<div class="comment-border"></div>
-														</div>
-													</div>
-												</div>
-												<div class="item">
-													<div class="row">
-														<div class="col-2">
-															<div class="user-img BlueThemeColor">
-
-															</div>
-														</div>
-														<div class="col-10">
-															<div class="user-name">
-																netsh3r
-															</div>
-															<div class="comment-text">
-																комментарий
-															</div>
-
-															<div class="comment-border"></div>
-														</div>
-													</div>
-												</div>
-												<div class="item">
-													<div class="row">
-														<div class="col-2">
-															<div class="user-img BlueThemeColor">
-
-															</div>
-														</div>
-														<div class="col-10">
-															<div class="user-name">
-																netsh3r
-															</div>
-															<div class="comment-text">
-																комментарий
-															</div>
-
-															<div class="comment-border"></div>
-														</div>
-													</div>
-												</div>
-												<div class="item">
-													<div class="row">
-														<div class="col-2">
-															<div class="user-img BlueThemeColor">
-
-															</div>
-														</div>
-														<div class="col-10">
-															<div class="user-name">
-																netsh3r
-															</div>
-															<div class="comment-text">
-																комментарий
-															</div>
-
-															<div class="comment-border"></div>
-														</div>
-													</div>
-												</div>
-												<div class="item">
-													<div class="row">
-														<div class="col-2">
-															<div class="user-img BlueThemeColor">
-
-															</div>
-														</div>
-														<div class="col-10">
-															<div class="user-name">
-																netsh3r
-															</div>
-															<div class="comment-text">
-																комментарий
-															</div>
-
-															<div class="comment-border"></div>
-														</div>
-													</div>
-												</div>
 											</div>
-											
 										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-6">
-								<div class="news">
-									<div class="add-news">
-										<div class="input-new-news">
-											<div class="row">
-												<div class="col-1">
-													<div class="user-img BlueThemeColor">
-													</div>
-												</div>
-												<div class="col-11">
-													<textarea placeholder="Что у вас нового"></textarea>
-												</div>
-
+										<div class="col-10">
+											<div class="user-name">
+												@(item.User.login)
 											</div>
+											<div class="comment-text">
+												@(item.Text)
+											</div>
+
 											<div class="comment-border"></div>
 										</div>
-										<div class="new-news-block">
-											<div class="set-photo">
-												<img src="~/images/icon/Photo.png" />
-											</div>
-											<div class="publish-btn BlueThemeColor"> 
-												Опубликовать
-											</div>
-										</div>
-									</div>
-									<div class="news-list">
-										<div class="news-list-item">
-											<div class="images">
-												<div id="carouselPageListNewsImages_0" class="carousel slide carouselPageListNewsImagesMain" data-ride="carousel">
-													<div class="carousel-inner carousel-page-inner">
-														<div class="carousel-item active carousel-page-list-image">
-															@*<img src="..." class="d-block w-100" alt="...">*@
-															<div class="BlueTheme" style="width:100%;height:100%;border-radius: 0.5em;">
-
-															</div>
-														</div>
-														<div class="carousel-item carousel-page-list-image">
-															@*<img src="..." class="d-block w-100" alt="...">*@
-															<div class="OrangeTheme" style="width:100%;height:100%;border-radius: 0.5em;">
-
-															</div>
-														</div>
-													</div>
-													<a class="carousel-control-prev" href="#carouselPageListNewsImages_0" role="button" data-slide="prev">
-														<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-														<span class="sr-only">Предыдущий</span>
-													</a>
-													<a class="carousel-control-next" href="#carouselPageListNewsImages_0" role="button" data-slide="next">
-														<span class="carousel-control-next-icon" aria-hidden="true"></span>
-														<span class="sr-only">Следующий</span>
-													</a>
-												</div>
-											</div>
-											<div class="text">
-												<div class="DateTime">
-													@(DateTime.Now.ToShortDateString())
-												</div>
-												<div class="news-name">
-													Наш первый релиз!
-												</div>
-												<div class="news-description mt-3">
-													Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
-												</div>
-											</div>
-										</div>
-										<div class="news-list-item">
-											<div class="images">
-												<div id="carouselPageListNewsImages" class="carousel slide carouselPageListNewsImagesMain" data-ride="carousel">
-													<div class="carousel-inner carousel-page-inner">
-														<div class="carousel-item active carousel-page-list-image">
-															@*<img src="..." class="d-block w-100" alt="...">*@
-															<div class="BlueTheme" style="width:100%;height:100%;border-radius: 0.5em;">
-
-															</div>
-														</div>
-														<div class="carousel-item carousel-page-list-image">
-															@*<img src="..." class="d-block w-100" alt="...">*@
-															<div class="OrangeTheme" style="width:100%;height:100%;border-radius: 0.5em;">
-
-															</div>
-														</div>
-													</div>
-													<a class="carousel-control-prev" href="#carouselPageListNewsImages" role="button" data-slide="prev">
-														<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-														<span class="sr-only">Предыдущий</span>
-													</a>
-													<a class="carousel-control-next" href="#carouselPageListNewsImages" role="button" data-slide="next">
-														<span class="carousel-control-next-icon" aria-hidden="true"></span>
-														<span class="sr-only">Следующий</span>
-													</a>
-												</div>
-											</div>
-											<div class="text">
-												<div class="DateTime">
-													@(DateTime.Now.ToShortDateString())
-												</div>
-												<div class="news-name">
-													Наш первый релиз!
-												</div>
-												<div class="news-description mt-3">
-													Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
-												</div>
-											</div>
-										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-3">
-								<div class="top-news">
-									<div class="text BlueThemeColor">
-										ТОП НОВОСТЕЙ
-									</div>
-									<div class="list-items">
-										@*<div class="block">*@
-											<div class="top-news-item">
-												<div class="date-time-str">
-													@(DateTime.Now.ToShortDateString())
-												</div>
-												<div class="news-description">
-													Наш первый релиз!
-												</div>
-												<div class="top-news-border"></div>
-											</div>
-										@*</div>*@
-									</div>
+							}
+
+
+						</div>
+											
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-6">
+			<div class="news">
+				<div class="add-news">
+					<div class="input-new-news">
+						<div class="row">
+							<div class="col-1">
+								<div class="user-img BlueThemeColor">
 								</div>
 							</div>
+							<div class="col-11">
+								<textarea placeholder="Что у вас нового" name="news-item-ta"></textarea>
+							</div>
+
+						</div>
+						<div class="comment-border"></div>
+					</div>
+					<div class="new-news-block">
+						<div class="set-photo">
+							<img src="~/images/icon/Photo.png" />
+						</div>
+						<div class="publish-btn BlueThemeColor" onclick="AddNewsPost()"> 
+							Опубликовать
 						</div>
 					</div>
+				</div>
+				<div class="news-list">
+					@foreach (var newsItem in Model.News)
+					{
+						<div class="news-list-item">
+							<div class="text">
+								<div class="DateTime">
+									@(newsItem.PublishDate)
+								</div>
+								<div class="news-name">
+									@(newsItem.Title)
+								</div>
+								<div class="news-description mt-3">
+									@(newsItem.Text)
+								</div>
+							</div>
+							</div>
+						}
+					</div>
+				</div>
+		</div>
+		<div class="col-3">
+			<div class="top-news">
+				<div class="text BlueThemeColor">
+					ТОП НОВОСТЕЙ
+				</div>
+				<div class="list-items">
+					<div class="top-news-item">
+						<div class="date-time-str">
+							@(DateTime.Now.ToShortDateString())
+						</div>
+						<div class="news-description">
+							Наш первый релиз!
+						</div>
+						<div class="top-news-border"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	$(document).ready(function ()
+	{
+		$("#new-comment").keyup(function (event) {
+			let text = $('input[name="new-comment"]').val();
+			if (event.keyCode == 13) {
+				$.ajax({
+					type: 'POST',
+					url: '@(Url.Action("AddComments","Project"))',
+					data: { projectId:@(Model.Id), text: text },
+					success: function (data) {
+						let count = Number($('.comment-coutn').text());
+						$('.comment-coutn').empty();
+						$('.comment-coutn').append(count + 1)
+						$('input[name="new-comment"]').val("");
+						$('.comment-items-list').prepend(data.value);
+					}
+				});
+			}
+		});
+	})
+	function AddNewsPost() {
+			let text = $('textarea[name=news-item-ta]').val();
+			
+			$.ajax({
+				type: 'POST',
+				url: '@(Url.Action("AddNewsPost","Project"))',
+				data: { projectId:@(Model.Id), text: text },
+				success: function (data) {
+					$('textarea[name=news-item-ta]').val("");
+					$('.news-list').prepend(data.value);
+				}
+			})
+		}
+</script>

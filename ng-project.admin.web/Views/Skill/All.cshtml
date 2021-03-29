@@ -1,0 +1,12 @@
+﻿@using ng_project.Entities;
+
+@model List<Skill>; 
+	<link rel="stylesheet" href="~/css/Skill.css" />
+	<div class="controller">
+		<div class="row participant-skills">
+			@foreach(var skill in Model)
+			{
+				<span class="participant-skill-item">@(skill.Name)</span>
+			}
+		</div>
+	</div>

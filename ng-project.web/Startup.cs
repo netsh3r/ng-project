@@ -28,7 +28,6 @@ namespace ng_project.web
 		{
 			services.AddControllersWithViews().AddRazorRuntimeCompilation();
 			services.AddMvc();
-			//services.AddScoped<ISomeModel,SomeModel>();
 			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options=>
 			{ 
 				options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");

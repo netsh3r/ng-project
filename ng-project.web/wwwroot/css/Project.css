@@ -1,7 +1,9 @@
 ﻿.project-item{
 	cursor:pointer;
 }
-
+.project-items-block{
+	width:100%;
+}
 .project-item .project-text-block .profile-img {
 	background: #0DB5FD;
 	width: 3.5em;
@@ -28,7 +30,7 @@
 	margin-right: 20px;
 	background: #3e3c3c;
 	padding: 1em 0;
-	width:135px;
+	width: 135px;
 	border-radius: 1em;
 	cursor: pointer;
 }
@@ -47,12 +49,12 @@
 .project-type .project-type-item:hover {
 	background: #5b5858;
 }
-.project-type .project-type-item .text{
+/*.project-type .project-type-item .text{
 	display:none;
 }
 .project-type .project-type-item:hover .text {
 	display: block;
-}
+}*/
 	.project-sub-type .project-type-item .text,
 	.project-type .project-type-item .text {
 		text-align: center;

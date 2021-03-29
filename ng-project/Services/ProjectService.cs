@@ -14,10 +14,10 @@ namespace ng_project.Services
 		}
 		private ProjectManager projectManager;
 
-		public Project FindById(int id)
-		{
-			return projectManager.FindById(id);
-		}
+		//public Project FindById(int id)
+		//{
+		//	return projectManager.FindById(id);
+		//}
 
 		public ICollection<Project> GetAll()
 		{

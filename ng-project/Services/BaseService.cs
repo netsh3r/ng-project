@@ -13,10 +13,16 @@ namespace ng_project.Services
 
 		public abstract ICollection<T> FindAll(Expression<Func<T, object>> expression);
 		public abstract ICollection<T> FindAllWithIncude(Func<object, bool> func);
-		public abstract T FindByFuncWithInclude(Expression<Func<object, bool>> func);
+		public abstract T FindByFuncWithInclude(Func<object, bool> func);
 		public abstract T FindByFunc(Func<T, bool> func);
 		public abstract T FindById(int id);
 		public abstract IBaseService<T, IdT> GetWithInclude(Expression<Func<T, object>> expression);
 		public abstract void Save(T model);
+
+		public abstract int Add(T model);
+
+		public abstract void Delete(int id);
+
+		public abstract void RemoveLink(object link);
 	}
 }

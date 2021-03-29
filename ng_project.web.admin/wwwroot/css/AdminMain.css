@@ -1,0 +1,41 @@
+﻿.admin-main
+{
+	width:100%;
+	height:100vh;
+	display:grid;
+	/*grid-template-rows:100%;*/
+	grid-template-columns:20em auto;
+}
+
+.admin-main .navigation{
+	grid-column:1;
+	width:100%;
+	height:100%;
+}
+
+	.admin-main .navigation .menu-name {
+		text-align: center;
+		/*font-weight: bold;*/
+		font-size: 16pt;
+	}
+	.admin-main .navigation .navigation-item-list{
+		padding-right:40px;
+	}
+		.admin-main .navigation .navigation-item-list .item{
+			cursor:pointer
+		}
+		.admin-main .navigation .navigation-item-list .item:hover {
+			border-bottom:1px solid white;
+		}
+
+	.admin-main .body {
+		grid-column: 2;
+	}
+
+.setting-ref {
+	padding-left: 40px;
+}
+
+	.setting-ref:hover .item{
+		border-bottom: 1px solid white;
+	}

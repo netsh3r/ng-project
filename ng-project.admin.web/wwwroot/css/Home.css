@@ -1,0 +1,184 @@
+﻿
+
+
+.Home .MainView .Block {
+	height: 35em;
+	position: relative;
+	z-index: 2;
+}
+
+
+	
+	.Home .MainView .Block .MainText {
+		font-size: 50pt;
+		position: absolute;
+		font-weight: bold;
+		right: 0.7em;
+		top: 1em;
+		z-index: 2;
+	}
+
+	.Home .MainView .Block .MainDreamText {
+		font-size: 70pt;
+		position: absolute;
+		font-weight: bold;
+		right: 0.7em;
+		top: 1.5em;
+		z-index: 2;
+	}
+
+	.Home .MainView .Block .BottomRightImg {
+		width: 35em;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		z-index: 2;
+	}
+
+	.Home .MainView .Block .MainViewImg {
+		width: 21em;
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 2;
+	}
+
+
+	.Home .MainView .Block .SmallElipsesImg {
+		width: 20em;
+		height: 10em;
+		position: absolute;
+		bottom: 20px;
+		left: 20px;
+		z-index: 2;
+	}
+
+	.Home .MainView .Block .ElipseImg {
+		width: 15em;
+		/*height: 10em;*/
+		position: absolute;
+		bottom: 3em;
+		left: 8em;
+		z-index: 2;
+	}
+
+	.Home .MainView .Block .xImg {
+		width: 10em;
+		position: absolute;
+		bottom: 7em;
+		left: 20em;
+		z-index: 2;
+	}
+
+	.Home .MainView .Block .TriangleImg {
+		width: 12em;
+		position: absolute;
+		bottom: 15em;
+		left: 14em;
+		z-index: 2;
+	}
+	.Home .MainView .Block .Creator, .Home .MainView .Block .Participant {
+		font-size: 50pt;
+		font-weight: bold;
+		text-align: center;
+		position: relative;
+		top: 40%;
+		z-index:5;
+		/*width:50%;
+		height:50%;
+		margin:auto auto;*/
+	}
+	.Home .MainView .Block .TextBlockView .Left{
+		width: 50%;
+		height: 100%;
+		position: absolute;
+		z-index: 5;
+		left: 0;
+		cursor:pointer;
+	}
+
+	.Home .MainView .Block .TextBlockView .Right {
+		width: 50%;
+		height: 100%;
+		position: absolute;
+		z-index: 5;
+		right: 0;
+		cursor:pointer;
+	}
+		/*.Home .MainView .Block .TextBlockView .Right:hover .Main-view-participant {
+			display:block;
+		}
+		.Home .MainView .Block .TextBlockView .Left:hover .Main-view-Creator {
+			display: block;
+		}*/
+	.Home .MainView .Block .TextBlockView .TextBlock {
+		width: calc(100% - 60px);
+		height: calc(100% - 60px);
+		top: 30px;
+		left: 30px;
+		position: absolute;
+		z-index: 4;
+		margin: 0 auto;
+	}
+		.Home .MainView .Block .TextBlockView .TextBlock .Main-view-Creator {
+			display: block;
+		}
+		.Home .MainView .Block .TextBlockView .TextBlock .Main-view-participant {
+			display: none;
+		}
+		.Home .MainView .Block .TextBlockView .TextBlock .Main-view-Creator,
+		.Home .MainView .Block .TextBlockView .TextBlock .Main-view-participant {
+			position: absolute;
+			width: 50em;
+			top: -1em;
+			left: -7em;
+		}
+			
+			
+		.Home .MainView .Block .BlockView {
+			width: 100%;
+			height: 100%;
+			background: rgb(2,0,36);
+			background: linear-gradient(150deg, rgba(33,32,32,1) 0%, rgba(31,30,30,1) 100%);
+			position: relative;
+			z-index: 4;
+		}
+	.Home .MainView .BackBlockLeft {
+		height: 25em;
+		width: 35em;
+		position: absolute;
+		bottom: -20px;
+		left: -20px;
+		z-index: 1;
+	}
+
+	.Home .MainView .BackBlockRight {
+		height: 25em;
+		width: 35em;
+		position: absolute;
+		top: -20px;
+		right: -20px;
+		z-index: 1;
+	}
+		.Home .MainView .Blue {
+			background-color: #1D9DFA;
+		}
+
+
+.MainDreamText {
+	color: #ffffff;
+	text-align: center;
+	-webkit-animation: MainDreamText 1s ease-in-out infinite alternate;
+	-moz-animation: MainDreamText 1s ease-in-out infinite alternate;
+	animation: MainDreamText 1s ease-in-out infinite alternate;
+}
+@-webkit-keyframes MainDreamText {
+	from {
+		text-shadow: 0 0 10px #eeeeee, 0 0 20px #000000, 0 0 30px #000000, 0 0 40px #000000, 0 0 50px #9554b3, 0 0 60px #9554b3, 0 0 70px #9554b3;
+	}
+
+	to {
+		text-shadow: 0 0 20px #eeeeee, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+	}
+}
+/*ElipseImg xImg TriangleImg*/

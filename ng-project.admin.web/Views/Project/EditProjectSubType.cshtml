@@ -1,0 +1,20 @@
+﻿@using ng_project.Entities;
+
+@model ProjectSubType;
+<link rel="stylesheet" href="~/css/Skill.css" />
+<form asp-action="EditProjectSubType" asp-controller="Project" method="post">
+	<div class="row">
+		<div class="col-md-6">
+			@Html.HiddenFor(t => t.Id)
+			@Html.HiddenFor(t => t.ProjectTypeId)
+			@Html.LabelFor(m => m.Name)
+			@Html.EditorFor(m => m.Name, new { htmlAttributes = new { @class = "form-control" } })
+		</div>
+	</div>
+	<div class="row participant-skills">
+		<span class="participant-skill-item">
+			<a class="" asp-area="" asp-controller="Project" asp-action="EditProjectType" asp-route-id="@(Model.ProjectTypeId)" style="color:white">@(Model.ProjectType.Name)</a>
+		</span>
+	</div>
+	<input type="submit" value="Сохранить" class="btn btn-primary mt-3" />
+</form> 

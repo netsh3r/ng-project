@@ -1,10 +1,21 @@
 ﻿@using ng_project.Entities;
+@using ng_project.Services
 
 @model User;
 
 @*@Html.BeginForm("Add","Project", FormMethod.Post)
 {*@
-<form method="post" asp-action="Add" asp-controller="Project">
+
+@{
+	var projectTypeService = ProjectTypeService.Instance;
+	var typeProjects = projectTypeService.FindAll().ToList();
+	var subTypeProjectService = ProjectSubTypeService.Instance;
+	var selectSubTypeProject = subTypeProjectService.FindAll(t => (t as ProjectSubType).ProjectTypeId == typeProjects[0].Id);
+	var selectProjectTpype = new SelectList(typeProjects, "Id","Name");
+	var selectProjectSubType = new SelectList(selectSubTypeProject, "Id", "Name");
+}
+
+	<form method="post" asp-action="Add" asp-controller="Project">
 	<input type="hidden" name="UserId" value="@(Model.Id)" />
 	<div class="modal-dialog ">
 		<div class="modal-content OrangeTheme">
@@ -16,7 +27,11 @@
 			</div>
 			<div class="modal-body">
 				<label for="ProjectType.Name">Тип проекта</label>
-				<input name="ProjectType.Name" class="form-control" value=""/>
+				@Html.DropDownList("ProjectTypeId", selectProjectTpype, new { @class = "form-control" })
+				<label for="ProjectType.Name">Подтип проекта</label>
+				<div class="sub-type-project">
+					@Html.DropDownList("ProjectSubTypeId", selectProjectSubType, new { @class = "form-control" })
+				</div>
 				<label for="Name">Название проекта</label>
 				<input name="Name" type="text" class="form-control" value="" />
 				<label for="Description">Описание проекта</label>
@@ -31,5 +46,22 @@
 		</div>
 	</div>
 </form>
-	
-	@*}*@
+
+<script>
+	$(document).ready(() =>
+	{
+		$('#ProjectTypeId').bind("change", function (data) {
+			let projectTypeId = $('select[name="ProjectTypeId"]').val();
+			$.ajax({
+				type: 'GET',
+				url: '@Url.Action("GetSubTypes","User")',
+				data: { projectTypeId: projectTypeId },
+				success: function (data) {
+					let subTypeBlock = $('.sub-type-project');
+					subTypeBlock.empty();
+					subTypeBlock.append(data.value);
+				}
+			})
+		})
+	})
+</script>

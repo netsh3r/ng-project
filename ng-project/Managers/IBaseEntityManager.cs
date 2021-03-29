@@ -9,10 +9,11 @@ namespace ng_project.Managers
 	/// </summary>
 	interface IBaseEntityManager<T,IdT>
 	{
+		void RemoveLink(object link);
 		/// <summary>
 		/// Добавить запись в бд
 		/// </summary>
-		void Add(T entity);
+		int Add(T entity);
 		/// <summary>
 		/// Удалить запись из бд
 		/// </summary>

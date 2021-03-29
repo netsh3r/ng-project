@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ng_project.Entities;
+using ng_project.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,9 @@ namespace ng_project.Context
 {
 	public class NgContext : DbContext
 	{
+		public DbSet<ProjectSubscriber> ProjectSubscriber { get; set; }
+		public DbSet<Roles> Roles { get; set; }
+		public DbSet<ProjectSubType> ProjectSubTypes { get; set; }
 		public DbSet<User> Users { get; set; }
 		public DbSet<Creator> Creators { get; set; }
 		public DbSet<Worker> Participants { get; set; }
@@ -26,6 +30,7 @@ namespace ng_project.Context
 		public NgContext()
 		{
 			//Database.EnsureDeleted();   // удаляем бд со старой схемой
+			//Database.EnsureCreated();
 		}
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
@@ -36,22 +41,38 @@ namespace ng_project.Context
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			//modelBuilder.Entity<Subscriber>().HasData(new Subscriber { Id = 1, UserId = 1 });
-			//modelBuilder.Entity<Subscriber>().HasData(new Subscriber { Id = 2, UserId = 2 });
-			//modelBuilder.Entity<Subscriber>().HasData(new Subscriber { Id = 3, UserId = 3 });
-			//modelBuilder.Entity<Subscriber>().HasData(new Subscriber { Id = 4, UserId = 4 });
+			modelBuilder.Entity<ProjectTypeRoles>()
+				.HasKey(s => new { s.ProjectTypeId, s.RolesId });
+			modelBuilder.Entity<ProjectTypeRoles>()
+				.HasOne(ps => ps.Roles)
+				.WithMany(s => s.ProjectTypeRoles)
+				.HasForeignKey(c => c.RolesId);
+			modelBuilder.Entity<ProjectTypeRoles>()
+				.HasOne(t => t.ProjectType)
+				.WithMany(ts => ts.ProjectTypesRoles)
+				.HasForeignKey(s => s.ProjectTypeId);
 
-			//modelBuilder.Entity<Worker>().HasData(new Worker { Id = 1, UserId =1 });
-			//modelBuilder.Entity<Worker>().HasData(new Worker { Id = 2, UserId = 2 });
-			//modelBuilder.Entity<Worker>().HasData(new Worker { Id = 3, UserId = 3 });
-			//modelBuilder.Entity<Worker>().HasData(new Worker { Id = 4, UserId = 4 });
+			modelBuilder.Entity<ProjectSubscriber>()
+				.HasKey(s => new { s.ProjectsId, s.SubscribersId });
+			modelBuilder.Entity<ProjectSubscriber>()
+				.HasOne(ps => ps.Subscribers)
+				.WithMany(p => p.ProjectSubscribers)
+				.HasForeignKey(t => t.SubscribersId);
+			modelBuilder.Entity<ProjectSubscriber>()
+				.HasOne(t => t.Projects)
+				.WithMany(s => s.ProjectSubscribers)
+				.HasForeignKey(c => c.ProjectsId);
 
-			
-
-			//modelBuilder.Entity<User>().HasData(new User { Id = 1, login = "admin", Password = "123" });
-			//modelBuilder.Entity<User>().HasData(new User { Id = 2, login = "admin2", Password = "123" });
-			//modelBuilder.Entity<User>().HasData(new User { Id = 3, login = "admin3", Password = "123" });
-			//modelBuilder.Entity<User>().HasData(new User { Id = 4, login = "admin4", Password = "123" });
+			modelBuilder.Entity<RolesUser>()
+				.HasKey(s => new { s.RolesId, s.UsersId});
+			modelBuilder.Entity<RolesUser>()
+				.HasOne(ps => ps.Roles)
+				.WithMany(p => p.RolesUsers)
+				.HasForeignKey(t => t.RolesId);
+			modelBuilder.Entity<RolesUser>()
+				.HasOne(t => t.Users)
+				.WithMany(s => s.RolesUsers)
+				.HasForeignKey(c => c.UsersId);
 		}
 	}
 }

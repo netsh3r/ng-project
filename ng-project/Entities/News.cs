@@ -9,10 +9,11 @@ namespace ng_project.Entities
     /// </summary>
     public class News : Entity
     {
+        public NewsComment NewsComment { get; set; }
         /// <summary>
         /// Изображения новости
         /// </summary>
-        public List<NewsImage> NewsImages { get; set; }
+        public virtual List<NewsImage> NewsImages { get; set; }
         /// <summary>
         /// Заголовок 
         /// </summary>
@@ -25,8 +26,8 @@ namespace ng_project.Entities
         /// Дата публикации
         /// </summary>
         public DateTime PublishDate { get; set; }
-        public Teg Teg { get; set; }
-        public int TegId { get; set; }
+        public virtual Teg Teg { get; set; }
+        public int? TegId { get; set; }
         /// <summary>
         /// Идентификатор проекта
         /// </summary>
@@ -35,7 +36,7 @@ namespace ng_project.Entities
         /// Ссылка на проект
         /// </summary>
 
-        public Project Project { get; set; }
+        public virtual Project Project { get; set; }
         
     }
 }

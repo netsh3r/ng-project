@@ -9,7 +9,7 @@ using System.Text;
 
 namespace ng_project.Services
 {
-	public class WorkerService : MainService<Worker,int>, IParticipantService
+	public class WorkerService : MainService<Worker,int>, IWorkerService
 	{
 		public WorkerService()
 		{

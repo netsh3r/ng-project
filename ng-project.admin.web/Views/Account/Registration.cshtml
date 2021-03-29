@@ -1,0 +1,100 @@
+﻿@using ng_project.admin.web.Models;
+@model RegisterModel;
+
+<link rel="stylesheet" href="~/css/Account.css" />
+<div class="container mt-3">
+	<h1 class="h1 mb-3 font-weight-normal text-center">Регистрация</h1>
+	@* d-flex justify-content-center *@
+<div class="">
+	@* <form asp-action="Registration" asp-controller="Account" asp-anti-forgery="true"> *@
+	<form asp-action="Registration" asp-controller="Account" asp-anti-forgery="true">
+		<input type="hidden" name="IsParticipant" value="false" />
+		<div class="modal-dialog">
+			<div class="modal-content OrangeTheme">
+				<div class="modal-header">
+					<h5 class="modal-title" id="staticBackdropLabel">Зарегистрироваться как создатель</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="mb-3">
+						@Html.LabelFor(t => t.Login, htmlAttributes: new { @class = "" })
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text">@("@")</span>
+							</div>
+							@Html.EditorFor(t => t.Login, new { htmlAttributes = new { placeholder = "username", autocomplete = "off", @class = "form-control" } })
+							@Html.ValidationMessageFor(t => t.Login, "", new { @class = "text-danger" })
+						</div>
+					</div>
+					<div class="mb-3">
+						@Html.LabelFor(t => t.Email, htmlAttributes: new { @class = "" })
+						<div class="input-group">
+							@Html.EditorFor(t => t.Email, new { htmlAttributes = new { placeholder = "test@email.ru", autocomplete = "true", type = "email", @class = "form-control" } })
+							@Html.ValidationMessageFor(t => t.Email, "", new { @class = "text-danger" })
+						</div>
+					</div>
+					<div class="mb-3">
+						@Html.LabelFor(t => t.Password, htmlAttributes: new { @class = "" })
+						<div class="input-group">
+							@Html.EditorFor(t => t.Password, new { htmlAttributes = new { placeholder = "Пароль", autocomplete = "true", type = "password", @class = "form-control" } })
+							@Html.ValidationMessageFor(t => t.Password, "", new { @class = "text-danger" })
+						</div>
+					</div>
+					<div class="mb-3">
+						@Html.LabelFor(t => t.ConfirmPassword, htmlAttributes: new { @class = "" })
+						<div class="input-group">
+							@Html.EditorFor(t => t.ConfirmPassword, new { htmlAttributes = new { placeholder = "Пароль", autocomplete = "true", type = "password", @class = "form-control" } })
+							@Html.ValidationMessageFor(t => t.ConfirmPassword, "", new { @class = "text-danger" })
+						</div>
+					</div>
+					@* <input type="submit" value="Зарегистрироваться" class="btn btn-md btn-primary btn-block"/> *@
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+					<button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+				</div>
+			</div>
+		</div>
+	</form>
+	@* </form> *@
+</div>
+
+</div>
+
+
+
+
+@* <div class="mb-3"> *@
+@* 	@Html.LabelFor(t => t.Login, htmlAttributes: new {@class = ""}) *@
+@* 	<div class="input-group"> *@
+@* 		<div class="input-group-prepend"> *@
+@* 			<span class="input-group-text">@("@")</span> *@
+@* 		</div> *@
+@* 		@Html.EditorFor(t => t.Login, new {htmlAttributes = new {placeholder = "username", autocomplete = "off", @class = "form-control"}}) *@
+@* 		@Html.ValidationMessageFor(t => t.Login, "", new {@class = "text-danger"}) *@
+@* 	</div> *@
+@* </div> *@
+@* <div class="mb-3"> *@
+@* 	@Html.LabelFor(t => t.Email, htmlAttributes: new {@class = ""}) *@
+@* 	<div class="input-group"> *@
+@* 		@Html.EditorFor(t => t.Email, new {htmlAttributes = new {placeholder = "test@email.ru", autocomplete = "true", type = "email", @class = "form-control"}}) *@
+@* 		@Html.ValidationMessageFor(t => t.Email, "", new {@class = "text-danger"}) *@
+@* 	</div> *@
+@* </div> *@
+@* <div class="mb-3"> *@
+@* 	@Html.LabelFor(t => t.Password, htmlAttributes: new {@class = ""}) *@
+@* 	<div class="input-group"> *@
+@* 		@Html.EditorFor(t => t.Password, new {htmlAttributes = new {placeholder = "Пароль", autocomplete = "true", type = "password", @class = "form-control"}}) *@
+@* 		@Html.ValidationMessageFor(t => t.Password, "", new {@class = "text-danger"}) *@
+@* 	</div> *@
+@* </div> *@
+@* <div class="mb-3"> *@
+@* 	@Html.LabelFor(t => t.ConfirmPassword, htmlAttributes: new {@class = ""}) *@
+@* 	<div class="input-group"> *@
+@* 		@Html.EditorFor(t => t.ConfirmPassword, new {htmlAttributes = new {placeholder = "Пароль", autocomplete = "true", type = "password", @class = "form-control"}}) *@
+@* 		@Html.ValidationMessageFor(t => t.ConfirmPassword, "", new {@class = "text-danger"}) *@
+@* 	</div> *@
+@* </div> *@
+@* <input type="submit" value="Зарегистрироваться" class="btn btn-md btn-primary btn-block"/> *@

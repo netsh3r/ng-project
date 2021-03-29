@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"]</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+	@*<link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />*@
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-grid.min.css" />
+	<link rel="stylesheet" href="~/css/AdminMain.css" />
+	@*<link rel="stylesheet" href="~/css/site.css" />*@
+	<link rel="stylesheet" href="~/css/Main.css" />
+	<link rel="stylesheet" href="~/css/Themes.css" />
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+	<div class="admin-main">
+			<div class="navigation BlueTheme">
+				<div class="menu-name">
+					Меню навигации
+				</div>
+				<div class="navigation-item-list">
+					<ul>
+						<li>
+							<span class="item">Пользователи</span>
+							<ul>
+								<li>
+									<span class="item">
+										<a asp-area="" asp-controller="Home" asp-action="Index2">Создать</a>
+									</span>
+								</li>
+								<li>
+									<span class="item">Посмотреть всех</span>
+								</li>
+								<li>
+									<span class="item">Подписчики</span>
+									
+								</li>
+								<li>
+									<span class="item">Участники</span>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<span class="item">Проекты</span>
+							<ul>
+								<li>
+									<span class="item">Типы проектов</span>
+									
+								</li>
+								<li>
+									<span class="item">Все</span>
+									
+								</li>
+							</ul>
+						</li>
+						<li>
+							<span class="item">Навыки</span>
+							
+						</li>
+					</ul>
+					<div class="setting-ref">
+						<span class="item">Настройки</span>
+					</div>
+					@*<div class="item">
+
+					</div>*@
+				</div>
+			</div>
+			<div class="body">
+				<main>
+					@RenderBody()
+				</main>
+			</div>
+		
+	</div>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script>
+
+		function ShowLoader() {
+			$('.loader-main-block .loader-bacdrop').show();
+			$('.loader-main-block .loader-block').show();
+		}
+		function HideLoader() {
+			$('.loader-main-block .loader-bacdrop').hide();
+			$('.loader-main-block .loader-block').hide();
+		}
+	</script>
+</body>
+</html>

@@ -17,19 +17,15 @@ namespace ng_project.web
 			var asmbly = Assembly.GetEntryAssembly();
 			var assembly = Assembly.Load("ng-project");
 			List<Type> types = new List<Type>();
-			//foreach (Type type in assembly.GetTypes())
-			//{
-			//	if (type.GetCustomAttributes(typeof(ServiceAttribute), true).Length > 0)
-			//	{
-
-			//		builder.RegisterType(type).InstancePerLifetimeScope();
-			//		types.Add(type);
-			//	}
-			//}
+			builder.RegisterType<NewsService>().As<INewsService>().InstancePerLifetimeScope();
+			builder.RegisterType<CommentService>().As<ICommentService>().InstancePerLifetimeScope();
+			builder.RegisterType<RolesService>().As<IRolesService>().InstancePerLifetimeScope();
+			builder.RegisterType<ProjectSubTypeService>().As<IProjectSubTypeService>().InstancePerLifetimeScope();
+			builder.RegisterType<ProjectTypeService>().As<IProjectTypeService>().InstancePerLifetimeScope();
 			builder.RegisterType<SkillService>().As<ISkillService>().InstancePerLifetimeScope();
 			builder.RegisterType<SubscriveService>().As<ISubscribeService>().InstancePerLifetimeScope();
 			builder.RegisterType<ProjectService>().As<IProjectService>().InstancePerLifetimeScope();
-			builder.RegisterType<WorkerService>().As<IParticipantService>().InstancePerLifetimeScope();
+			builder.RegisterType<WorkerService>().As<IWorkerService>().InstancePerLifetimeScope();
 			builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
 			builder.RegisterType<NgMainService>().As<INgMainService>().InstancePerLifetimeScope();
 			builder.RegisterType<SomeModel>().As<ISomeModel>().InstancePerLifetimeScope();

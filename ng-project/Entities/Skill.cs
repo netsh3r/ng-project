@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace ng_project.Entities
@@ -16,14 +17,14 @@ namespace ng_project.Entities
 		/// <summary>
 		/// Список сотрудников использующих навык
 		/// </summary>
-		public List<Worker> Workers { get; set; }
+		public virtual List<Worker> Workers { get; set; }
 		/// <summary>
 		/// Список проектов использующих навык
 		/// </summary>
-		public List<Project> Projects { get; set; }
+		public virtual List<Project> Projects { get; set; }
 		/// <summary>
 		/// Список типов проектов, используемых навык в качестве базового
 		/// </summary>
-		public List<ProjectType> ProjectTypes { get; set; }
+		public virtual List<ProjectType> ProjectTypes { get; set; }
 	}
 }

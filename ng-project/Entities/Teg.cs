@@ -16,6 +16,6 @@ namespace ng_project.Entities
 		/// <summary>
 		/// Список новостей, используемых выбранный тег
 		/// </summary>
-		public List<News> News { get; set; }
+		public virtual List<News> News { get; set; }
 	}
 }

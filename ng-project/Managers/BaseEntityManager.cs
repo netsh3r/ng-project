@@ -13,7 +13,7 @@ namespace ng_project.Managers
 		//</inheritdoc>
 		public abstract ICollection<T> FindAll(Func<T, bool> expression);
 		//</ineritdoc>
-		public abstract void Add(T entity);
+		public abstract int Add(T entity);
 		//</ineritdoc>
 		public abstract void Delete(int id);
 		//</ineritdoc>
@@ -25,6 +25,7 @@ namespace ng_project.Managers
 		public abstract T Find(Expression<Func<T, object>> expression, int id);
 		//</inheritdoc>
 		public abstract T Find(Func<T, bool> expression);
-		public abstract T Find(Expression<Func<T, object>> expression, Expression<Func<object, bool>> func);
+		public abstract T Find(Expression<Func<T, object>> expression, Func<object, bool> func);
+		public abstract void RemoveLink(object link);
 	}
 }

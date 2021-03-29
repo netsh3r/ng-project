@@ -1,0 +1,14 @@
+﻿@using ng_project.Entities;
+
+@model List<User>;
+<link rel="stylesheet" href="~/css/Skill.css" />
+<div class="controller">
+	<div class="row participant-skills">
+		@foreach (var user in Model)
+		{
+			<span class="participant-skill-item">
+				<a class="" asp-area="" asp-controller="User" asp-action="Edit" asp-route-id="@(user.Id)" style="color:white">@(user.login)</a>
+			</span>
+		}
+	</div>
+</div>

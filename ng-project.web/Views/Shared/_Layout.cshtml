@@ -11,45 +11,52 @@
 	@*<link rel="stylesheet" href="~/css/site.css" />*@
 	<link rel="stylesheet" href="~/css/Main.css" />
 	<link rel="stylesheet" href="~/css/Themes.css" />
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
-	<script src="~/lib/jquery/dist/jquery.js"></script>
-		<div class="loader-main-block ">
-        	<div class="loader-bacdrop">
-            	
-            </div>
-        	<div class="loader-block">
-        		<div class="loader">
-        			<div class="loader-item">
-        
-        			</div>
-        		</div>
-        	</div>
-        </div>
-		<nav class="navbar navbar-expand-sm navbar-toggleable-sm mb-3">
-			<div class="container">
-				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NG PROJECT</a>
-				<nav class="my-2 my-md-0 me-md-3">
-					<ul class="navbar-nav flex-grow-1">
-						<li class="nav-item">
-							<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Домашняя страница</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" asp-area="" asp-controller="Project" asp-action="All">Проекты</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" asp-area="" asp-controller="Participant" asp-action="All">Участники</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">О нас</a>
-						</li>
-						<li class="nav-item">
-							@Html.Partial("_LoginPartial")
-						</li>
-					</ul>
-				</nav>
+	<timer></timer>
+	@*<script src="~/lib/jquery/dist/jquery.js"></script>*@
+	<div class="loader-main-block ">
+		<div class="loader-bacdrop">
+
+		</div>
+		<div class="loader-block">
+			<div class="loader">
+				<div class="loader-item">
+
+				</div>
 			</div>
-		</nav>
+		</div>
+	</div>
+	<nav class="navbar navbar-expand-sm navbar-toggleable-sm mb-3">
+		<div class="container">
+			<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NG PROJECT</a>
+			<nav class="my-2 my-md-0 me-md-3">
+				<ul class="navbar-nav flex-grow-1">
+					<li class="nav-item">
+						<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Домашняя страница</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-area="" asp-controller="SubscriberProject" asp-action="Index">Подписки</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-area="" asp-controller="Project" asp-action="All">Проекты</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-area="" asp-controller="Participant" asp-action="All">Участники</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">О нас</a>
+					</li>
+					<li class="nav-item">
+						@Html.Partial("_LoginPartial")
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</nav>
 	@*</header>*@
 	<div>
 		<main>
@@ -58,26 +65,25 @@
 	</div>
 	<div style="height:15px;"></div>
 	@*<footer class="border-top footer text-muted">
-		<div class="container">
-			&copy; 2021 - NG PROJECT - <a asp-area="" asp-controller="Home" asp-action="Privacy">О нас</a>
-		</div>
-	</footer>*@
-	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+			<div class="container">
+				&copy; 2021 - NG PROJECT - <a asp-area="" asp-controller="Home" asp-action="Privacy">О нас</a>
+			</div>
+		</footer>*@
+	@*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
+	@*<script src="~/lib/jquery/dist/jquery.js></script>*@
 	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-<script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script>
 
-function ShowLoader()
-{
-	$('.loader-main-block .loader-bacdrop').show();
-  	$('.loader-main-block .loader-block').show();
-}
-function HideLoader()
-{
-	$('.loader-main-block .loader-bacdrop').hide();
-  	$('.loader-main-block .loader-block').hide();
-}
-</script>
+		function ShowLoader() {
+			$('.loader-main-block .loader-bacdrop').show();
+			$('.loader-main-block .loader-block').show();
+		}
+		function HideLoader() {
+			$('.loader-main-block .loader-bacdrop').hide();
+			$('.loader-main-block .loader-block').hide();
+		}
+	</script>
 	@RenderSection("Scripts", required: false)
 </body>
 </html>

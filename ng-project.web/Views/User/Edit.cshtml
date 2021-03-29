@@ -2,12 +2,15 @@
 @using System.Collections;
 @using ng_project.Entities;
 @using ng_project.Entities.Enum;
+@using ng_project.Services;
 
 @model User;
 
 	<link rel="stylesheet" href="~/css/User.css" />
 	@*<link rel="stylesheet" href="~/css/Project.css" />*@
-
+@{ 
+	var rolesService = RolesService.Instance;
+}
 	<form asp-action="SaveUser" asp-controller="User" method="post" enctype="multipart/form-data">
 		<div class="container-fluid">
 			@Html.HiddenFor(t => t.Id)
@@ -20,16 +23,25 @@
 				<div class="col-md-6">
 					<div class="row">
 						@Html.Partial("User/_Main")
-						@*<div class="col-md-12">
-							<label asp-for="Participant.Roles">Роль</label>
-							<select class="custom-select" asp-for="Participant.Roles" asp-items="Html.GetEnumSelectList<Roles>()"></select>
-						</div>*@
 						<div class="col-md-12 mt-3">
 							@Html.Partial("User/Skills")
 							<div>
+								Желаемые роли:
+								<div class="user-roles">
+									<div class="select-user-roles">
 
+									</div>
+									<div class="row roleItems participant-skills">
+										@foreach(var role in Model.Roles)
+										{
+											var roleNew = rolesService.FindById(role.Id);
+											<span class="participant-skill-item">@(roleNew.Name)</span>
+										}
+									</div>
+								</div>
+							</div>
+							<div>
 								@Html.Partial("User/Projects")
-
 								<div id="anotherSkills">
 
 								</div>
@@ -101,27 +113,50 @@
 		</div>
 
 		<script>
-		
-	$(function ()
-	{
-		@*let i = @(Model?.Participant?.Skills?.Count-1??0);
-		
-		$('.addSkills').bind("click", function () {
-			i++;
-			let skillInput = $('input[name="new-skill"]');
-			let skillName = skillInput.val();
-			
-			$.ajax({
-				type: 'GET',
-				url: '@Url.Action("GetSkillsBlock","User")',
-				data: { index: i,name:skillName,participantId:@(Model.Participant?.Id??0) },
-				success: function (data) {
-					$('#anotherSkills').append(data.value);
-					skillInput.val("");
-				}
-			})
-		})*@
-	})
+
+			$(function () {
+				ShowLoader();
+				let skillItems = GetSkills();
+				$.ajax({
+					type: 'GET',
+					url: '@Url.ActionLink("GetSkillItems", "User")',
+					success: function (data) {
+						$("#new-skill-inp").autocomplete({
+							source: data
+						});
+					}
+				})
+
+				$.ajax({
+					type: 'GET',
+					url: '@Url.Action("GetRoles","User")',
+					success: function(data){
+						$('.select-user-roles').append(data.value);
+						var roleIndex = -1;
+						$('.AddRole').bind('click', function () {
+							let roleId = $('select[name="select-roles"]').val();
+							roleIndex++;
+							$.ajax({
+								type: 'GET',
+								url: '@Url.Action("SetRoles","User")',
+								data: { roleId: roleId,userId:@(Model.Id)},
+								success: function (data) {
+									$('.roleItems').append(data.value);
+								}
+							})
+						})
+					}
+				});
+
+
+				HideLoader();
+			});
+
+			function GetSkills() {
+				let skillItemsArray = [];
+				return skillItemsArray;
+			}
+
 
 	function deleteSkill(index) {
 		let position = ".skill_" + index;

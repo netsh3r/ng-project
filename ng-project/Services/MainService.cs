@@ -14,13 +14,25 @@ namespace ng_project.Services
 			this.entityManager = EntityManager<T, IdT>.Instance;
 		}
 		public Expression<Func<T, object>> ExpressionObject;
+		public override int Add(T model)
+		{
+			return entityManager.Add(model);
+		}
+		public override void RemoveLink(object link)
+		{
+			entityManager.RemoveLink(link);
+		}
 		public override IBaseService<T, IdT> GetWithInclude(Expression<Func<T, object>> expression)
 		{
 			ExpressionObject = expression;
 			return this;
 		}
 		private EntityManager<T, IdT> entityManager { get; set; }
-		public override T FindByFuncWithInclude(Expression<Func<object, bool>> func)
+		public override void Delete(int id)
+		{
+			entityManager.Delete(id);
+		}
+		public override T FindByFuncWithInclude(Func<object, bool> func)
 		{
 			return entityManager.Find(ExpressionObject, func);
 		}

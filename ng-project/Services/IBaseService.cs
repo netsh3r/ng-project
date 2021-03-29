@@ -10,8 +10,11 @@ namespace ng_project.Services
 	/// </summary>
 	public interface IBaseService<T, IdT>
 	{
+		void RemoveLink(object link);
+		void Delete(int id);
+		int Add(T model);
 		ICollection<T> FindAllWithIncude(Func<object, bool> func);
-		T FindByFuncWithInclude(Expression<Func<object, bool>> func);
+		T FindByFuncWithInclude(Func<object, bool> func);
 		IBaseService<T, IdT> GetWithInclude(Expression<Func<T, object>> expression);
 		/// <summary>
 		/// Найти всех участников
