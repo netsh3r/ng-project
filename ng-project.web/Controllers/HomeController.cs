@@ -24,6 +24,7 @@ namespace ng_project.web.Controllers
 		public IActionResult Index()
 		{
 			var model = projectService.GetAll();
+			//return StatusCode(403);
 			return View(model);
 		}
 

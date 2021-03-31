@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using ng_project.Entities;
 using ng_project.EntityExpression;
 using ng_project.Models;
@@ -20,7 +21,8 @@ namespace ng_project.web.Controllers
 			IProjectSubTypeService projectSubTypeService,
 			ISubscribeService subscribeService,
 			IWorkerService participantService,
-			IRolesService rolesService)
+			IRolesService rolesService,
+			ILogger<UserController> logger)
 		{
 			this.NgProjectService = service;
 			this.userService = userService;
@@ -30,9 +32,11 @@ namespace ng_project.web.Controllers
 			this.subscribeService = subscribeService;
 			this.participantService = participantService;
 			this.rolesService = rolesService;
+			this.logger = logger;
 		}
 
 		#region Services
+		private ILogger<UserController> logger;
 		private ISkillService skillService;
 		private INgMainService NgProjectService;
 		private IUserService userService;
@@ -110,6 +114,7 @@ namespace ng_project.web.Controllers
 		[HttpGet]
 		public IActionResult Profile()
 		{
+			logger.LogInformation("Test Message");
 			var user = userService.GetWithInclude(t=> new User
 			{ 
 				Id = t.Id,
@@ -141,7 +146,7 @@ namespace ng_project.web.Controllers
 		}
 		public IActionResult Profile(int? id)
 		{
-
+			logger.LogDebug("Получили профиль пользователя");
 			User user = null;
 			if(id != null)
             {

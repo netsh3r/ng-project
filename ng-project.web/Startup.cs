@@ -7,10 +7,13 @@ using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ng_project.Services;
+using ng_project.web.Middlewares;
 using ng_project.web.Models;
 
 namespace ng_project.web
@@ -32,6 +35,7 @@ namespace ng_project.web
 			{ 
 				options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
 			});
+			services.AddSingleton<IUserService, UserService>();
 		}
 
 		public void ConfigureContainer(ContainerBuilder builder)
@@ -42,6 +46,11 @@ namespace ng_project.web
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			//if (env.IsDevelopment())
+			//{
+			//	app.UseDeveloperExceptionPage();
+			//}
+			
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
@@ -51,6 +60,7 @@ namespace ng_project.web
 				app.UseExceptionHandler("/Home/Error");
 				app.UseHsts();
 			}
+			app.UseStatusCodePages();
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 
@@ -58,7 +68,8 @@ namespace ng_project.web
 
 			app.UseAuthentication(); 
 			app.UseAuthorization();
-
+			app.UseCookiePolicy();
+			//app.UseToken();
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllerRoute(

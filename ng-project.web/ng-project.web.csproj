@@ -9,6 +9,8 @@
   <ItemGroup>
     <Content Remove="Views\Project\Add - Копировать.cshtml" />
     <Content Remove="Views\User\IndexView.cshtml" />
+    <Content Include="403.html" />
+    <Content Include="404.html" />
     <Content Update="wwwroot\css\Account.css">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
