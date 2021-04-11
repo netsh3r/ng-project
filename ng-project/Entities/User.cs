@@ -14,6 +14,8 @@ namespace ng_project.Entities
 	/// </summary>
 	public class User : Entity
 	{
+		public List<Notify> Notifies { get; set; }
+		public List<Notify> SenderNotifies { get; set; }
 		public List<NewsComment> NewsComments { get; set; }
 		/// <summary>
 		/// Комментарии пользователя
@@ -33,23 +35,6 @@ namespace ng_project.Entities
 					Id = t.RolesId
 				}).ToList();
 			}
-			//get
-			//{
-			//	return RolesUsers.Select(t => new Roles()
-			//	{
-			//		Id = t.RolesId
-			//	}).ToList();
-			//}
-			//set
-			//{
-			//	Roles = value;
-			//	RolesUsers = Roles.Select(t =>
-			//	new RolesUser()
-			//	{
-			//		UsersId = Id,
-			//		RolesId = t.Id
-			//	}).ToList();
-			//}
 		}
 		/// <summary>
 		/// Ссылка на сущность типа подписчик

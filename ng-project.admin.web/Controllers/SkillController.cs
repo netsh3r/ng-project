@@ -26,7 +26,8 @@ namespace ng_project.admin.web.Controllers
 		[HttpPost]
 		public IActionResult Add(Skill skill)
 		{
-			return View();
+			skillService.Add(skill);
+			return RedirectToAction("All");
 		}
 		[HttpGet]
 		public IActionResult Add()

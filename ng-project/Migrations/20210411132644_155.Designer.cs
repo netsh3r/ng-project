@@ -10,8 +10,8 @@ using ng_project.Context;
 namespace ng_project.Migrations
 {
     [DbContext(typeof(NgContext))]
-    [Migration("20210329153435_150")]
-    partial class _150
+    [Migration("20210411132644_155")]
+    partial class _155
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,21 +64,6 @@ namespace ng_project.Migrations
                     b.HasIndex("WorkersId");
 
                     b.ToTable("ProjectWorker");
-                });
-
-            modelBuilder.Entity("SkillWorker", b =>
-                {
-                    b.Property<int>("SkillsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("SkillsId", "WorkersId");
-
-                    b.HasIndex("WorkersId");
-
-                    b.ToTable("SkillWorker");
                 });
 
             modelBuilder.Entity("ng_project.Entities.Comment", b =>
@@ -272,6 +257,37 @@ namespace ng_project.Migrations
                     b.ToTable("NewsImages");
                 });
 
+            modelBuilder.Entity("ng_project.Entities.Notify", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsReading")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RecipientId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SendDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SenderId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipientId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Notifies");
+                });
+
             modelBuilder.Entity("ng_project.Entities.Project", b =>
                 {
                     b.Property<int>("Id")
@@ -302,8 +318,7 @@ namespace ng_project.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectSubTypeId")
-                        .IsUnique();
+                    b.HasIndex("ProjectSubTypeId");
 
                     b.HasIndex("ProjectTypeId");
 
@@ -386,6 +401,28 @@ namespace ng_project.Migrations
                     b.ToTable("Roles");
                 });
 
+            modelBuilder.Entity("ng_project.Entities.SenderNotify", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("NotifyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NotifyId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SenderNotifies");
+                });
+
             modelBuilder.Entity("ng_project.Entities.Skill", b =>
                 {
                     b.Property<int>("Id")
@@ -399,6 +436,24 @@ namespace ng_project.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Skills");
+                });
+
+            modelBuilder.Entity("ng_project.Entities.SkillWorker", b =>
+                {
+                    b.Property<int>("WorkerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SkillId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("WorkerId", "SkillId");
+
+                    b.HasIndex("SkillId");
+
+                    b.ToTable("SkillWorker");
                 });
 
             modelBuilder.Entity("ng_project.Entities.Subscriber", b =>
@@ -569,21 +624,6 @@ namespace ng_project.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SkillWorker", b =>
-                {
-                    b.HasOne("ng_project.Entities.Skill", null)
-                        .WithMany()
-                        .HasForeignKey("SkillsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ng_project.Entities.Worker", null)
-                        .WithMany()
-                        .HasForeignKey("WorkersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ng_project.Entities.Comment", b =>
                 {
                     b.HasOne("ng_project.Entities.NewsComment", null)
@@ -698,11 +738,28 @@ namespace ng_project.Migrations
                     b.Navigation("News");
                 });
 
+            modelBuilder.Entity("ng_project.Entities.Notify", b =>
+                {
+                    b.HasOne("ng_project.Entities.User", "Recipient")
+                        .WithMany("Notifies")
+                        .HasForeignKey("RecipientId")
+                        .IsRequired();
+
+                    b.HasOne("ng_project.Entities.User", "Sender")
+                        .WithMany("SenderNotifies")
+                        .HasForeignKey("SenderId")
+                        .IsRequired();
+
+                    b.Navigation("Recipient");
+
+                    b.Navigation("Sender");
+                });
+
             modelBuilder.Entity("ng_project.Entities.Project", b =>
                 {
                     b.HasOne("ng_project.Entities.ProjectSubType", "ProjectSubType")
-                        .WithOne("Project")
-                        .HasForeignKey("ng_project.Entities.Project", "ProjectSubTypeId")
+                        .WithMany("Project")
+                        .HasForeignKey("ProjectSubTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -745,6 +802,44 @@ namespace ng_project.Migrations
                         .IsRequired();
 
                     b.Navigation("ProjectType");
+                });
+
+            modelBuilder.Entity("ng_project.Entities.SenderNotify", b =>
+                {
+                    b.HasOne("ng_project.Entities.Notify", "Notify")
+                        .WithMany()
+                        .HasForeignKey("NotifyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ng_project.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Notify");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ng_project.Entities.SkillWorker", b =>
+                {
+                    b.HasOne("ng_project.Entities.Skill", "Skill")
+                        .WithMany("SkillWorkers")
+                        .HasForeignKey("SkillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ng_project.Entities.Worker", "Worker")
+                        .WithMany("SkillWorkers")
+                        .HasForeignKey("WorkerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Skill");
+
+                    b.Navigation("Worker");
                 });
 
             modelBuilder.Entity("ng_project.Entities.Subscriber", b =>
@@ -872,6 +967,11 @@ namespace ng_project.Migrations
                     b.Navigation("RolesUsers");
                 });
 
+            modelBuilder.Entity("ng_project.Entities.Skill", b =>
+                {
+                    b.Navigation("SkillWorkers");
+                });
+
             modelBuilder.Entity("ng_project.Entities.Subscriber", b =>
                 {
                     b.Navigation("ProjectSubscribers");
@@ -894,13 +994,22 @@ namespace ng_project.Migrations
 
                     b.Navigation("NewsComments");
 
+                    b.Navigation("Notifies");
+
                     b.Navigation("Projects");
 
                     b.Navigation("RolesUsers");
 
+                    b.Navigation("SenderNotifies");
+
                     b.Navigation("Subscriber");
 
                     b.Navigation("Worker");
+                });
+
+            modelBuilder.Entity("ng_project.Entities.Worker", b =>
+                {
+                    b.Navigation("SkillWorkers");
                 });
 #pragma warning restore 612, 618
         }

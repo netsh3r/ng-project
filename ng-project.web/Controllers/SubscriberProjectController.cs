@@ -10,19 +10,12 @@ namespace ng_project.web.Controllers
 {
 	public class SubscriberProjectController : Controller
 	{
-		public SubscriberProjectController(IProjectService projectService,
-			IUserService userService)
-		{
-			this.projectService = projectService;
-			this.userService = userService;
-		}
 		#region
-		private IProjectService projectService;
-		private IUserService userService;
+		public IUserService UserService { get; set; }
 		#endregion
 		public IActionResult Index()
 		{
-			var user = userService.GetWithInclude(t =>
+			var user = UserService.GetWithInclude(t =>
 				new User
 				{
 					Subscriber = new Subscriber()

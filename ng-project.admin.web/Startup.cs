@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ng_project.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,7 @@ namespace ng_project.admin.web
 			{
 				options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
 			});
+			services.AddSingleton<IRolesService,RolesService>();
 		}
 
 		public void ConfigureContainer(ContainerBuilder builder)

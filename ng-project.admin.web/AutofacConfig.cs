@@ -24,15 +24,15 @@ namespace ng_project.admin.web
 			//		types.Add(type);
 			//	}
 			//}IProjecTypeService
-			builder.RegisterType<RolesService>().As<IRolesService>().InstancePerLifetimeScope();
-			builder.RegisterType<ProjectSubTypeService>().As<IProjectSubTypeService>().InstancePerLifetimeScope();
-			builder.RegisterType<ProjectTypeService>().As<IProjectTypeService>().InstancePerLifetimeScope();
-			builder.RegisterType<SkillService>().As<ISkillService>().InstancePerLifetimeScope();
-			builder.RegisterType<SubscriveService>().As<ISubscribeService>().InstancePerLifetimeScope();
-			builder.RegisterType<ProjectService>().As<IProjectService>().InstancePerLifetimeScope();
-			builder.RegisterType<WorkerService>().As<IWorkerService>().InstancePerLifetimeScope();
-			builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
-			builder.RegisterType<NgMainService>().As<INgMainService>().InstancePerLifetimeScope();
+			//builder.RegisterType<RolesService>().As<IRolesService>().InstancePerLifetimeScope();
+			//builder.RegisterType<ProjectSubTypeService>().As<IProjectSubTypeService>().InstancePerLifetimeScope();
+			//builder.RegisterType<ProjectTypeService>().As<IProjectTypeService>().InstancePerLifetimeScope();
+			//builder.RegisterType<SkillService>().As<ISkillService>().InstancePerLifetimeScope();
+			//builder.RegisterType<SubscriveService>().As<ISubscribeService>().InstancePerLifetimeScope();
+			//builder.RegisterType<ProjectService>().As<IProjectService>().InstancePerLifetimeScope();
+			//builder.RegisterType<WorkerService>().As<IWorkerService>().InstancePerLifetimeScope();
+			//builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
+			//builder.RegisterType<NgMainService>().As<INgMainService>().InstancePerLifetimeScope();
 		}
 	}
 }

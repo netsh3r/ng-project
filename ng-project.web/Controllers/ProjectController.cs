@@ -19,43 +19,28 @@ namespace ng_project.web.Controllers
 	public class ProjectController : Controller
 	{
 
-		public ProjectController(INgMainService ngService
-			, IProjectService projectService
-			, IProjectSubTypeService projectSubTypeService
-			, IUserService userService
-			, ISubscribeService subscribeService
-			, ICommentService commentService
-			, INewsService newsService)
-		{
-			this.projectService = projectService;
-			this.ngService = ngService;
-			this.userService = userService;
-			this.subscribeService = subscribeService;
-			this.projectSubTypeService = projectSubTypeService;
-			this.commentService = commentService;
-			this.newsService = newsService;
-		}
 
 		#region Services
-		private INewsService newsService;
-		private INgMainService ngService;
-		private IProjectService projectService;
-		private IUserService userService;
-		private ISubscribeService subscribeService;
-		private IProjectSubTypeService projectSubTypeService;
-		private ICommentService commentService;
+		public INewsService NewsService { get; set; }
+		public INgMainService NgService { get; set; }
+		public IProjectService ProjectService { get; set; }
+		public IUserService UserService { get; set; }
+		public ISubscribeService SubscribeService { get; set; }
+		public IProjectSubTypeService ProjectSubTypeService { get; set; }
+		public ICommentService CommentService { get; set; }
+
 		#endregion
 		[HttpPost]
 		public bool IsSubdcribe(int projectId)
 		{
-			var project = projectService.GetWithInclude(t => new Project()
+			var project = ProjectService.GetWithInclude(t => new Project()
 			{
 				Id = t.Id,
 				ProjectSubscribers = t.ProjectSubscribers
 			}).FindByFuncWithInclude(t => (t as Project).Id == projectId);
 			//var project = projectService.FindById(projectId);
 			//var user = userService.FindUser(t => t.login == User.Identity.Name);
-			var user = userService.GetWithInclude(t => new User()
+			var user = UserService.GetWithInclude(t => new User()
 			{
 				Projects = t.Projects,
 				Subscriber = t.Subscriber,
@@ -73,8 +58,8 @@ namespace ng_project.web.Controllers
 		[HttpPost]
 		public HtmlString AddComments(int projectId, string text)
 		{
-			var user = userService.FindByFunc(t=> t.login == User.Identity.Name);
-			commentService.Add(new Comment()
+			var user = UserService.FindByFunc(t=> t.login == User.Identity.Name);
+			CommentService.Add(new Comment()
 			{
 				ProjectId = projectId,
 				Text = text,
@@ -107,51 +92,51 @@ namespace ng_project.web.Controllers
 		public void Subscribe(int projectId)
 		{
 			//var user = userService.FindUser(t => t.login == User.Identity.Name);
-			var user = userService.GetWithInclude(t => new User()
+			var user = UserService.GetWithInclude(t => new User()
 			{
 				login = t.login,
 				Subscriber = t.Subscriber
 			}).FindByFuncWithInclude(s=> (s as User).login == User.Identity.Name);
-			projectService.AddSubscribe(projectId, user.Subscriber.Id);
+			ProjectService.AddSubscribe(projectId, user.Subscriber.Id);
 
 
 		}
 		[HttpPost]
 		public void DeleteSubscribe(int projectId)
 		{
-			var user = userService.GetWithInclude(t => new User()
+			var user = UserService.GetWithInclude(t => new User()
 			{
 				login = t.login,
 				Subscriber = t.Subscriber
 			}).FindByFuncWithInclude(s => (s as User).login == User.Identity.Name);
-			var project = projectService.GetWithInclude(t => new Project()
+			var project = ProjectService.GetWithInclude(t => new Project()
 			{
 				Id = t.Id,
 				ProjectSubscribers = t.ProjectSubscribers
 			}).FindByFuncWithInclude(t => (t as Project).Id == projectId);
 			var link = project.Subscribers.FirstOrDefault(t => t.Id == user.Subscriber.Id);
-			subscribeService.RemoveLink(new ProjectSubscriber(){ ProjectsId = projectId,SubscribersId= link.Id});
+			SubscribeService.RemoveLink(new ProjectSubscriber(){ ProjectsId = projectId,SubscribersId= link.Id});
 		}
 
 		[HttpPost]
 		public IActionResult SendBecome(int projectId, string text)
 		{
-			var user = userService.FindUser(t => t.login == User.Identity.Name);
-			projectService.AddParticipant(projectId, user.Worker.Id);
+			var user = UserService.FindUser(t => t.login == User.Identity.Name);
+			ProjectService.AddParticipant(projectId, user.Worker.Id);
 			return PartialView("Project/SendBecomeSuccess");
 		}
 		
 		public IActionResult All()
 		{
-			var model = projectService.GetAll();
-			return View("All",model);
+			var model = ProjectService.GetAll();
+			return View("All",model.ToList());
 		}
 
 		[HttpGet]
 		[Authorize]
 		public IActionResult Edit(int id)
 		{
-			var model = projectService.GetWithInclude(t=> new Project
+			var model = ProjectService.GetWithInclude(t=> new Project
 			{ 
 				Id = t.Id,
 				CreationDate = t.CreationDate,
@@ -213,13 +198,13 @@ namespace ng_project.web.Controllers
 			{
 				project.MainProjectImage = null;
 			}
-			ngService.Save<Project, int>(project);
+			NgService.Save<Project, int>(project);
 			return Info(project.Id);
 		}
 
 		public IActionResult Info(int id)
 		{
-			var model = projectService.GetWithInclude(t => new Project
+			var model = ProjectService.GetWithInclude(t => new Project
 			{
 				Id = t.Id,
 				CreationDate = t.CreationDate,
@@ -248,7 +233,7 @@ namespace ng_project.web.Controllers
 		[HttpPost]
 		public HtmlString AddNewsPost(int projectId, string text)
 		{
-			newsService.Add(new News()
+			NewsService.Add(new News()
 			{
 				Text = text,
 				ProjectId = projectId
@@ -274,8 +259,8 @@ namespace ng_project.web.Controllers
 		{
 			project.News = new List<News>();
 			//ngService.AddProject(project);
-			projectService.Add(project);
-			project.User = ngService.FindUserById(project.UserId);
+			ProjectService.Add(project);
+			project.User = NgService.FindUserById(project.UserId);
 			return View("info", project);
 		}
 		[HttpGet]
@@ -289,7 +274,7 @@ namespace ng_project.web.Controllers
 		{
 			var sb = new StringBuilder();
 			sb.Append("<div class=\"d-flex flex-nowrap\">");
-			var projectSubTypes = projectSubTypeService.FindAll(t => (t as ProjectSubType).ProjectTypeId == projectTypeId);
+			var projectSubTypes = ProjectSubTypeService.FindAll(t => (t as ProjectSubType).ProjectTypeId == projectTypeId);
 			var index = 0;
 			foreach(var subType in projectSubTypes)
 			{
@@ -306,12 +291,12 @@ namespace ng_project.web.Controllers
 		[HttpGet]
 		public HtmlString GetProjects(int projectTypeId, int projectSubType)
 		{
-			var projects = projectService
+			var projects = ProjectService
 				.FindAll(t => (t as Project).ProjectTypeId == projectTypeId && (t as Project).ProjectSubTypeId == projectSubType);
 			var sb = new StringBuilder();
 			foreach(var proj in projects)
 			{
-				proj.User = userService.FindById(proj.UserId);
+				proj.User = UserService.FindById(proj.UserId);
 				sb.Append("<div class=\"col-md-4 mt-4\">");
 				sb.Append($"<div class=\"project-item\" onclick=\"window.location.href='{Url.Action("Info","Project",new { id = proj.Id })}'\">");
 				//var hasImage = proj.MainProjectImage != null && proj.MainProjectImage.Data != null;

@@ -1,6 +1,7 @@
 ﻿using ng_project.Entities;
 using ng_project.Managers;
 using ng_project.Models;
+using ng_project.SDK;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Text;
 
 namespace ng_project.Services
 {
+	[Service]
 	public class WorkerService : MainService<Worker,int>, IWorkerService
 	{
 		public WorkerService()

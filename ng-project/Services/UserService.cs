@@ -1,5 +1,6 @@
 ﻿using ng_project.Entities;
 using ng_project.Managers;
+using ng_project.SDK;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -7,21 +8,15 @@ using System.Text;
 
 namespace ng_project.Services
 {
+	[Service]
 	public class UserService : MainService<User,int>, IUserService
 	{
-		private static UserService _instance;
-		public static UserService Instance
-		{
-			get
-			{
-				return _instance ?? (_instance = new UserService());
-			}
-		}
-		private UserManager userManager;
 		public UserService()
 		{
 			userManager = UserManager.Instance;
 		}
+		private UserManager userManager;
+
 		public User FindUser(Func<User, bool> expression)
 		{
 			return userManager.Find(expression);
@@ -37,9 +32,9 @@ namespace ng_project.Services
 			userManager.Add(user);
 		}
 
-		public void Save(User user)
-		{
-			userManager.Save(user);
-		}
+		//public void Save(User user)
+		//{
+		//	userManager.Save(user);
+		//}
 	}
 }

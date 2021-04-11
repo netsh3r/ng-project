@@ -1,13 +1,26 @@
 ﻿@using Microsoft.AspNetCore.Mvc;
 @using Microsoft.AspNetCore.Authorization;
 
+<link rel="stylesheet" href="~/css/LoginHeader.css"/>
+
 @if (User.Identity.IsAuthenticated)
 {
+<li class="nav-item profile d-inline-flex justify-content-between">
+	<div class="profile-img">
+
+	</div>
+	<a asp-action="Profile" asp-controller="User" class="nav-link">@(User.Identity.Name)</a>
+	<div class="d-inline-flex">
+		<a asp-controller="Notify" asp-action="Index" class="icon">
+			<img src="~/images/icon/notify_yes.png" />
+			<span>0</span>
+		</a>
+		<a asp-action="LogOut" asp-controller="Account" class="nav-link logout">выйти</a>
+	</div>
+	
+</li>
 	<li class="nav-item">
-		<a asp-action="Profile" asp-controller="User" class="nav-link">@("Здравствуйте " + User.Identity.Name + "!")</a>
-	</li>
-	<li class="nav-item">
-		<a asp-action="LogOut" asp-controller="Account" class="btn btn-info">Выйти</a>
+		
 	</li>
 }
 else

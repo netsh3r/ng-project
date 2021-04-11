@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text;
 
 namespace ng_project.Entities
@@ -17,7 +19,34 @@ namespace ng_project.Entities
 		/// <summary>
 		/// Список сотрудников использующих навык
 		/// </summary>
-		public virtual List<Worker> Workers { get; set; }
+		//public virtual List<Worker> Workers { get; set; }
+		/// <summary>
+		/// Связь навык-пользователь
+		/// </summary>
+		public virtual List<SkillWorker> SkillWorkers { get; set; }
+		/// <summary>
+		/// Навыки
+		/// </summary>
+		[NotMapped]
+		public List<Worker> Workers
+		{
+			get
+			{
+				return SkillWorkers?.Select(t => new Worker()
+				{
+					Id = t.WorkerId
+				}).ToList();
+			}
+			set
+			{
+				Workers = value;
+				SkillWorkers = Workers?.Select(t => new SkillWorker()
+				{
+					WorkerId = Id,
+					SkillId = t.Id
+				}).ToList();
+			}
+		}
 		/// <summary>
 		/// Список проектов использующих навык
 		/// </summary>

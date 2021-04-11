@@ -51,11 +51,6 @@ namespace ng_project.admin.web.Controllers
 					RolesId = t.Id,
 					UsersId = user.Id
 				}).ToList() ?? new List<RolesUser>();
-				//user.Roles = roles.Count > 0 ? roles.Where(t => t.Users.Select(s => s.Id).ToList().Contains(user.Id)).ToList() : new List<Roles>();
-				//user.Roles = tt.Where(t => t.Users!=null 
-				//	&& t.Users.Count > 0
-				//	&& t.Users.Select(s => s.Id).ToList().Contains(user.Id)).ToList();
-				//var user = UserService.GetWithInclude(t => new User() { Roles = t.Roles }).FindByFuncWithInclude(t => (t as User).login == model.Login && (t as User).Password == model.Password);
 				if (user != null)
 				{
 					await Authenticate(user);
@@ -110,7 +105,7 @@ namespace ng_project.admin.web.Controllers
 				foreach (var role in user.Roles)
 				{
 					var roleName = rolesService.FindById(role.Id);
-					claims.Add(new Claim(ClaimTypes.Role, role.Name));
+					claims.Add(new Claim(ClaimTypes.Role, roleName.Name));
 				}
 			}
 

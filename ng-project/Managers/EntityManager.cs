@@ -15,7 +15,7 @@ namespace ng_project.Managers
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
 	/// <typeparam name="IdT"></typeparam>
-	public class EntityManager<T, IdT> : BaseEntityManager<T, IdT> where T:Entity, new()
+	public class EntityManager<T, IdT> : BaseEntityManager<T, IdT> where T : Entity, new()
 	{
 		private static EntityManager<T, IdT> _instance;
 		public static EntityManager<T, IdT> Instance
@@ -25,6 +25,7 @@ namespace ng_project.Managers
 				return _instance ?? (_instance = new EntityManager<T, IdT>());
 			}
 		}
+
 		public override int Add(T entity)
 		{
 			using(var db = new NgContext())

@@ -9,6 +9,8 @@ namespace ng_project.Context
 {
 	public class NgContext : DbContext
 	{
+		public DbSet<SenderNotify> SenderNotifies { get; set; }
+		public DbSet<Notify> Notifies { get; set; }
 		public DbSet<ProjectSubscriber> ProjectSubscriber { get; set; }
 		public DbSet<Roles> Roles { get; set; }
 		public DbSet<ProjectSubType> ProjectSubTypes { get; set; }
@@ -41,6 +43,27 @@ namespace ng_project.Context
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+			modelBuilder.Entity<Notify>()
+				.HasOne(m => m.Sender)
+				.WithMany(s => s.SenderNotifies)
+				.HasForeignKey(t => t.SenderId)
+				.OnDelete(DeleteBehavior.ClientSetNull);
+			modelBuilder.Entity<Notify>().HasOne(m => m.Recipient)
+				.WithMany(s => s.Notifies)
+				.HasForeignKey(t => t.RecipientId)
+				.OnDelete(DeleteBehavior.ClientSetNull);
+
+			modelBuilder.Entity<SkillWorker>()
+				.HasKey(s => new { s.WorkerId, s.SkillId });
+			modelBuilder.Entity<SkillWorker>()
+				.HasOne(ps => ps.Worker)
+				.WithMany(s => s.SkillWorkers)
+				.HasForeignKey(t => t.WorkerId);
+			modelBuilder.Entity<SkillWorker>()
+				.HasOne(ps => ps.Skill)
+				.WithMany(s => s.SkillWorkers)
+				.HasForeignKey(t => t.SkillId);
+
 			modelBuilder.Entity<ProjectTypeRoles>()
 				.HasKey(s => new { s.ProjectTypeId, s.RolesId });
 			modelBuilder.Entity<ProjectTypeRoles>()

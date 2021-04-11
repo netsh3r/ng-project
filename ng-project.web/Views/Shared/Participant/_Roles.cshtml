@@ -1,0 +1,33 @@
+﻿@using ng_project.Entities;
+@inject ng_project.Services.IRolesService roleService;
+
+@model ProjectType;
+
+@foreach (var role in Model.Roles)
+{
+	var roleInfo = roleService.GetWithInclude(t => new Roles()
+	{
+		Id = t.Id,
+		Name = t.Name,
+		RolesUsers = t.RolesUsers
+	}).FindByFuncWithInclude(s => (s as Roles).Id == role.Id);
+
+	<div class="col-4" onclick="window.location.href='@(Url.Action("Index","Participant",new { id=role.Id }))'">
+		<div class="participant-item">
+			<div class="opacityBackground">
+				<div class="block BlueTheme">
+					<div class="name">
+						@(roleInfo.Name)
+					</div>
+					<div class="count">
+						количество участников: @(roleInfo.Users?.Count)
+					</div>
+				</div>
+			</div>
+
+			<div class="description">
+				Отвечают за написание кода
+			</div>
+		</div>
+	</div>
+}

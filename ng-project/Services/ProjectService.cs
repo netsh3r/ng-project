@@ -1,11 +1,13 @@
 ﻿using ng_project.Entities;
 using ng_project.Managers;
+using ng_project.SDK;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ng_project.Services
 {
+	[Service]
 	public class ProjectService : MainService<Project,int>, IProjectService
 	{
 		public ProjectService()
@@ -13,11 +15,6 @@ namespace ng_project.Services
 			projectManager = ProjectManager.Instance;
 		}
 		private ProjectManager projectManager;
-
-		//public Project FindById(int id)
-		//{
-		//	return projectManager.FindById(id);
-		//}
 
 		public ICollection<Project> GetAll()
 		{

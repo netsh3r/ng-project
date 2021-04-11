@@ -14,16 +14,24 @@
 
 
 <div class="row participant-skills">
-	@for (int skillIndex = 0; skillIndex < Model.Worker.Skills.Count; skillIndex++)
+	@*@for (int skillIndex = 0; skillIndex < Model.Worker.Skills.Count; skillIndex++)
 	{
 		<span class="participant-skill-item">@(Model.Worker.Skills[skillIndex].Name)</span>
-	}
+	}*@
 </div>
 
 <script>
 	$(document).ready(function ()
 	{
 		let skillCount = -1;
+		$.ajax({
+			type : 'GET',
+			url: '@(Url.ActionLink("GetSkills", "User"))',
+			data: { id: @(Model.Worker.Id) },
+			success: function (data) {
+				$('.participant-skills').append(data.value);
+			}
+		})
 		$('.addSkills').bind('click', function ()
 		{
 			skillCount++;
@@ -35,7 +43,7 @@
 					data: { skillName: text.toString(), index: skillCount, workerId:@(Model.Worker.Id) },
 					success: function (data) {
 						$('input[name="new-skill"]').val("");
-						$('.participant-item-block').append(data.value);
+						$('.participant-skills').append(data.value);
 					}
 				})
 			}

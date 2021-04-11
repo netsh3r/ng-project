@@ -13,24 +13,30 @@ using System.Threading.Tasks;
 
 namespace ng_project.web.Controllers
 {
+	/// <summary>
+	/// Контроллер для авторизации\регистрации
+	/// </summary>
 	public class AccountController : Controller
 	{
-		private INgMainService service;
-		private IUserService UserService;
-		private IRolesService rolesService;
-		public AccountController(INgMainService service, IUserService UserService,
-			IRolesService rolesService)
-		{
-			this.service = service;
-			this.UserService = UserService;
-			this.rolesService = rolesService;
-		}
+		public INgMainService MainService { get; set; }
+		public IUserService UserService { get; set; }
+		public IRolesService RolesService { get; set; }
+
+		/// <summary>
+		/// Получить представление для авторизации
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet]
 		public IActionResult Login()
 		{
 			return View();
 		}
 
+		/// <summary>
+		/// Авторизоваться
+		/// </summary>
+		/// <param name="model"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Login(LoginModel model)
@@ -38,22 +44,17 @@ namespace ng_project.web.Controllers
 			if (ModelState.IsValid)
 			{
 				var user = UserService.Login(t => t.login == model.Login && t.Password == model.Password);
-				var tt = rolesService.GetWithInclude(t=> new Roles() { 
+				var tt = RolesService.GetWithInclude(t=> new Roles() { 
 					Id = t.Id,
 					Name = t.Name,
 					RolesUsers= t.RolesUsers}).FindAll().ToList();
 				var roles = tt.Where(t => t.Users != null && t.Users.Count > 0
-				&& t.Users.Select(s => s.Id).ToList().Contains(user.Id))?.ToList() ?? null;
+					&& t.Users.Select(s => s.Id).ToList().Contains(user.Id))?.ToList() ?? null;
 				user.RolesUsers = roles?.Select(t=> new RolesUser() 
 				{
 					RolesId= t.Id,
 					UsersId = user.Id
 				}).ToList() ?? null;
-				//user.Roles = roles.Count > 0 ? roles.Where(t => t.Users.Select(s => s.Id).ToList().Contains(user.Id)).ToList() : new List<Roles>();
-				//user.Roles = tt.Where(t => t.Users!=null 
-				//	&& t.Users.Count > 0
-				//	&& t.Users.Select(s => s.Id).ToList().Contains(user.Id)).ToList();
-				//var user = UserService.GetWithInclude(t => new User() { Roles = t.Roles }).FindByFuncWithInclude(t => (t as User).login == model.Login && (t as User).Password == model.Password);
 				if (user != null)
 				{
 					await Authenticate(user);
@@ -64,11 +65,21 @@ namespace ng_project.web.Controllers
 			return View(model);
 		}
 
+		/// <summary>
+		/// Получить представление регистрации
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet]
 		public IActionResult Registration()
 		{
 			return View();
 		}
+
+		/// <summary>
+		/// Зарегистрироваться
+		/// </summary>
+		/// <param name="model"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Registration(RegisterModel model)
@@ -81,7 +92,6 @@ namespace ng_project.web.Controllers
 					user = new User();
 					user.login = model.Login;
 					user.Password = model.Password;
-					//user.Email = model.Email;
 					var email = new Email();
 					email.EmailString = model.Email;
 					user.Email = email;
@@ -92,11 +102,14 @@ namespace ng_project.web.Controllers
 					return RedirectToAction("Index", "Home");
 				}
 				else
+				{
 					ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+				}
 
 			}
 			return View(model);
 		}
+
 		private async Task Authenticate(User user)
 		{
 			var claims = new List<Claim>
@@ -107,15 +120,19 @@ namespace ng_project.web.Controllers
 			{
 				foreach (var role in user.Roles)
 				{
-					var roleName = rolesService.FindById(role.Id);
+					var roleName = RolesService.FindById(role.Id);
 					claims.Add(new Claim(ClaimTypes.Role, roleName.Name));
 				}
 			}
 
 			ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-			// установка аутентификационных куки
 			await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
 		}
+
+		/// <summary>
+		/// Выйти
+		/// </summary>
+		/// <returns></returns>
 		public async Task<IActionResult> Logout()
 		{
 			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,12 +31,12 @@ namespace ng_project.web
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllersWithViews().AddRazorRuntimeCompilation();
-			services.AddMvc();
+			services.AddMvc().AddControllersAsServices();
 			services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options=>
 			{ 
 				options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
 			});
-			services.AddSingleton<IUserService, UserService>();
+			services.AddMemoryCache();
 		}
 
 		public void ConfigureContainer(ContainerBuilder builder)
@@ -43,13 +44,11 @@ namespace ng_project.web
 			builder.RegisterModule(new AutofacConfig());
 		}
 
-
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
-			//if (env.IsDevelopment())
-			//{
-			//	app.UseDeveloperExceptionPage();
-			//}
+			var option = new RewriteOptions()
+				.AddRedirect("(.*)/$", "$2");
+			app.UseRewriter(option);
 			
 			if (env.IsDevelopment())
 			{
@@ -65,7 +64,7 @@ namespace ng_project.web
 			app.UseStaticFiles();
 
 			app.UseRouting();
-
+			
 			app.UseAuthentication(); 
 			app.UseAuthorization();
 			app.UseCookiePolicy();

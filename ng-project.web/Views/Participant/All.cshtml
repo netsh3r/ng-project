@@ -1,9 +1,22 @@
 ﻿@using System.Collections;
 @using ng_project.Entities;
-@using ng_project.Entities.Enum;
+@*@using ng_project.Entities.Enum;*@
+@inject ng_project.Services.IProjectTypeService projectTypeService;
+@inject ng_project.Services.IProjectSubTypeService projectSubTypeService;
 
 @model List<Worker>
 
+@{
+	var projectTypes = projectTypeService.GetWithInclude(t=> new ProjectType()
+	{
+		Name = t.Name,
+		Id = t.Id,
+		IconName = t.IconName,
+		ProjectTypesRoles = t.ProjectTypesRoles
+	}).FindAll();
+	var projectSubType = new List<List<ProjectSubType>>();
+	var indexProjType = 0;
+}
 <link rel="stylesheet" href="~/css/Project.css" />
 <link rel="stylesheet" href="~/css/Participant.css" />
 <div class="participant">
@@ -11,34 +24,22 @@
 	<div class="container-fluid pl-5 pr-5">
 		<div class="project-type">
 			<div class="d-flex flex-nowrap">
-				<div class="project-type-item select">
-					<div class="icon">
-						<img src="~/images/icon/game.png" />
+				@foreach (var item in projectTypes)
+				{
+					<div class="project-type-item" id="project_type_@(item.Id)" onclick="loadSubType(@(item.Id),@(indexProjType++))">
+						<div class="icon">
+							<img src="~/images/icon/@(item.IconName).png" />
+						</div>
+						<div class="text">
+							@(item.Name)
+						</div>
 					</div>
-					<div class="text">
-						ИГРЫ
-					</div>
-				</div>
-				<div class="project-type-item">
-					<div class="icon">
-						<img src="~/images/icon/music.png" />
-					</div>
-					<div class="text">
-						МУЗЫКА
-					</div>
-				</div>
-				<div class="project-type-item">
-					<div class="icon">
-						<img src="~/images/icon/study.png" />
-					</div>
-					<div class="text">
-						ОБРАЗОВАНИЕ
-					</div>
-				</div>
+				}
 			</div>
 		</div>
 		<div class="row mt-5">
-			<div class="col-4">
+			@Html.Partial("Participant/_Roles", projectTypes.First())
+			@*<div class="col-4">
 				<div class="participant-item">
 					<div class="opacityBackground">
 						<div class="block BlueTheme">
@@ -50,7 +51,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="description">
 						Отвечают за написание кода
 					</div>
@@ -85,13 +86,14 @@
 						Отвечают за написание кода
 					</div>
 				</div>
-			</div>
+			</div>*@
 		</div>
 	</div>
 
 </div>
-@*@foreach (Roles role in Enum.GetValues(typeof(Roles)))
-{
 
-}*@
-
+<script>
+	$(document).ready(function () {
+		$('.project-type-item:first').addClass("select")
+	})
+</script>

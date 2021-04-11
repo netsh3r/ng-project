@@ -7,7 +7,7 @@ using System.Text;
 namespace ng_project.Services
 {
 	[Service]
-	public class CommentService : MainService<Comment,int>, ICommentService
+	public class NotifyService : MainService<Notify, int>, INotifyService
 	{
 	}
 }

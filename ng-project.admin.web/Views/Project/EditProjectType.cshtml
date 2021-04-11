@@ -1,10 +1,9 @@
 ﻿@using ng_project.Entities;
 @using ng_project.Services;
+@inject ng_project.Services.IRolesService rolesService;
 
 @model ProjectType;
-@{
-	var rolesService = RolesService.Instance;
-}
+
 <link rel="stylesheet" href="~/css/Skill.css" />
 <form asp-action="EditProjectType" asp-controller="Project" method="post">
 	<div class="row">

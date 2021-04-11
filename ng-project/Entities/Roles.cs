@@ -15,15 +15,23 @@ namespace ng_project.Entities
 		public List<ProjectType> ProjectType { get; set; }
 		public string Name { get; set; }
 		public List<RolesUser> RolesUsers { get; set; }
-		private List<User> _User;
 		[NotMapped]
 		public List<User> Users
 		{
 			get
 			{
-				return RolesUsers.Select(t => new User()
+				return RolesUsers?.Select(t => new User()
 				{ 
 					Id = t.UsersId
+				}).ToList();
+			}
+			set
+			{
+				Users = value;
+				RolesUsers = Users?.Select(t => new RolesUser()
+				{
+					RolesId = Id,
+					UsersId = t.Id
 				}).ToList();
 			}
 		}

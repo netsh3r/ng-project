@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ng_project.Migrations
 {
-    public partial class _150 : Migration
+    public partial class _155 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -205,6 +205,35 @@ namespace ng_project.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Notifies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IsReading = table.Column<bool>(type: "bit", nullable: false),
+                    SenderId = table.Column<int>(type: "int", nullable: false),
+                    RecipientId = table.Column<int>(type: "int", nullable: false),
+                    SendDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notifies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Notifies_Users_RecipientId",
+                        column: x => x.RecipientId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Notifies_Users_SenderId",
+                        column: x => x.SenderId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Participants",
                 columns: table => new
                 {
@@ -304,24 +333,51 @@ namespace ng_project.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SkillWorker",
+                name: "SenderNotifies",
                 columns: table => new
                 {
-                    SkillsId = table.Column<int>(type: "int", nullable: false),
-                    WorkersId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    NotifyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SkillWorker", x => new { x.SkillsId, x.WorkersId });
+                    table.PrimaryKey("PK_SenderNotifies", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SkillWorker_Participants_WorkersId",
-                        column: x => x.WorkersId,
+                        name: "FK_SenderNotifies_Notifies_NotifyId",
+                        column: x => x.NotifyId,
+                        principalTable: "Notifies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SenderNotifies_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SkillWorker",
+                columns: table => new
+                {
+                    WorkerId = table.Column<int>(type: "int", nullable: false),
+                    SkillId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SkillWorker", x => new { x.WorkerId, x.SkillId });
+                    table.ForeignKey(
+                        name: "FK_SkillWorker_Participants_WorkerId",
+                        column: x => x.WorkerId,
                         principalTable: "Participants",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SkillWorker_Skills_SkillsId",
-                        column: x => x.SkillsId,
+                        name: "FK_SkillWorker_Skills_SkillId",
+                        column: x => x.SkillId,
                         principalTable: "Skills",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -616,6 +672,16 @@ namespace ng_project.Migrations
                 column: "NewsId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Notifies_RecipientId",
+                table: "Notifies",
+                column: "RecipientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifies_SenderId",
+                table: "Notifies",
+                column: "SenderId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Participants_UserId",
                 table: "Participants",
                 column: "UserId",
@@ -630,8 +696,7 @@ namespace ng_project.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Projects_ProjectSubTypeId",
                 table: "Projects",
-                column: "ProjectSubTypeId",
-                unique: true);
+                column: "ProjectSubTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Projects_ProjectTypeId",
@@ -679,9 +744,19 @@ namespace ng_project.Migrations
                 column: "UsersId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SkillWorker_WorkersId",
+                name: "IX_SenderNotifies_NotifyId",
+                table: "SenderNotifies",
+                column: "NotifyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SenderNotifies_UserId",
+                table: "SenderNotifies",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SkillWorker_SkillId",
                 table: "SkillWorker",
-                column: "WorkersId");
+                column: "SkillId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Subscribers_UserId",
@@ -732,6 +807,9 @@ namespace ng_project.Migrations
                 name: "RolesUser");
 
             migrationBuilder.DropTable(
+                name: "SenderNotifies");
+
+            migrationBuilder.DropTable(
                 name: "SkillWorker");
 
             migrationBuilder.DropTable(
@@ -742,6 +820,9 @@ namespace ng_project.Migrations
 
             migrationBuilder.DropTable(
                 name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "Notifies");
 
             migrationBuilder.DropTable(
                 name: "Participants");

@@ -18,7 +18,7 @@ namespace ng_project.EntityExpression
 			{
 				Projects = t.Projects,
 				Id = t.Id,
-				Skills = t.Skills,
+				SkillWorkers = t.SkillWorkers,
 				UserId = t.UserId
 			};
 		}

@@ -11,40 +11,82 @@ using System.Threading.Tasks;
 namespace ng_project.web.Controllers
 {
 	//[Authorize(Roles = "admin")]
+	/// <summary>
+	/// Контроллер участников
+	/// </summary>
 	public class ParticipantController : Controller
 	{
-		private IWorkerService participantService;
-		private INgMainService projectService;
-		public ParticipantController(IWorkerService participantService, INgMainService projectService)
+		public IWorkerService ParticipantService { get; set; }
+		public INgMainService ProjectService { get; set; }
+		public ISkillService SkillService { get; set; }
+		public IUserService UserService { get; set; }
+
+		/// <summary>
+		/// Получить навыки участника
+		/// </summary>
+		/// <returns></returns>
+		[HttpGet]
+		public string[] GetSkillItems()
 		{
-			this.participantService = participantService;
-			this.projectService = projectService;
+			var skills = SkillService.GetWithInclude(t => new Skill
+			{
+				Name = t.Name
+			}).FindAll().Select(t => t.Name).ToArray();
+			return skills;
 		}
-		public IActionResult Participant()
-		{
-			return View();
-		}
+		
+		/// <summary>
+		/// Все участники
+		/// </summary>
+		/// <returns></returns>
 		public IActionResult All()
 		{
-			var model = participantService.GetWithInclude(t => new Worker 
+			var model = ParticipantService.GetWithInclude(t => new Worker 
 			{
 				User = t.User, 
 				Id = t.Id,
-				Skills = t.Skills,
+				SkillWorkers = t.SkillWorkers,
 				Projects = t.Projects,
 				UserId = t.UserId
 			}).FindAll();
-			return View(model);
-		}
-		public IActionResult Index()
-		{	
-			return View();
+			return View(model.ToList());
 		}
 
+		/// <summary>
+		/// Получить список 
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		[HttpGet]
+		public IActionResult Index(int id)
+		{
+			var model = UserService.GetWithInclude(t=> new User()
+			{ 
+				RolesUsers = t.RolesUsers,
+				login = t.login,
+				Id = t.Id,
+				Worker = t.Worker,
+				LastName = t.LastName,
+				FirstName = t.FirstName
+			}).FindAllWithIncude(t => (t as User).RolesUsers.Select(s => s.RolesId).Contains(id));
+			return View(model.ToList());
+		}
+		[HttpGet]
+		public IActionResult Info(int id)
+		{
+			var participant = ParticipantService.GetWithInclude(t=> new Worker()
+			{ 
+				Id = t.Id,
+				User = t.User,
+				SkillWorkers = t.SkillWorkers,
+				Projects = t.Projects
+			}).FindByFuncWithInclude(t=> (t as Worker).Id == id);
+			return View(participant);
+		}
 		[HttpPost]
 		public void RemoveSkill(int id)
 		{
-			projectService.RemoveObjectById<Skill,int>(id);
+			ProjectService.RemoveObjectById<Skill,int>(id);
 		}
 	}
 }

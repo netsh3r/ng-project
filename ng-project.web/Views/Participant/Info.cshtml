@@ -1,0 +1,27 @@
+﻿@using ng_project.Entities;
+
+@model Worker;
+
+<link rel="stylesheet" href="~/css/User.css" />
+
+<div class="container">
+	<div class="btn btn-success">
+		Пригласить в команду
+	</div>
+	<div class="row mt-3">
+		<div class="col-6">
+			<span>@(Model.User.FirstName)</span>
+		</div>
+		<div class="col-6">
+			<span>@(Model.User.LastName)</span>
+		</div>
+	</div>
+	<div class="row participant-skills">
+		@foreach (var skill in Model.Skills)
+		{
+			<span class="participant-skill-item">
+				@skill.Name
+			</span>
+		}
+	</div>
+</div>
