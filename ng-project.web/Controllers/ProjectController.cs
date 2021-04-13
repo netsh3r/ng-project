@@ -33,14 +33,14 @@ namespace ng_project.web.Controllers
 		[HttpPost]
 		public bool IsSubdcribe(int projectId)
 		{
-			var project = ProjectService.GetWithInclude(t => new Project()
+			var project = ProjectService.GetWithIncludes(t => new Project()
 			{
 				Id = t.Id,
 				ProjectSubscribers = t.ProjectSubscribers
 			}).FindByFuncWithInclude(t => (t as Project).Id == projectId);
 			//var project = projectService.FindById(projectId);
 			//var user = userService.FindUser(t => t.login == User.Identity.Name);
-			var user = UserService.GetWithInclude(t => new User()
+			var user = UserService.GetWithIncludes(t => new User()
 			{
 				Projects = t.Projects,
 				Subscriber = t.Subscriber,
@@ -92,7 +92,7 @@ namespace ng_project.web.Controllers
 		public void Subscribe(int projectId)
 		{
 			//var user = userService.FindUser(t => t.login == User.Identity.Name);
-			var user = UserService.GetWithInclude(t => new User()
+			var user = UserService.GetWithIncludes(t => new User()
 			{
 				login = t.login,
 				Subscriber = t.Subscriber
@@ -104,12 +104,12 @@ namespace ng_project.web.Controllers
 		[HttpPost]
 		public void DeleteSubscribe(int projectId)
 		{
-			var user = UserService.GetWithInclude(t => new User()
+			var user = UserService.GetWithIncludes(t => new User()
 			{
 				login = t.login,
 				Subscriber = t.Subscriber
 			}).FindByFuncWithInclude(s => (s as User).login == User.Identity.Name);
-			var project = ProjectService.GetWithInclude(t => new Project()
+			var project = ProjectService.GetWithIncludes(t => new Project()
 			{
 				Id = t.Id,
 				ProjectSubscribers = t.ProjectSubscribers
@@ -136,7 +136,7 @@ namespace ng_project.web.Controllers
 		[Authorize]
 		public IActionResult Edit(int id)
 		{
-			var model = ProjectService.GetWithInclude(t=> new Project
+			var model = ProjectService.GetWithIncludes(t=> new Project
 			{ 
 				Id = t.Id,
 				CreationDate = t.CreationDate,
@@ -204,7 +204,7 @@ namespace ng_project.web.Controllers
 
 		public IActionResult Info(int id)
 		{
-			var model = ProjectService.GetWithInclude(t => new Project
+			var model = ProjectService.GetWithIncludes(t => new Project
 			{
 				Id = t.Id,
 				CreationDate = t.CreationDate,

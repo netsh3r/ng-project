@@ -23,7 +23,7 @@ namespace ng_project.Services
 			return WorkerManager.FindAll().ToList();
 		}
 
-		public override IBaseService<Worker,int> GetWithInclude(Expression<Func<Worker, object>> expression)
+		public override IBaseService<Worker,int> GetWithIncludes(Expression<Func<Worker, object>> expression)
 		{
 			base.ExpressionObject= expression;
 			return this;

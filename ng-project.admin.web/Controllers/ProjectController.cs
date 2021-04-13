@@ -76,7 +76,7 @@ namespace ng_project.admin.web.Controllers
 		[HttpGet]
 		public IActionResult EditProjectType(int id)
 		{
-			var model = projectTypeService.GetWithInclude(t=> new ProjectType()
+			var model = projectTypeService.GetWithIncludes(t=> new ProjectType()
 			{
 				IconName = t.IconName,
 				Id = t.Id,

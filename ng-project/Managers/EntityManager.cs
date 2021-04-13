@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ng_project.Context;
 using ng_project.Entities;
+using ng_project.EntityExpressions;
 using ng_project.Models;
 using System;
 using System.Collections.Generic;
@@ -80,9 +81,34 @@ namespace ng_project.Managers
 		{
 			using(var db = new NgContext())
 			{
-				//db.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
 				var _dbSet = db.Set<T>();
 				return _dbSet.FirstOrDefault(expression);
+			}
+		}
+		public override ICollection<T> FindAll(EntityExpression<T> entityExpression, Func<T, bool> func = null)
+		{
+			using (var db = new NgContext())
+			{
+				var _dbSet = db.Set<T>().Include(entityExpression.ExpressionList.First());
+				foreach (var exp in entityExpression.ExpressionList)
+				{
+					_dbSet = _dbSet.Include(exp);
+				}
+				if(func != null)
+					return _dbSet.Where(func).ToList();
+				return _dbSet.ToList();
+			}
+		}
+		public override T Find(EntityExpression<T> entityExpression, Func<T, bool> func = null)
+		{
+			using (var db = new NgContext())
+			{
+				var _dbSet = db.Set<T>().Include(entityExpression.ExpressionList.First());
+				foreach (var exp in entityExpression.ExpressionList)
+				{
+					_dbSet = _dbSet.Include(exp);
+				}
+				return _dbSet.Where(func).FirstOrDefault();
 			}
 		}
 		public override ICollection<T> FindAll(Func<T, bool> expression)
@@ -112,7 +138,7 @@ namespace ng_project.Managers
 				return (T)_dbSet;
 			}
 		}
-
+		delegate Expression<Func<T, object>> M();
 		public override T Find(Expression<Func<T, object>> expression, Func<object, bool> func)
 		{
 			using (var db = new NgContext())

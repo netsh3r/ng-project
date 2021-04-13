@@ -1,4 +1,5 @@
 ﻿using ng_project.Entities;
+using ng_project.EntityExpressions;
 using ng_project.Managers;
 using ng_project.Models;
 using ng_project.SDK;
@@ -13,8 +14,24 @@ namespace ng_project.Services
 	{
 		public MainService(){
 			this.entityManager = EntityManager<T, IdT>.Instance;
+			EntityExpressions = new EntityExpression<T>();
 		}
+		private EntityExpression<T> EntityExpressions;
 		public Expression<Func<T, object>> ExpressionObject;
+		private EntityManager<T, IdT> entityManager { get; set; }
+		public override T Find()
+		{
+			return entityManager.Find(EntityExpressions);
+		}
+		public override T Find(Func<T, bool> func)
+		{
+			return entityManager.Find(EntityExpressions, func);
+		}
+		public override IBaseService<T, IdT> Include(Expression<Func<T, object>> expression)
+		{
+			EntityExpressions.AddExpression(expression);
+			return this;
+		}
 		public override int Add(T model)
 		{
 			return entityManager.Add(model);
@@ -23,19 +40,19 @@ namespace ng_project.Services
 		{
 			entityManager.RemoveLink(link);
 		}
-		public override IBaseService<T, IdT> GetWithInclude(Expression<Func<T, object>> expression)
+		public override IBaseService<T, IdT> GetWithIncludes(Expression<Func<T, object>> expression)
 		{
 			ExpressionObject = expression;
 			return this;
 		}
-		private EntityManager<T, IdT> entityManager { get; set; }
 		public override void Delete(int id)
 		{
 			entityManager.Delete(id);
 		}
 		public override T FindByFuncWithInclude(Func<object, bool> func)
 		{
-			return entityManager.Find(ExpressionObject, func);
+			//return entityManager.Find(ExpressionObject, func);
+			return entityManager.Find(EntityExpressions);
 		}
 		public override ICollection<T> FindAllWithIncude(Func<object, bool> func)
 		{
@@ -43,15 +60,19 @@ namespace ng_project.Services
 		}
 		public override ICollection<T> FindAll()
 		{
-			if(ExpressionObject != null)
+			if(EntityExpressions.ExpressionList.Count>0)
 			{
-				return FindAll(ExpressionObject);
+				return entityManager.FindAll(EntityExpressions);
 			}
 			return entityManager.FindAll();
 		}
 
 		public override ICollection<T> FindAll(Func<T, bool> func)
 		{
+			if (EntityExpressions.ExpressionList.Count > 0)
+			{
+				return entityManager.FindAll(EntityExpressions, func);
+			}
 			return entityManager.FindAll(func);
 		}
 		

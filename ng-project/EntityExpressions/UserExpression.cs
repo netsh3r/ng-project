@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace ng_project.EntityExpression
+namespace ng_project.EntityExpressions
 {
 	public class UserExpression
 	{

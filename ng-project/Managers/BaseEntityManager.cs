@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ng_project.Entities;
+using ng_project.EntityExpressions;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
@@ -6,8 +8,9 @@ using System.Text;
 namespace ng_project.Managers
 {
 	//</ineritdoc>
-	public abstract class BaseEntityManager<T, IdT> : IBaseEntityManager<T, IdT>
+	public abstract class BaseEntityManager<T, IdT> : IBaseEntityManager<T, IdT> where T:Entity
 	{
+		public abstract ICollection<T> FindAll(EntityExpression<T> entityExpression, Func<T, bool> func = null);
 		public abstract ICollection<T> FindAll(Expression<Func<T, object>> expression);
 		public abstract ICollection<T> FindAll(Expression<Func<T, object>> expression, Func<object, bool> func);
 		//</inheritdoc>
@@ -26,6 +29,7 @@ namespace ng_project.Managers
 		//</inheritdoc>
 		public abstract T Find(Func<T, bool> expression);
 		public abstract T Find(Expression<Func<T, object>> expression, Func<object, bool> func);
+		public abstract T Find(EntityExpression<T> entityExpression, Func<T, bool> func = null);
 		public abstract void RemoveLink(object link);
 	}
 }

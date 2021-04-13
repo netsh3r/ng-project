@@ -28,7 +28,7 @@ namespace ng_project.web.Controllers
 		[HttpGet]
 		public string[] GetSkillItems()
 		{
-			var skills = SkillService.GetWithInclude(t => new Skill
+			var skills = SkillService.GetWithIncludes(t => new Skill
 			{
 				Name = t.Name
 			}).FindAll().Select(t => t.Name).ToArray();
@@ -41,7 +41,7 @@ namespace ng_project.web.Controllers
 		/// <returns></returns>
 		public IActionResult All()
 		{
-			var model = ParticipantService.GetWithInclude(t => new Worker 
+			var model = ParticipantService.GetWithIncludes(t => new Worker 
 			{
 				User = t.User, 
 				Id = t.Id,
@@ -60,7 +60,7 @@ namespace ng_project.web.Controllers
 		[HttpGet]
 		public IActionResult Index(int id)
 		{
-			var model = UserService.GetWithInclude(t=> new User()
+			var model = UserService.GetWithIncludes(t=> new User()
 			{ 
 				RolesUsers = t.RolesUsers,
 				login = t.login,
@@ -74,7 +74,7 @@ namespace ng_project.web.Controllers
 		[HttpGet]
 		public IActionResult Info(int id)
 		{
-			var participant = ParticipantService.GetWithInclude(t=> new Worker()
+			var participant = ParticipantService.GetWithIncludes(t=> new Worker()
 			{ 
 				Id = t.Id,
 				User = t.User,

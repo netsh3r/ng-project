@@ -18,7 +18,7 @@ namespace ng_project.web.Controllers
 		public IActionResult Index()
 		{
 			var user = UserService.FindByFunc(t => t.login == User.Identity.Name);
-			var model = NotifyService.GetWithInclude(t => new Notify()
+			var model = NotifyService.GetWithIncludes(t => new Notify()
 			{
 				Id = t.Id,
 				IsReading = t.IsReading,

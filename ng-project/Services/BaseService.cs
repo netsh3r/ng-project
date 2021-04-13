@@ -17,7 +17,7 @@ namespace ng_project.Services
 		public abstract T FindByFuncWithInclude(Func<object, bool> func);
 		public abstract T FindByFunc(Func<T, bool> func);
 		public abstract T FindById(int id);
-		public abstract IBaseService<T, IdT> GetWithInclude(Expression<Func<T, object>> expression);
+		public abstract IBaseService<T, IdT> GetWithIncludes(Expression<Func<T, object>> expression);
 		public abstract void Save(T model);
 
 		public abstract int Add(T model);
@@ -25,5 +25,10 @@ namespace ng_project.Services
 		public abstract void Delete(int id);
 
 		public abstract void RemoveLink(object link);
+
+		public abstract IBaseService<T, IdT> Include(Expression<Func<T, object>> expression);
+
+		public abstract T Find();
+		public abstract T Find(Func<T, bool> func);
 	}
 }

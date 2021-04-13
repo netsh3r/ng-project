@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ng_project.Entities;
+using ng_project.EntityExpressions;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,8 +9,10 @@ namespace ng_project.Managers
 	/// <summary>
 	/// Базовый менеджер для работы с данными
 	/// </summary>
-	interface IBaseEntityManager<T,IdT>
+	interface IBaseEntityManager<T,IdT> where T:Entity
 	{
+		ICollection<T> FindAll(EntityExpression<T> entityExpression, Func<T, bool> func = null);
+		T Find(EntityExpression<T> entityExpression, Func<T, bool> func = null);
 		void RemoveLink(object link);
 		/// <summary>
 		/// Добавить запись в бд

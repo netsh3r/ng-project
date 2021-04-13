@@ -15,7 +15,7 @@ namespace ng_project.web.Controllers
 		#endregion
 		public IActionResult Index()
 		{
-			var user = UserService.GetWithInclude(t =>
+			var user = UserService.GetWithIncludes(t =>
 				new User
 				{
 					Subscriber = new Subscriber()

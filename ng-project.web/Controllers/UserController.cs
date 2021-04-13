@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ng_project.Entities;
-using ng_project.EntityExpression;
+using ng_project.EntityExpressions;
 using ng_project.Models;
 using ng_project.Services;
 using System;
@@ -84,7 +84,7 @@ namespace ng_project.web.Controllers
 		[HttpGet]
 		public string[] GetSkillItems()
 		{
-			var skills = SkillService.GetWithInclude(t => new Skill
+			var skills = SkillService.GetWithIncludes(t => new Skill
 			{
 				Name = t.Name
 			}).FindAll().Select(t=> t.Name).ToArray();
@@ -93,7 +93,7 @@ namespace ng_project.web.Controllers
 		[HttpGet]
 		public IActionResult Profile()
 		{
-			var user = UserService.GetWithInclude(t=> new User
+			var user = UserService.GetWithIncludes(t=> new User
 			{ 
 				Id = t.Id,
 				FirstName = t.FirstName,
@@ -107,13 +107,13 @@ namespace ng_project.web.Controllers
 				Projects = t.Projects,
 				RolesUsers = t.RolesUsers
 			}).FindByFuncWithInclude(t => (t as User).login == User.Identity.Name);
-			user.Subscriber = SubscribeService.GetWithInclude(t => new Subscriber()
+			user.Subscriber = SubscribeService.GetWithIncludes(t => new Subscriber()
 			{
 				Id = t.Id,
 				UserId = t.UserId,
 				ProjectSubscribers = t.ProjectSubscribers
 			}).FindByFuncWithInclude(t => (t as Subscriber).UserId == user.Id);
-			user.Worker = WorkerService.GetWithInclude(t => new Worker()
+			user.Worker = WorkerService.GetWithIncludes(t => new Worker()
 			{
 				Projects = t.Projects,
 				Id =t.Id,
@@ -127,7 +127,7 @@ namespace ng_project.web.Controllers
 			User user = null;
 			if(id != null)
             {
-				user = UserService.GetWithInclude(t => new User
+				user = UserService.GetWithIncludes(t => new User
 				{
 					Id = t.Id,
 					FirstName = t.FirstName,
@@ -154,7 +154,7 @@ namespace ng_project.web.Controllers
 		public HtmlString GetSkills(int id)
 		{
 			var sb = new StringBuilder();
-			var skills = SkillService.GetWithInclude(t =>
+			var skills = SkillService.GetWithIncludes(t =>
 			new Skill()
 			{
 				Name = t.Name,
@@ -219,7 +219,7 @@ namespace ng_project.web.Controllers
 			NgProjectService.Save<User, int>(user);
 			user.Projects = ProjectService.FindAll(t=> t.UserId == user.Id).ToList();
 			user.Image = NgProjectService.FindByFunc<Image, int>(t=> t.UserId == user.Id);
-			var newuser = UserService.GetWithInclude(t => new User
+			var newuser = UserService.GetWithIncludes(t => new User
 			{
 				Id = t.Id,
 				FirstName = t.FirstName,
@@ -233,13 +233,13 @@ namespace ng_project.web.Controllers
 				Projects = t.Projects,
 				RolesUsers = t.RolesUsers
 			}).FindByFuncWithInclude(t => (t as User).login == User.Identity.Name);
-			newuser.Subscriber = SubscribeService.GetWithInclude(t => new Subscriber()
+			newuser.Subscriber = SubscribeService.GetWithIncludes(t => new Subscriber()
 			{
 				Id = t.Id,
 				UserId = t.UserId,
 				ProjectSubscribers = t.ProjectSubscribers
 			}).FindByFuncWithInclude(t => (t as Subscriber).UserId == user.Id);
-			newuser.Worker = WorkerService.GetWithInclude(t => new Worker()
+			newuser.Worker = WorkerService.GetWithIncludes(t => new Worker()
 			{
 				Projects = t.Projects,
 				Id = t.Id,
