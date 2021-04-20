@@ -69,21 +69,18 @@ namespace ng_project.admin.web.Controllers
 				ProjectTypeId = projectTypeId
 			});
 			var sb = new StringBuilder();
-			var role = rolesService.FindById(roleId);
+			var role = rolesService.Find(t=> t.Id == roleId);
 			sb.Append($"<span class=\"participant-skill-item\">{role.Name}</span>");
 			return new HtmlString(sb.ToString());
 		}
 		[HttpGet]
 		public IActionResult EditProjectType(int id)
 		{
-			var model = projectTypeService.GetWithIncludes(t=> new ProjectType()
-			{
-				IconName = t.IconName,
-				Id = t.Id,
-				ProjectSubType = t.ProjectSubType,
-				ProjectTypesRoles = t.ProjectTypesRoles,
-				Name = t.Name
-			}).FindByFuncWithInclude(t=> (t as ProjectType).Id == id);
+			var model = projectTypeService
+				.Include(t => t.ProjectSubType)
+				.Include(t => t.ProjectTypesRoles)
+				.Find(t => t.Id == id);
+
 			model.ProjectSubType = projectSubTypeService.FindAll(t => t.ProjectTypeId == model.Id).ToList();
 			return View(model);
 		}
@@ -108,8 +105,8 @@ namespace ng_project.admin.web.Controllers
 		[HttpGet]
 		public IActionResult EditProjectSubType(int id)
 		{
-			var model = projectSubTypeService.FindById(id);
-			model.ProjectType = projectTypeService.FindById(model.ProjectTypeId);
+			var model = projectSubTypeService.Find(t=> t.Id == id);
+			model.ProjectType = projectTypeService.Find(t=> t.Id == model.ProjectTypeId);
 			return View(model);
 		}
 		[HttpPost]

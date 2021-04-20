@@ -5,12 +5,7 @@
 
 @foreach (var role in Model.Roles)
 {
-	var roleInfo = roleService.GetWithIncludes(t => new Roles()
-	{
-		Id = t.Id,
-		Name = t.Name,
-		RolesUsers = t.RolesUsers
-	}).FindByFuncWithInclude(s => (s as Roles).Id == role.Id);
+	var roleInfo = roleService.Include(t => t.RolesUsers).FindById(role.Id);
 
 	<div class="col-4" onclick="window.location.href='@(Url.Action("Index","Participant",new { id=role.Id }))'">
 		<div class="participant-item">

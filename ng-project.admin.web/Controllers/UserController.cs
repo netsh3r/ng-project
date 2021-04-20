@@ -38,8 +38,8 @@ namespace ng_project.admin.web.Controllers
 		}
 		public IActionResult DeleteUser(int id)
 		{
-			var worker = workerService.FindByFunc(t => t.UserId == id);
-			var sub = subscribeService.FindByFunc(t => t.UserId == id);
+			var worker = workerService.Find(t => t.UserId == id);
+			var sub = subscribeService.Find(t => t.UserId == id);
 			if(worker != null)
 			{
 				workerService.Delete(worker.Id);
@@ -63,7 +63,7 @@ namespace ng_project.admin.web.Controllers
 		[HttpPost]
 		public HtmlString AddNewRole(string roleName, int index)
 		{
-			var model = rolesService.FindByFunc(t => t.Name == roleName);
+			var model = rolesService.Find(t => t.Name == roleName);
 			int modelId = 0;
 			if(model == null)
 			{
@@ -92,7 +92,11 @@ namespace ng_project.admin.web.Controllers
 		[HttpGet]
 		public IActionResult Edit(int id)
 		{
-			var model = userService.GetWithIncludes(UserExpression.Main()).FindByFuncWithInclude(t=> (t as User).Id == id);
+			var model = userService
+				.Include(t => t.Projects)
+				.Include(t => t.Creator)
+				.Include(t => t.Email)
+				.Find(t=> t.Id == id);
 			return View(model);
 		}
 		[HttpPost]

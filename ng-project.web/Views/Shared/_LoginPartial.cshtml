@@ -1,6 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Mvc;
 @using Microsoft.AspNetCore.Authorization;
-
+@using ng_project.Services;
+@using ng_project.Entities;
+@inject INotifyService NotifyService;
 <link rel="stylesheet" href="~/css/LoginHeader.css"/>
 
 @if (User.Identity.IsAuthenticated)
@@ -13,7 +15,7 @@
 	<div class="d-inline-flex">
 		<a asp-controller="Notify" asp-action="Index" class="icon">
 			<img src="~/images/icon/notify_yes.png" />
-			<span>0</span>
+			<span>@(NotifyService.Include(t=> t.Recipient).FindAll(t=> t.Recipient.login == User.Identity.Name).Count)</span>
 		</a>
 		<a asp-action="LogOut" asp-controller="Account" class="nav-link logout">выйти</a>
 	</div>

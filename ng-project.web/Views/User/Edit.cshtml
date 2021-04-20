@@ -3,14 +3,13 @@
 @using ng_project.Entities;
 @using ng_project.Entities.Enum;
 @using ng_project.Services;
+@inject IRolesService rolesService;
+
 
 @model User;
 
 	<link rel="stylesheet" href="~/css/User.css" />
-	@*<link rel="stylesheet" href="~/css/Project.css" />*@
-@{ 
-	var rolesService = RolesService.Instance;
-}
+
 	<form asp-action="SaveUser" asp-controller="User" method="post" enctype="multipart/form-data">
 		<div class="container-fluid">
 			@Html.HiddenFor(t => t.Id)

@@ -14,6 +14,7 @@ namespace ng_project.Entities
 	/// </summary>
 	public class Project : Entity
 	{
+		public virtual List<Notify> Notifies { get; set; } = new List<Notify>();
 		//public Project()
 		//{
 		//	Subscribers = ProjectSubscribers.Select(t=> t.Subscribers).ToList();

@@ -15,14 +15,9 @@ namespace ng_project.web.Controllers
 		#endregion
 		public IActionResult Index()
 		{
-			var user = UserService.GetWithIncludes(t =>
-				new User
-				{
-					Subscriber = new Subscriber()
-					{
-						Projects = t.Subscriber.Projects
-					}
-				}).FindByFunc(t=> (t as User).login == User.Identity.Name);
+			var user = UserService
+				.Include(t => t.Subscriber)
+				.Find(t=> t.login == User.Identity.Name);
 			return View(user.Subscriber);
 		}
 	}

@@ -1,0 +1,14 @@
+﻿@using ng_project.Entities;
+
+@model Notify;
+
+<div class="project-name border-bottom mb-2">
+	@(Model.Project.Name)
+</div>
+<div class="messages">
+	@(Model.Message)
+</div>
+<div class="btn-group mt-4">
+	<a asp-action="SetResult" asp-controller="Notify" asp-all-route-data='new Dictionary<string, string> { { "id", $"{Model.Id}" }, {"isSuccess", "true" } }' class="btn btn-success">Подтвердить</a>
+	<a asp-action="SetResult" asp-controller="Notify" asp-all-route-data='new Dictionary<string,string>	{ { "id", $"{Model.Id}" }, {"isSuccess", "false" } }' class="btn btn-danger">Отказать</a>
+</div>

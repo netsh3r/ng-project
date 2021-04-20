@@ -12,7 +12,7 @@ namespace ng_project.Services
 		/// Найти проект по id
 		/// </summary>
 		/// <returns></returns>
-		Project FindById(int id);
+		//Project FindById(int id);
 		/// <summary>
 		/// Получить все проекты
 		/// </summary>

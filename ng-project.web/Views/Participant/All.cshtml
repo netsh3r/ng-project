@@ -7,13 +7,7 @@
 @model List<Worker>
 
 @{
-	var projectTypes = projectTypeService.GetWithIncludes(t=> new ProjectType()
-	{
-		Name = t.Name,
-		Id = t.Id,
-		IconName = t.IconName,
-		ProjectTypesRoles = t.ProjectTypesRoles
-	}).FindAll();
+	var projectTypes = projectTypeService.Include(t=> t.ProjectTypesRoles).FindAll();
 	var projectSubType = new List<List<ProjectSubType>>();
 	var indexProjType = 0;
 }

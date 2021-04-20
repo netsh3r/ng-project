@@ -13,7 +13,7 @@ namespace ng_project.EntityExpressions
 			return t => (t as User).login == login;
 		}
 		public static Expression<Func<User,object>> Main()
-		{				
+		{
 			return t => new User
 			{
 				Id = t.Id,

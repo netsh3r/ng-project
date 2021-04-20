@@ -52,7 +52,7 @@ namespace ng_project.web
 				app.UseExceptionHandler("/Home/Error");
 				app.UseHsts();
 			}
-			app.UseStatusCodePages();
+			//app.UseStatusCodePages();
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 

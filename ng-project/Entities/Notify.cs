@@ -10,6 +10,8 @@ namespace ng_project.Entities
 	/// </summary>
 	public class Notify:Entity
 	{
+		public Project Project { get; set; }
+		public int ProjectId { get; set; }
 		/// <summary>
 		/// Прочитано ли уведомление
 		/// </summary>

@@ -28,28 +28,20 @@ namespace ng_project.web.Controllers
 		public ISubscribeService SubscribeService { get; set; }
 		public IProjectSubTypeService ProjectSubTypeService { get; set; }
 		public ICommentService CommentService { get; set; }
+		public INotifyService NotifyService { get; set; }
 
 		#endregion
 		[HttpPost]
 		public bool IsSubdcribe(int projectId)
 		{
-			var project = ProjectService.GetWithIncludes(t => new Project()
-			{
-				Id = t.Id,
-				ProjectSubscribers = t.ProjectSubscribers
-			}).FindByFuncWithInclude(t => (t as Project).Id == projectId);
-			//var project = projectService.FindById(projectId);
-			//var user = userService.FindUser(t => t.login == User.Identity.Name);
-			var user = UserService.GetWithIncludes(t => new User()
-			{
-				Projects = t.Projects,
-				Subscriber = t.Subscriber,
-				Id = t.Id,
-				login = t.login
-			}).FindByFuncWithInclude(t=> 
-				(t as User).login == User.Identity.Name
-			);
-			if(project.Subscribers.Count()>0 && project.Subscribers.Select(t=> t.Id).ToList().Contains(user.Subscriber.Id))
+			var project = ProjectService
+				.Include(t=> t.ProjectSubscribers)
+				.Find(t => t.Id == projectId);
+			var user = UserService
+				.Include(t=> t.Projects)
+				.Include(t=> t.Subscriber)
+				.Find(t => t.login == User.Identity.Name );
+			if (project.Subscribers.Count()>0 && project.Subscribers.Select(t=> t.Id).ToList().Contains(user.Subscriber.Id))
 			{
 				return true;
 			}
@@ -58,7 +50,7 @@ namespace ng_project.web.Controllers
 		[HttpPost]
 		public HtmlString AddComments(int projectId, string text)
 		{
-			var user = UserService.FindByFunc(t=> t.login == User.Identity.Name);
+			var user = UserService.Find(t=> t.login == User.Identity.Name);
 			CommentService.Add(new Comment()
 			{
 				ProjectId = projectId,
@@ -91,12 +83,9 @@ namespace ng_project.web.Controllers
 		[HttpPost]
 		public void Subscribe(int projectId)
 		{
-			//var user = userService.FindUser(t => t.login == User.Identity.Name);
-			var user = UserService.GetWithIncludes(t => new User()
-			{
-				login = t.login,
-				Subscriber = t.Subscriber
-			}).FindByFuncWithInclude(s=> (s as User).login == User.Identity.Name);
+			var user = UserService
+				.Include(t => t.Subscriber)
+				.Find(s=> s.login == User.Identity.Name);
 			ProjectService.AddSubscribe(projectId, user.Subscriber.Id);
 
 
@@ -104,16 +93,11 @@ namespace ng_project.web.Controllers
 		[HttpPost]
 		public void DeleteSubscribe(int projectId)
 		{
-			var user = UserService.GetWithIncludes(t => new User()
-			{
-				login = t.login,
-				Subscriber = t.Subscriber
-			}).FindByFuncWithInclude(s => (s as User).login == User.Identity.Name);
-			var project = ProjectService.GetWithIncludes(t => new Project()
-			{
-				Id = t.Id,
-				ProjectSubscribers = t.ProjectSubscribers
-			}).FindByFuncWithInclude(t => (t as Project).Id == projectId);
+			var user = UserService.Include(t=> t.Subscriber).Find(s => s.login == User.Identity.Name);
+			var project = ProjectService
+				.Include(t => t.ProjectSubscribers)
+				.Find(t => t.Id == projectId);
+
 			var link = project.Subscribers.FirstOrDefault(t => t.Id == user.Subscriber.Id);
 			SubscribeService.RemoveLink(new ProjectSubscriber(){ ProjectsId = projectId,SubscribersId= link.Id});
 		}
@@ -122,13 +106,22 @@ namespace ng_project.web.Controllers
 		public IActionResult SendBecome(int projectId, string text)
 		{
 			var user = UserService.FindUser(t => t.login == User.Identity.Name);
-			ProjectService.AddParticipant(projectId, user.Worker.Id);
+			var project = ProjectService.FindById(projectId);
+			NotifyService.Add(new Notify()
+			{ 
+				SenderId = user.Id,
+				RecipientId = project.UserId,
+				Message = text,
+				IsReading = false,
+				SendDate = DateTime.Now,
+				ProjectId = projectId
+			});
 			return PartialView("Project/SendBecomeSuccess");
 		}
 		
 		public IActionResult All()
 		{
-			var model = ProjectService.GetAll();
+			var model = ProjectService.FindAll();
 			return View("All",model.ToList());
 		}
 
@@ -136,24 +129,16 @@ namespace ng_project.web.Controllers
 		[Authorize]
 		public IActionResult Edit(int id)
 		{
-			var model = ProjectService.GetWithIncludes(t=> new Project
-			{ 
-				Id = t.Id,
-				CreationDate = t.CreationDate,
-				Description = t.Description,
-				MainProjectImage = t.MainProjectImage,
-				Name= t.Name,
-				News = t.News,
-				ProjectImage =t.ProjectImage,
-				ProjectType = t.ProjectType,
-				ProjectTypeId = t.ProjectTypeId,
-				ShortDescription = t.ShortDescription,
-				Skills = t.Skills,
-				Subscribers = t.Subscribers,
-				User = t.User,
-				UserId = t.UserId,
-				Workers = t.Workers
-			}).FindById(id);
+			var model = ProjectService
+				.Include(t => t.News)
+				.Include(t => t.ProjectImage)
+				.Include(t => t.ProjectType)
+				.Include(t => t.Skills)
+				.Include(t => t.Subscribers)
+				.Include(t => t.User)
+				.Include(t => t.Workers)
+				.Find(t=> t.Id == id);
+
 			return View(model);
 		}
 
@@ -204,30 +189,18 @@ namespace ng_project.web.Controllers
 
 		public IActionResult Info(int id)
 		{
-			var model = ProjectService.GetWithIncludes(t => new Project
-			{
-				Id = t.Id,
-				CreationDate = t.CreationDate,
-				Description = t.Description,
-				MainProjectImage = t.MainProjectImage,
-				Name = t.Name,
-				News = t.News,
-				ProjectImage = t.ProjectImage,
-				ProjectType = t.ProjectType,
-				ProjectTypeId = t.ProjectTypeId,
-				ShortDescription = t.ShortDescription,
-				Skills = t.Skills,
-				ProjectSubscribers = t.ProjectSubscribers,
-				User = t.User,
-				UserId = t.UserId,
-				Workers = t.Workers,
-				Comments = t.Comments.Select(s=> new Comment()
-				{ 
-					User = s.User,
-					Text = s.Text,
-					PublishDate = s.PublishDate
-				}).ToList()
-			}).FindByFuncWithInclude(t=> (t as Project).Id == id);
+			var model = ProjectService
+				.Include(t=> t.MainProjectImage)
+				.Include(t => t.News)
+				.Include(t => t.ProjectImage)
+				.Include(t => t.ProjectType)
+				.Include(t => t.Skills)
+				.Include(t => t.ProjectSubscribers)
+				.Include(t => t.User)
+				.Include(t => t.Workers)
+				.Include(t => t.Comments)
+				.Find(t => t.Id == id);
+
 			return View("Info", model);
 		}
 		[HttpPost]

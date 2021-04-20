@@ -108,7 +108,11 @@ namespace ng_project.Managers
 				{
 					_dbSet = _dbSet.Include(exp);
 				}
-				return _dbSet.Where(func).FirstOrDefault();
+
+				if(func != null)
+					return _dbSet.Where(func).FirstOrDefault();
+
+				return _dbSet.FirstOrDefault();
 			}
 		}
 		public override ICollection<T> FindAll(Func<T, bool> expression)

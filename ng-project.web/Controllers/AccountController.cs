@@ -44,10 +44,7 @@ namespace ng_project.web.Controllers
 			if (ModelState.IsValid)
 			{
 				var user = UserService.Login(t => t.login == model.Login && t.Password == model.Password);
-				var tt = RolesService.GetWithIncludes(t=> new Roles() { 
-					Id = t.Id,
-					Name = t.Name,
-					RolesUsers= t.RolesUsers}).FindAll().ToList();
+				var tt = RolesService.Include(t=> t.RolesUsers).FindAll().ToList();
 				var roles = tt.Where(t => t.Users != null && t.Users.Count > 0
 					&& t.Users.Select(s => s.Id).ToList().Contains(user.Id))?.ToList() ?? null;
 				user.RolesUsers = roles?.Select(t=> new RolesUser() 

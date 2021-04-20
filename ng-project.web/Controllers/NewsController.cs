@@ -36,7 +36,7 @@ namespace ng_project.web.Controllers
 				Title = model.Title,
 				Text = model.Description
 			};
-			var project = ProjectService.FindById(model.ProjectId);
+			var project = ProjectService.Find(t=> t.Id == model.ProjectId);
 			return RedirectToAction("Info", "Project", project);
 		}
 	}

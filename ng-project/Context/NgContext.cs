@@ -52,6 +52,10 @@ namespace ng_project.Context
 				.WithMany(s => s.Notifies)
 				.HasForeignKey(t => t.RecipientId)
 				.OnDelete(DeleteBehavior.ClientSetNull);
+			modelBuilder.Entity<Notify>().HasOne(m => m.Project)
+				.WithMany(s => s.Notifies)
+				.HasForeignKey(t => t.ProjectId)
+				.OnDelete(DeleteBehavior.ClientSetNull);
 
 			modelBuilder.Entity<SkillWorker>()
 				.HasKey(s => new { s.WorkerId, s.SkillId });

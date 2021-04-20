@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ng_project.Context;
 
 namespace ng_project.Migrations
 {
     [DbContext(typeof(NgContext))]
-    partial class NgContextModelSnapshot : ModelSnapshot
+    [Migration("20210416124845_156")]
+    partial class _156
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -746,6 +748,7 @@ namespace ng_project.Migrations
                     b.HasOne("ng_project.Entities.Project", "Project")
                         .WithMany("Notifies")
                         .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ng_project.Entities.User", "Recipient")

@@ -10,16 +10,33 @@ using System.Threading.Tasks;
 
 namespace ng_project.web.Controllers
 {
-	//[Authorize(Roles = "admin")]
 	/// <summary>
 	/// Контроллер участников
 	/// </summary>
 	public class ParticipantController : Controller
 	{
 		public IWorkerService ParticipantService { get; set; }
-		public INgMainService ProjectService { get; set; }
+		public IProjectService ProjectService { get; set; }
 		public ISkillService SkillService { get; set; }
 		public IUserService UserService { get; set; }
+		public INotifyService NotifyService { get; set; }
+
+		[HttpPost]
+		public IActionResult SendBecome(int ProjectId, string SendText)
+		{
+			var project = ProjectService.FindById(ProjectId);
+			var user = UserService.Find(t => t.login == User.Identity.Name);
+			NotifyService.Add(new Notify()
+			{
+				IsReading = false,
+				Message = SendText,
+				ProjectId = ProjectId,
+				SendDate = DateTime.Now,
+				RecipientId = project.UserId,
+				SenderId = user.Id
+			});
+			return RedirectToAction("All");
+		}
 
 		/// <summary>
 		/// Получить навыки участника
@@ -28,10 +45,7 @@ namespace ng_project.web.Controllers
 		[HttpGet]
 		public string[] GetSkillItems()
 		{
-			var skills = SkillService.GetWithIncludes(t => new Skill
-			{
-				Name = t.Name
-			}).FindAll().Select(t => t.Name).ToArray();
+			var skills = SkillService.FindAll().Select(t => t.Name).ToArray();
 			return skills;
 		}
 		
@@ -41,14 +55,11 @@ namespace ng_project.web.Controllers
 		/// <returns></returns>
 		public IActionResult All()
 		{
-			var model = ParticipantService.GetWithIncludes(t => new Worker 
-			{
-				User = t.User, 
-				Id = t.Id,
-				SkillWorkers = t.SkillWorkers,
-				Projects = t.Projects,
-				UserId = t.UserId
-			}).FindAll();
+			var model = ParticipantService
+				.Include(t => t.SkillWorkers)
+				.Include(t => t.Projects)
+				.Include(t => t.User)
+				.FindAll();
 			return View(model.ToList());
 		}
 
@@ -60,33 +71,28 @@ namespace ng_project.web.Controllers
 		[HttpGet]
 		public IActionResult Index(int id)
 		{
-			var model = UserService.GetWithIncludes(t=> new User()
-			{ 
-				RolesUsers = t.RolesUsers,
-				login = t.login,
-				Id = t.Id,
-				Worker = t.Worker,
-				LastName = t.LastName,
-				FirstName = t.FirstName
-			}).FindAllWithIncude(t => (t as User).RolesUsers.Select(s => s.RolesId).Contains(id));
+			var model = UserService
+				.Include(t => t.Email)
+				.Include(t => t.Worker)
+				.Include(t => t.Creator)
+				.Include(t => t.Projects)
+				.Include(t => t.RolesUsers)
+				.FindAll(t => t.RolesUsers.Select(s => s.RolesId).Contains(id));
 			return View(model.ToList());
 		}
 		[HttpGet]
 		public IActionResult Info(int id)
 		{
-			var participant = ParticipantService.GetWithIncludes(t=> new Worker()
-			{ 
-				Id = t.Id,
-				User = t.User,
-				SkillWorkers = t.SkillWorkers,
-				Projects = t.Projects
-			}).FindByFuncWithInclude(t=> (t as Worker).Id == id);
+			var participant = ParticipantService
+				.Include(t => t.User)
+				.Include(t=> t.SkillWorkers)
+				.FindById(id);
 			return View(participant);
 		}
 		[HttpPost]
 		public void RemoveSkill(int id)
 		{
-			ProjectService.RemoveObjectById<Skill,int>(id);
+			SkillService.Delete(id);
 		}
 	}
 }

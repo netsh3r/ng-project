@@ -64,7 +64,7 @@ namespace ng_project.web.Controllers
 				UsersId = userId
 			});
 			var sb = new StringBuilder();
-			var role = RolesService.FindById(roleId);
+			var role = RolesService.Find(t=> t.Id == roleId);
 			sb.Append($"<span class=\"participant-skill-item\">{role.Name}</span>");
 			return new HtmlString(sb.ToString());
 		}
@@ -84,42 +84,26 @@ namespace ng_project.web.Controllers
 		[HttpGet]
 		public string[] GetSkillItems()
 		{
-			var skills = SkillService.GetWithIncludes(t => new Skill
-			{
-				Name = t.Name
-			}).FindAll().Select(t=> t.Name).ToArray();
+			var skills = SkillService.FindAll().Select(t=> t.Name).ToArray();
 			return skills;
 		}
 		[HttpGet]
 		public IActionResult Profile()
 		{
-			var user = UserService.GetWithIncludes(t=> new User
-			{ 
-				Id = t.Id,
-				FirstName = t.FirstName,
-				LastName = t.LastName,
-				Email = t.Email,
-				CreationDate = t.CreationDate,
-				Creator = t.Creator,
-				Image = t.Image,
-				login = t.login,
-				Password = t.Password,
-				Projects = t.Projects,
-				RolesUsers = t.RolesUsers
-			}).FindByFuncWithInclude(t => (t as User).login == User.Identity.Name);
-			user.Subscriber = SubscribeService.GetWithIncludes(t => new Subscriber()
-			{
-				Id = t.Id,
-				UserId = t.UserId,
-				ProjectSubscribers = t.ProjectSubscribers
-			}).FindByFuncWithInclude(t => (t as Subscriber).UserId == user.Id);
-			user.Worker = WorkerService.GetWithIncludes(t => new Worker()
-			{
-				Projects = t.Projects,
-				Id =t.Id,
-				SkillWorkers = t.SkillWorkers,
-				UserId = t.UserId
-			}).FindByFuncWithInclude(s=> (s as Worker).UserId == user.Id);
+			var user = UserService
+				.Include(t=> t.Email)
+				.Include(t => t.Creator)
+				.Include(t => t.Projects)
+				.Include(t => t.RolesUsers)
+				.Find(t => t.login == User.Identity.Name);
+			user.Subscriber = SubscribeService
+				.Include(t => t.ProjectSubscribers)
+				.Find(t => t.UserId == user.Id);
+			user.Worker = WorkerService
+				.Include(t => t.SkillWorkers)
+				.Include(t=> t.SkillWorkers)
+				.Include(t => t.Projects)
+				.Find(s=> s.UserId == user.Id);
 			return View("Edit",user);
 		}
 		public IActionResult Profile(int? id)
@@ -127,26 +111,13 @@ namespace ng_project.web.Controllers
 			User user = null;
 			if(id != null)
             {
-				user = UserService.GetWithIncludes(t => new User
-				{
-					Id = t.Id,
-					FirstName = t.FirstName,
-					LastName = t.LastName,
-					Email = t.Email,
-					CreationDate = t.CreationDate,
-					Creator = t.Creator,
-					Image = t.Image,
-					login = t.login,
-					Password = t.Password,
-					Projects = t.Projects,
-					Subscriber = t.Subscriber,
-					Worker = new Worker() 
-					{
-						SkillWorkers = t.Worker.SkillWorkers,
-						Id = t.Worker.Id,
-						Projects = t.Worker.Projects
-					}
-				}).FindById(id.Value);
+				user = UserService
+					.Include(t => t.Email)
+					.Include(t => t.Creator)
+					.Include(t => t.Projects)
+					.Include(t => t.Subscriber)
+					.Include(t => t.Worker)
+					.FindById(id.Value);
 			}
 			return View(user);		
 		}
@@ -154,12 +125,9 @@ namespace ng_project.web.Controllers
 		public HtmlString GetSkills(int id)
 		{
 			var sb = new StringBuilder();
-			var skills = SkillService.GetWithIncludes(t =>
-			new Skill()
-			{
-				Name = t.Name,
-				SkillWorkers = t.SkillWorkers
-			}).FindAllWithIncude(t => (t as Skill).SkillWorkers.Select(s => s.WorkerId).Contains(id));
+			var skills = SkillService
+				.Include(t => t.SkillWorkers)
+				.FindAll(t => t.SkillWorkers.Select(s => s.WorkerId).Contains(id));
 			foreach(var skill in skills)
 			{
 				sb.Append($"<span class=\"participant-skill-item\">{skill.Name}</span>");
@@ -219,33 +187,17 @@ namespace ng_project.web.Controllers
 			NgProjectService.Save<User, int>(user);
 			user.Projects = ProjectService.FindAll(t=> t.UserId == user.Id).ToList();
 			user.Image = NgProjectService.FindByFunc<Image, int>(t=> t.UserId == user.Id);
-			var newuser = UserService.GetWithIncludes(t => new User
-			{
-				Id = t.Id,
-				FirstName = t.FirstName,
-				LastName = t.LastName,
-				Email = t.Email,
-				CreationDate = t.CreationDate,
-				Creator = t.Creator,
-				Image = t.Image,
-				login = t.login,
-				Password = t.Password,
-				Projects = t.Projects,
-				RolesUsers = t.RolesUsers
-			}).FindByFuncWithInclude(t => (t as User).login == User.Identity.Name);
-			newuser.Subscriber = SubscribeService.GetWithIncludes(t => new Subscriber()
-			{
-				Id = t.Id,
-				UserId = t.UserId,
-				ProjectSubscribers = t.ProjectSubscribers
-			}).FindByFuncWithInclude(t => (t as Subscriber).UserId == user.Id);
-			newuser.Worker = WorkerService.GetWithIncludes(t => new Worker()
-			{
-				Projects = t.Projects,
-				Id = t.Id,
-				SkillWorkers = t.SkillWorkers,
-				UserId = t.UserId
-			}).FindByFuncWithInclude(s => (s as Worker).UserId == user.Id);
+			var newuser = UserService
+				.Include(t => t.Email)
+				.Include(t => t.Creator)
+				.Include(t => t.Projects)
+				.Include(t => t.RolesUsers)
+				.Find(t => t.login == User.Identity.Name);
+			newuser.Subscriber = SubscribeService.Include(t => t.ProjectSubscribers).Find(t => t.UserId == user.Id);
+			newuser.Worker = WorkerService
+				.Include(t => t.Projects)
+				.Include(t => t.SkillWorkers)
+				.Find(s => s.UserId == user.Id);
 			return View("Edit",newuser);
         }
 	}

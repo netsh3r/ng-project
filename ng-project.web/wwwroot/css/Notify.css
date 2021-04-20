@@ -1,0 +1,16 @@
+﻿.request-item {
+	background: #292828;
+	border-radius: 0.5em;
+	padding: 0.8em;
+	cursor:pointer;
+}
+
+.request-item:hover,
+.select {
+	background: #3e3c3c;
+}
+
+.request-item .date {
+	color: #5F5C5C;
+	font-size:10pt;
+}

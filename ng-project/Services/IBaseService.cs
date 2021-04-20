@@ -15,9 +15,9 @@ namespace ng_project.Services
 		int Add(T model);
 		T Find();
 		T Find(Func<T, bool> func);
-		ICollection<T> FindAllWithIncude(Func<object, bool> func);
-		T FindByFuncWithInclude(Func<object, bool> func);
-		IBaseService<T, IdT> GetWithIncludes(Expression<Func<T, object>> expression);
+		//ICollection<T> FindAllWithIncude(Func<object, bool> func);
+		//T FindByFuncWithInclude(Func<object, bool> func);
+		//IBaseService<T, IdT> GetWithIncludes(Expression<Func<T, object>> expression);
 		IBaseService<T, IdT> Include(Expression<Func<T, object>> expression);
 		/// <summary>
 		/// Найти всех участников
@@ -30,7 +30,7 @@ namespace ng_project.Services
 		/// <param name="func"></param>
 		/// <returns></returns>
 		ICollection<T> FindAll(Func<T, bool> func);
-		ICollection<T> FindAll(Expression<Func<T, object>> expression);
+		//ICollection<T> FindAll(Expression<Func<T, object>> expression);
 		/// <summary>
 		/// Найти сущность по ID
 		/// </summary>
@@ -42,7 +42,7 @@ namespace ng_project.Services
 		/// </summary>
 		/// <param name="func"></param>
 		/// <returns></returns>
-		T FindByFunc(Func<T, bool> func);
+		//T FindByFunc(Func<T, bool> func);
 		/// <summary>
 		/// Сохранить сущность
 		/// </summary>
