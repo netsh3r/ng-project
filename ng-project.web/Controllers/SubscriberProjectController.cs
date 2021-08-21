@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ng_project.Entities;
 using ng_project.Services;
 using System;
@@ -13,6 +14,9 @@ namespace ng_project.web.Controllers
 		#region
 		public IUserService UserService { get; set; }
 		#endregion
+
+		[HttpPost]
+		[Authorize]
 		public IActionResult Index()
 		{
 			var user = UserService

@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ng_project.Entities;
 using ng_project.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ng_project.Context
 {
@@ -32,13 +29,13 @@ namespace ng_project.Context
 		public NgContext()
 		{
 			//Database.EnsureDeleted();   // удаляем бд со старой схемой
-										//Database.EnsureCreated();
+			Database.EnsureCreated();
 		}
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			optionsBuilder.EnableSensitiveDataLogging();
 			optionsBuilder
-			   .UseSqlServer(@"Server=DESKTOP-BO6C3SK;Initial Catalog=ng_project;Integrated Security=True;");
+			   .UseNpgsql(@"Host=localhost;Port=5432;Database=ng_project;Username=postgres;Password=1;");
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -91,7 +88,7 @@ namespace ng_project.Context
 				.HasForeignKey(c => c.ProjectsId);
 
 			modelBuilder.Entity<RolesUser>()
-				.HasKey(s => new { s.RolesId, s.UsersId});
+				.HasKey(s => new { s.RolesId, s.UsersId });
 			modelBuilder.Entity<RolesUser>()
 				.HasOne(ps => ps.Roles)
 				.WithMany(p => p.RolesUsers)
@@ -103,4 +100,3 @@ namespace ng_project.Context
 		}
 	}
 }
- 
