@@ -49,14 +49,15 @@
 .project-type .project-type-item:hover {
 	background: #5b5858;
 }
-/*.project-type .project-type-item .text{
-	display:none;
-}
-.project-type .project-type-item:hover .text {
-	display: block;
-}*/
+	.project-type .project-type-item .text{
+		display:none;
+	}
+	.project-type .project-type-item:hover .text {
+		display: block;
+	}
+	
 	.project-sub-type .project-type-item .text,
-	.project-type .project-type-item .text {
+	.project-type .project-type-item .text {	
 		text-align: center;
 	}
 

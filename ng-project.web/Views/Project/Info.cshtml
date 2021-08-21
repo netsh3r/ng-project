@@ -48,9 +48,9 @@
 				</div>
 				@if (Model.User.login == User.Identity.Name)
 				{
-					<div class="edit" onclick="DoSubscribe()">
+					<div class="edit">
 						<div class="d-flex flex-nowrap block">
-							<input type="hidden" name="isSubscribe" value="false" />
+							<input type="hidden" name="isEdit" value="false" />
 							<div class="text">
 								<a asp-action="Edit" asp-controller="Project" asp-route-id="@(Model.Id)" style="color:white">Редактировать</a>
 							</div>
