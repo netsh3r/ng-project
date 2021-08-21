@@ -10,19 +10,19 @@
 	width: 1.5em;
 	height: 1.5em;
 }
-.icon {
+.profile .icon {
 	display: flex;
 	justify-content: center;
 	position: relative;
 	margin-right: 1em;
 }
 
-	.icon img {
+.profile .icon img {
 		width: 1.8em;
 		position:absolute;
 		top:0.2em;
 	}
-	.icon span {
+.profile .icon span {
 		position: absolute;
 		z-index: 99;
 		padding-left: 8px;

@@ -126,18 +126,19 @@ namespace ng_project.web.Controllers
 		}
 
 		[HttpGet]
-		[Authorize]
 		public IActionResult Edit(int id)
 		{
 			var model = ProjectService
+				.Include(t=> t.MainProjectImage)
 				.Include(t => t.News)
 				.Include(t => t.ProjectImage)
 				.Include(t => t.ProjectType)
 				.Include(t => t.Skills)
-				.Include(t => t.Subscribers)
+				.Include(t => t.ProjectSubscribers)
 				.Include(t => t.User)
 				.Include(t => t.Workers)
-				.Find(t=> t.Id == id);
+				.Include(t => t.Comments)
+				.Find(t => t.Id == id);
 
 			return View(model);
 		}
