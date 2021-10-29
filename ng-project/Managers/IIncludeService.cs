@@ -18,18 +18,21 @@ namespace ng_project.Managers
 		/// <param name="expEntity"></param>
 		/// <returns></returns>
 		List<T> FindAll(Expression<Func<T, object>> expEntity);
+
 		/// <summary>
 		/// Найти все сущности, вместе с вложенными с условиями
 		/// </summary>
 		/// <param name="expEntity"></param>
 		/// <returns></returns>
 		//ICollection<T> FindAll(Func<T, bool> func, List<ExpressionEntity> expEntity);
+
 		///// <summary>
 		///// Найти сущность с вложенниями
 		///// </summary>
 		///// <param name="expEntity"></param>
 		///// <returns></returns>
 		//T Find(List<ExpressionEntity> expEntity);
+
 		///// <summary>
 		///// Найти сущность с вложениями и условиями
 		///// </summary>

@@ -35,7 +35,7 @@ namespace ng_project.Context
 		{
 			optionsBuilder.EnableSensitiveDataLogging();
 			optionsBuilder
-			   .UseNpgsql(@"Host=localhost;Port=5432;Database=ng_project;Username=postgres;Password=1;");
+			   .UseNpgsql(@"Host=localhost;Port=5432;Database=ng_project;Username=postgres;Password=123;");
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -45,10 +45,12 @@ namespace ng_project.Context
 				.WithMany(s => s.SenderNotifies)
 				.HasForeignKey(t => t.SenderId)
 				.OnDelete(DeleteBehavior.ClientSetNull);
+
 			modelBuilder.Entity<Notify>().HasOne(m => m.Recipient)
 				.WithMany(s => s.Notifies)
 				.HasForeignKey(t => t.RecipientId)
 				.OnDelete(DeleteBehavior.ClientSetNull);
+
 			modelBuilder.Entity<Notify>().HasOne(m => m.Project)
 				.WithMany(s => s.Notifies)
 				.HasForeignKey(t => t.ProjectId)
@@ -56,10 +58,12 @@ namespace ng_project.Context
 
 			modelBuilder.Entity<SkillWorker>()
 				.HasKey(s => new { s.WorkerId, s.SkillId });
+
 			modelBuilder.Entity<SkillWorker>()
 				.HasOne(ps => ps.Worker)
 				.WithMany(s => s.SkillWorkers)
 				.HasForeignKey(t => t.WorkerId);
+
 			modelBuilder.Entity<SkillWorker>()
 				.HasOne(ps => ps.Skill)
 				.WithMany(s => s.SkillWorkers)
@@ -67,10 +71,12 @@ namespace ng_project.Context
 
 			modelBuilder.Entity<ProjectTypeRoles>()
 				.HasKey(s => new { s.ProjectTypeId, s.RolesId });
+
 			modelBuilder.Entity<ProjectTypeRoles>()
 				.HasOne(ps => ps.Roles)
 				.WithMany(s => s.ProjectTypeRoles)
 				.HasForeignKey(c => c.RolesId);
+
 			modelBuilder.Entity<ProjectTypeRoles>()
 				.HasOne(t => t.ProjectType)
 				.WithMany(ts => ts.ProjectTypesRoles)
@@ -78,10 +84,12 @@ namespace ng_project.Context
 
 			modelBuilder.Entity<ProjectSubscriber>()
 				.HasKey(s => new { s.ProjectsId, s.SubscribersId });
+
 			modelBuilder.Entity<ProjectSubscriber>()
 				.HasOne(ps => ps.Subscribers)
 				.WithMany(p => p.ProjectSubscribers)
 				.HasForeignKey(t => t.SubscribersId);
+
 			modelBuilder.Entity<ProjectSubscriber>()
 				.HasOne(t => t.Projects)
 				.WithMany(s => s.ProjectSubscribers)
@@ -89,10 +97,12 @@ namespace ng_project.Context
 
 			modelBuilder.Entity<RolesUser>()
 				.HasKey(s => new { s.RolesId, s.UsersId });
+
 			modelBuilder.Entity<RolesUser>()
 				.HasOne(ps => ps.Roles)
 				.WithMany(p => p.RolesUsers)
 				.HasForeignKey(t => t.RolesId);
+
 			modelBuilder.Entity<RolesUser>()
 				.HasOne(t => t.Users)
 				.WithMany(s => s.RolesUsers)

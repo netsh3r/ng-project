@@ -47,16 +47,21 @@ namespace ng_project.web.Controllers
 				var tt = RolesService.Include(t=> t.RolesUsers).FindAll().ToList();
 				var roles = tt.Where(t => t.Users != null && t.Users.Count > 0
 					&& t.Users.Select(s => s.Id).ToList().Contains(user.Id))?.ToList() ?? null;
-				user.RolesUsers = roles?.Select(t=> new RolesUser() 
-				{
-					RolesId= t.Id,
-					UsersId = user.Id
-				}).ToList() ?? null;
+				if(roles != null && roles.Count > 0)
+                {
+					user.RolesUsers = roles.Select(t => new RolesUser()
+					{
+						RolesId = t.Id,
+						UsersId = user.Id
+					}).ToList() ?? null;
+				}
+				
 				if (user != null)
 				{
 					await Authenticate(user);
+					return RedirectToAction("Index", "Home");
 				}
-				return RedirectToAction("Index", "Home");
+				
 			}
 			ModelState.AddModelError("", "Некорректные логин и(или) пароль");
 			return View(model);
@@ -100,7 +105,7 @@ namespace ng_project.web.Controllers
 				}
 				else
 				{
-					ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+					ModelState.AddModelError("", "Такой пользователь уже существует");
 				}
 
 			}

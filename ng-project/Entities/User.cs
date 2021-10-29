@@ -84,6 +84,13 @@ namespace ng_project.Entities
 		/// Емаил
 		/// </summary>
 		public Email Email { get; set; }
+
+		/// <summary>
+		/// О себе
+		/// </summary>
+		[Display(Name = "О себе")]
+		public string Description { get; set; }
+
 		/// <summary>
 		/// Список созданных проектов пользователя
 		/// </summary>

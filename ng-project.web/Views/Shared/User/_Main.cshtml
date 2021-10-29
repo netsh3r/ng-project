@@ -23,3 +23,7 @@
 	@Html.LabelFor(m => m.Email)
 	@Html.EditorFor(m => m.Email.EmailString, new { htmlAttributes = new { @class = "form-control" } })
 </div>
+<div class="col-md-12">
+	@Html.LabelFor(m => m.Description)
+	@Html.TextAreaFor(m => m.Description, new { @class = "form-control" } )
+</div>

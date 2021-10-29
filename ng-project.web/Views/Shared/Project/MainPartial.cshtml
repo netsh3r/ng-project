@@ -33,7 +33,7 @@
 			<div class="creator BlueTheme">
 				<div class="text d-flex flex-nowrap">
 					<span>
-						СОЗДАТЕЛЬ: @(Model.User.LastName) @(Model.User.FirstName)
+						СОЗДАТЕЛЬ: @(!string.IsNullOrEmpty(Model.User.LastName) && string.IsNullOrEmpty(Model.User.FirstName) ? $"{Model.User.LastName} {Model.User.FirstName}" : Model.User.login)
 					</span>
 					@if (Model.MainProjectImage != null && Model.MainProjectImage.Data != null)
 					{

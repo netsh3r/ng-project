@@ -5,47 +5,48 @@
 <div class="container mt-3">
 	<h1 class="h1 mb-3 font-weight-normal text-center">Регистрация</h1>
 	@* d-flex justify-content-center *@
-	<div class="">
-		@* <form asp-action="Registration" asp-controller="Account" asp-anti-forgery="true"> *@
-			<div class="select-type-account-block">
-				<div class="type-account-name">
-					Выберете тип аккаунта:
-				</div>
-				<div class="select-account mt-4">
-					<div class="row">
-						<div class="col-6">
-							<div class="block">
-								<div class="select-account-item creator OrangeTheme" data-toggle="modal" data-target="#create-account-creator">
-									<div class="text">
-										<div class="name">
-											СОЗДАТЕЛЬ
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-6">
-							<div class="block">
-								<div class="select-account-item participant BlueTheme" data-toggle="modal" data-target="#create-account-participant">
-									<div class="text">
-										<div class="name">
-											УЧАСТНИК
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal fade" id="create-account-creator" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-				@Html.Partial("Account/_Creator")
-			</div>
-			<div class="modal fade" id="create-account-participant" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                @Html.Partial("Account/_Participant")
+<div class="">
+    @Html.Partial("Account/_Creator")
+    @* <form asp-action="Registration" asp-controller="Account" asp-anti-forgery="true"> *@
+    <!--<div class="select-type-account-block">
+        <div class="type-account-name">
+            Выберете тип аккаунта:
+        </div>
+        <div class="select-account mt-4">
+            <div class="row">
+                <div class="col-6">
+                    <div class="block">
+                        <div class="select-account-item creator OrangeTheme" data-toggle="modal" data-target="#create-account-creator">
+                            <div class="text">
+                                <div class="name">
+                                    СОЗДАТЕЛЬ
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="block">
+                        <div class="select-account-item participant BlueTheme" data-toggle="modal" data-target="#create-account-participant">
+                            <div class="text">
+                                <div class="name">
+                                    УЧАСТНИК
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-		@* </form> *@
-	</div>
+        </div>
+    </div>
+    <div class="modal fade" id="create-account-creator" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        @Html.Partial("Account/_Creator")
+    </div>
+    <div class="modal fade" id="create-account-participant" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        @Html.Partial("Account/_Participant")
+    </div>-->
+    @* </form> *@
+    <!--</div>-->
 
 </div>
 
